@@ -1,0 +1,345 @@
+{
+  "global": {
+    "brand": {
+      "name": "TEKTON",
+      "fullName": "Tekton Global Trading & Services",
+      "tagline": "Your Trusted Industrial Partner"
+    },
+    "contact": {
+      "phone": "+973 1729 4880",
+      "email": "sales@tektonindustrial.com",
+      "location": "Kingdom of Bahrain",
+      "address": "Manama, Kingdom of Bahrain",
+      "hours": "Sunday to Thursday, 8:00 to 17:00 (GMT+3)"
+    },
+    "footer": {
+      "blurb": "Industrial supplies for plants in Bahrain and the wider Gulf. Genuine OEM parts, sourced direct and delivered on schedule.",
+      "legal": "© 2026 Tekton Global Trading & Services W.L.L. All rights reserved."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Trusted by Industrial Operators Across the Gulf",
+      "subtitle": "Tekton supplies genuine OEM parts and equipment to plants in Bahrain and the GCC. One purchase order covers sourcing, freight and delivery to your gate.",
+      "ctaPrimary": "Request a Quote",
+      "ctaPrimaryLink": "/contact",
+      "ctaSecondary": "Browse Products",
+      "ctaSecondaryLink": "/products"
+    },
+    "platform": {
+      "title": "One Supplier for the Whole Plant",
+      "body": "Procurement teams often juggle dozens of vendors for electrical spares, hydraulics, filters and lubricants. Tekton consolidates that list. We buy from manufacturers directly, keep the paperwork in order, and land the order at your site with a lead time you can plan around.",
+      "cta": "See the product range",
+      "ctaLink": "/products"
+    },
+    "trust": {
+      "title": "Genuine Parts, Documented",
+      "body": "Every item ships with its manufacturer certificate and test reports where they apply. No grey-market stock and no re-labelled substitutes. If a part carries a serial number, you can trace it back to the factory that made it.",
+      "cta": "Talk to our sales desk",
+      "ctaLink": "/contact"
+    },
+    "statement": {
+      "title": "Built for Plants That Can't Afford to Wait",
+      "body": "Downtime costs money by the minute. We quote fast, answer the phone, and tell you the real lead time before you commit.",
+      "cta": "Request a quote",
+      "ctaLink": "/contact"
+    },
+    "insights": {
+      "title": "Insights & Applications",
+      "cards": [
+        {
+          "tag": "Supply",
+          "title": "Cutting Emergency Downtime with Planned Spares",
+          "link": "/contact"
+        },
+        {
+          "tag": "Quality",
+          "title": "What Buying Genuine OEM Actually Gets You",
+          "link": "/products"
+        },
+        {
+          "tag": "Operations",
+          "title": "Stocking Up Before a Plant Shutdown",
+          "link": "/contact"
+        },
+        {
+          "tag": "Marine",
+          "title": "Vessel Supply on Short Port Calls",
+          "link": "/products"
+        }
+      ],
+      "industries": [
+        {
+          "name": "Oil & Gas",
+          "link": "/products"
+        },
+        {
+          "name": "Power & Energy",
+          "link": "/products"
+        }
+      ]
+    },
+    "supplyLine": {
+      "title": "The Tekton Supply Line",
+      "subtitle": "From enquiry to delivery, one accountable process.",
+      "pillars": [
+        {
+          "title": "Robust",
+          "body": "Parts built to survive heat, dust and salt air. We source from manufacturers whose equipment already runs in Gulf conditions."
+        },
+        {
+          "title": "Streamlined",
+          "body": "One enquiry, one quote, one delivery. You deal with a single sales contact who knows your site and your history."
+        },
+        {
+          "title": "Reliable",
+          "body": "We commit to lead times in writing. When something slips at the factory, you hear it from us first, not from a missed delivery."
+        }
+      ],
+      "tabs": [
+        {
+          "label": "Products",
+          "heading": "Industrial parts and equipment, sourced from the OEM.",
+          "items": [
+            {
+              "title": "Electrical & Power",
+              "body": "Switchgear components, motors, generators, cabling and control gear from established manufacturers."
+            },
+            {
+              "title": "Mechanical & Fluid Power",
+              "body": "Hydraulics, pneumatics, pumps, compressors, valves, fittings and couplings for process and utility lines."
+            },
+            {
+              "title": "Instrumentation & Process",
+              "body": "Measurement instruments, filters, pipe testing plugs and water treatment equipment."
+            }
+          ]
+        },
+        {
+          "label": "Services",
+          "heading": "Sourcing and logistics handled end to end.",
+          "items": [
+            {
+              "title": "Procurement",
+              "body": "Send us a part number, a nameplate photo or a drawing. We find the manufacturer, confirm the spec and quote it."
+            },
+            {
+              "title": "Freight & Customs",
+              "body": "Air, sea and road freight into Bahrain and the GCC, with customs clearance handled under our paperwork."
+            },
+            {
+              "title": "Aftermarket Support",
+              "body": "Warranty claims, replacements and technical queries go through us, so you have one number to call."
+            }
+          ]
+        },
+        {
+          "label": "Programs",
+          "heading": "Supply agreements for teams that buy every month.",
+          "items": [
+            {
+              "title": "Framework Agreements",
+              "body": "Fixed pricing and agreed lead times on the items you order repeatedly, reviewed annually."
+            },
+            {
+              "title": "Stock Programs",
+              "body": "We hold your critical spares against a call-off order, so an emergency is a phone call, not a freight booking."
+            },
+            {
+              "title": "Verification",
+              "body": "Certificates, test reports and traceability documents collected and archived for every order we ship."
+            }
+          ]
+        }
+      ]
+    },
+    "why": {
+      "title": "Why Tekton",
+      "body": "Because a supplier is only useful when the part arrives, on the date promised, with the paperwork right. That is the whole job, and it is what we get judged on.",
+      "cta": "About the company",
+      "ctaLink": "/about"
+    },
+    "callouts": [
+      {
+        "title": "Request a Quote",
+        "body": "Send an enquiry and get a priced quote with a firm lead time.",
+        "cta": "Contact sales",
+        "ctaLink": "/contact"
+      },
+      {
+        "title": "Browse the Range",
+        "body": "Eighteen product categories, from switchgear to marine stores.",
+        "cta": "View products",
+        "ctaLink": "/products"
+      },
+      {
+        "title": "Call the Desk",
+        "body": "Speak to a person during Gulf working hours.",
+        "cta": "+973 1729 4880",
+        "ctaLink": "tel:+97317294880"
+      }
+    ]
+  },
+  "products": {
+    "title": "Product Range",
+    "intro": "Eighteen categories of industrial supply, all through one purchase order. As an authorized OEM partner we ship genuine parts with the manufacturer's documentation attached.",
+    "tabs": [
+      {
+        "label": "Electrical & Power",
+        "blurb": "Power generation and distribution equipment for plants, sites and standby duty.",
+        "categories": [
+          {
+            "name": "Electrical & Electronics",
+            "description": "Contactors, relays, drives, PLC components, cabling and panel hardware from established manufacturers."
+          },
+          {
+            "name": "Generators",
+            "description": "Diesel generator sets for prime and standby power, with spares and service kits for common Gulf installations."
+          },
+          {
+            "name": "IT & Printing Solutions",
+            "description": "Industrial computing, networking hardware and printing equipment for plant offices and control rooms."
+          }
+        ]
+      },
+      {
+        "label": "Mechanical & Fluid Power",
+        "blurb": "Rotating equipment and the hardware that connects it, for process and utility service.",
+        "categories": [
+          {
+            "name": "Hydraulics & Pneumatics",
+            "description": "Cylinders, power packs, hoses, seals, air preparation units and pneumatic actuators."
+          },
+          {
+            "name": "Pumps & Motors",
+            "description": "Centrifugal and positive displacement pumps, electric motors and mechanical seals."
+          },
+          {
+            "name": "Compressors",
+            "description": "Air and gas compressors with filters, dryers and genuine service parts."
+          },
+          {
+            "name": "Valves, Fittings & Fasteners",
+            "description": "Process valves, pipe fittings, flanges and certified fasteners in carbon steel, stainless and exotic alloys."
+          },
+          {
+            "name": "Coupling Technology",
+            "description": "Shaft couplings, quick-connect couplings and drive elements for rotating machinery."
+          },
+          {
+            "name": "Lifting & Handling",
+            "description": "Hoists, slings, shackles and material handling equipment with test certificates."
+          }
+        ]
+      },
+      {
+        "label": "Instrumentation & Process",
+        "blurb": "Measurement, filtration and water treatment for controlled, documented processes.",
+        "categories": [
+          {
+            "name": "Instrumentation & Measurement",
+            "description": "Pressure, temperature, level and flow instruments, plus calibration accessories."
+          },
+          {
+            "name": "Filters",
+            "description": "Hydraulic, air, fuel and process filtration elements, cross-referenced to OEM part numbers."
+          },
+          {
+            "name": "Pipe Testing Plugs",
+            "description": "Mechanical and inflatable plugs for hydrostatic testing and pipeline isolation."
+          },
+          {
+            "name": "Desalination & Water Treatment",
+            "description": "RO membranes, dosing systems and treatment chemicals for desalination and process water plants."
+          }
+        ]
+      },
+      {
+        "label": "Chemicals & Consumables",
+        "blurb": "The materials a plant burns through every month, supplied on schedule.",
+        "categories": [
+          {
+            "name": "Chemicals & Lubricants",
+            "description": "Industrial lubricants, greases, cleaning chemicals and specialty fluids with safety data sheets."
+          },
+          {
+            "name": "Packaging Materials",
+            "description": "Industrial packaging, strapping, stretch film and export-grade crating supplies."
+          },
+          {
+            "name": "Sawing Machines & Power Tools",
+            "description": "Bandsaws, cutting machines, power tools and consumable blades for fabrication shops."
+          }
+        ]
+      },
+      {
+        "label": "Marine & HVAC",
+        "blurb": "Stores for vessels calling at Gulf ports, and climate and safety equipment for shore facilities.",
+        "categories": [
+          {
+            "name": "Marine Products",
+            "description": "Deck stores, engine room spares and consumables, supplied against vessel schedules."
+          },
+          {
+            "name": "HVAC & Safety Requirements",
+            "description": "Air conditioning components, ventilation equipment, PPE and site safety supplies."
+          }
+        ]
+      }
+    ],
+    "cta": {
+      "title": "Don't see the part listed?",
+      "body": "The categories above cover our regular trade, not the limit of it. Send the part number or a nameplate photo and we will source it.",
+      "button": "Send an enquiry"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "intro": "Send an enquiry with a part number, drawing or nameplate photo and we will come back with a priced quote and a firm lead time. Most quotes go out within one working day.",
+    "formTitle": "Request a Quote",
+    "formNote": "This opens your email client with the details filled in. Attachments such as photos or drawings can be added before sending.",
+    "responseNote": "Enquiries received during working hours are usually answered the same day."
+  },
+  "about": {
+    "title": "The Tekton Standard",
+    "intro": "Tekton Global Trading & Services is an industrial supply company based in the Kingdom of Bahrain, serving plants and operators across the GCC.",
+    "paragraphs": [
+      "The company exists to solve a specific problem: plants in the Gulf depend on equipment from manufacturers spread across Europe, Asia and the Americas, and getting the right part here, with the right paperwork, takes longer than it should. We shorten that path.",
+      "We buy from manufacturers directly, consolidate freight, clear customs under our own paperwork and deliver to site. Along the way we collect the certificates, test reports and traceability documents that your quality system asks for.",
+      "Our customers work in oil and gas, power, water, petrochemicals, aluminium, steel, cement, food processing, railways and mining. What they have in common is that a late or wrong part stops production, so we treat every order like it is holding up a line. Usually, it is."
+    ],
+    "stats": [
+      {
+        "value": "18",
+        "label": "Product categories"
+      },
+      {
+        "value": "9",
+        "label": "Industries served"
+      },
+      {
+        "value": "1",
+        "label": "Working day to quote"
+      },
+      {
+        "value": "100%",
+        "label": "Documented OEM parts"
+      }
+    ],
+    "values": [
+      {
+        "title": "Say the real lead time",
+        "body": "An honest six weeks beats a fictional three. Our quotes state the lead time we actually expect, and we flag delays as soon as the factory flags them to us."
+      },
+      {
+        "title": "Paperwork is part of the part",
+        "body": "A pressure gauge without its calibration certificate is not finished goods. Documentation ships with the hardware or the order is not complete."
+      },
+      {
+        "title": "Answer the phone",
+        "body": "During working hours you reach a person who can look up your order, not a ticket queue."
+      }
+    ],
+    "note": "This page will grow as the company does. Certifications, partner brands and career openings will be published here."
+  }
+}
