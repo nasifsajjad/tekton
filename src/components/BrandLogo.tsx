@@ -10,7 +10,7 @@ export default function BrandLogo({
     // cacheable and prevents the large embedded artwork from entering JS.
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/brand/tekton-logo.svg"
+      src="/brand/tekton-header-footer.svg"
       alt="Tekton Global Industrial Trading & Services"
       className={className}
       width="1500"
