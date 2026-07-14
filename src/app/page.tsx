@@ -16,6 +16,8 @@ export default async function Home() {
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
       <main id="main-content">
+        <IndustrialSequence />
+
         {/* ============ 1. HERO — living canvas over navy, CSS-only entrance ============ */}
         <section className="grain relative flex min-h-svh flex-col justify-end overflow-hidden bg-navy-deep pt-32">
           <MotionBackground />
@@ -54,8 +56,6 @@ export default async function Home() {
         </section>
 
         {/* ============ 2. PLATFORM — two-column, light ============ */}
-        <IndustrialSequence />
-
         <section className="bg-surface py-fluid-6 text-ink">
           <div className="rail grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
