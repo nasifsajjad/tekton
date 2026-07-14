@@ -236,11 +236,24 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
         <Section title="Contact details (all pages)">
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Phone" value={g.contact.phone} onChange={(v) => patch((d) => (d.global.contact.phone = v))} />
+            <Field label="WhatsApp number (with country code)" value={g.contact.whatsapp} onChange={(v) => patch((d) => (d.global.contact.whatsapp = v))} />
             <Field label="Email" value={g.contact.email} onChange={(v) => patch((d) => (d.global.contact.email = v))} />
             <Field label="Location (short)" value={g.contact.location} onChange={(v) => patch((d) => (d.global.contact.location = v))} />
             <Field label="Address" value={g.contact.address} onChange={(v) => patch((d) => (d.global.contact.address = v))} />
+            <Field label="Working hours" value={g.contact.hours} onChange={(v) => patch((d) => (d.global.contact.hours = v))} />
           </div>
-          <Field label="Working hours" value={g.contact.hours} onChange={(v) => patch((d) => (d.global.contact.hours = v))} />
+        </Section>
+
+        <Section title="Company registration (stored, not shown on the site yet)">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="CR number" value={g.registration.cr} onChange={(v) => patch((d) => (d.global.registration.cr = v))} />
+            <Field label="VAT number" value={g.registration.vat} onChange={(v) => patch((d) => (d.global.registration.vat = v))} />
+          </div>
+        </Section>
+
+        <Section title="Analytics (self-hosted Umami or Plausible)">
+          <Field label="Script URL (leave empty to disable)" value={g.analytics.scriptSrc} onChange={(v) => patch((d) => (d.global.analytics.scriptSrc = v))} />
+          <Field label="Website ID (Umami) or domain (Plausible)" value={g.analytics.websiteId} onChange={(v) => patch((d) => (d.global.analytics.websiteId = v))} />
         </Section>
 
         <Section title="Footer">
@@ -343,6 +356,13 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
         <Section title="Products — intro">
           <Field label="Page title" value={pr.title} onChange={(v) => patch((d) => (d.products.title = v))} />
           <Area label="Intro" value={pr.intro} onChange={(v) => patch((d) => (d.products.intro = v))} />
+          <Field label="Quote button in product popup" value={pr.dialogCta} onChange={(v) => patch((d) => (d.products.dialogCta = v))} />
+          <Field label="Search placeholder" value={pr.search.placeholder} onChange={(v) => patch((d) => (d.products.search.placeholder = v))} />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="No-results title" value={pr.search.emptyTitle} onChange={(v) => patch((d) => (d.products.search.emptyTitle = v))} />
+            <Field label="No-results button" value={pr.search.emptyCta} onChange={(v) => patch((d) => (d.products.search.emptyCta = v))} />
+          </div>
+          <Area label="No-results text" value={pr.search.emptyBody} onChange={(v) => patch((d) => (d.products.search.emptyBody = v))} rows={2} />
         </Section>
 
         <Section title="Products — category tabs">
@@ -389,6 +409,10 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           <Field label="Form title" value={ct.formTitle} onChange={(v) => patch((d) => (d.contact.formTitle = v))} />
           <Area label="Form note (under the button)" value={ct.formNote} onChange={(v) => patch((d) => (d.contact.formNote = v))} rows={2} />
           <Field label="Response note" value={ct.responseNote} onChange={(v) => patch((d) => (d.contact.responseNote = v))} />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="WhatsApp button label" value={ct.whatsappLabel} onChange={(v) => patch((d) => (d.contact.whatsappLabel = v))} />
+            <Field label="WhatsApp opening message" value={ct.whatsappGreeting} onChange={(v) => patch((d) => (d.contact.whatsappGreeting = v))} />
+          </div>
         </Section>
 
         {/* ============ ABOUT PAGE ============ */}

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /**
  * Animated industrial "blueprint" background: a drifting grid of nodes
- * connected by faint lines, with occasional yellow glints. Pure canvas,
+ * connected by faint lines, with occasional orange glints. Pure canvas,
  * no assets. Renders a single static frame when reduced motion is set.
  */
 export default function MotionBackground() {
@@ -30,7 +30,7 @@ export default function MotionBackground() {
       vx: number;
       vy: number;
       r: number;
-      glint: number; // 0..1 — yellow highlight intensity
+      glint: number; // 0..1 — orange highlight intensity
     }
 
     let nodes: Node[] = [];
@@ -91,7 +91,7 @@ export default function MotionBackground() {
             const alpha = (1 - d / LINK_DIST) * 0.16;
             ctx!.strokeStyle =
               a.glint > 0.5 || b.glint > 0.5
-                ? `rgba(240, 240, 0, ${alpha * 0.9})`
+                ? `rgba(251, 118, 16, ${alpha * 0.9})`
                 : `rgba(255, 255, 255, ${alpha})`;
             ctx!.lineWidth = 1;
             ctx!.beginPath();
@@ -108,7 +108,7 @@ export default function MotionBackground() {
         ctx!.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx!.fillStyle =
           n.glint > 0.5
-            ? `rgba(240, 240, 0, ${0.5 + n.glint * 0.5})`
+            ? `rgba(251, 118, 16, ${0.5 + n.glint * 0.5})`
             : "rgba(255, 255, 255, 0.35)";
         ctx!.fill();
 

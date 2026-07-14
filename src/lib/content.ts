@@ -11,11 +11,17 @@ export interface SiteContent {
     brand: { name: string; fullName: string; tagline: string };
     contact: {
       phone: string;
+      /** International format; non-digits are stripped for the wa.me link. */
+      whatsapp: string;
       email: string;
       location: string;
       address: string;
       hours: string;
     };
+    /** Company registration numbers. Stored for future use; not rendered yet. */
+    registration: { cr: string; vat: string };
+    /** Self-hosted analytics (Umami/Plausible-style). Empty scriptSrc disables. */
+    analytics: { scriptSrc: string; websiteId: string };
     footer: { blurb: string; legal: string };
   };
   home: {
@@ -56,6 +62,15 @@ export interface SiteContent {
       blurb: string;
       categories: { name: string; description: string; products: string[]; icon: string }[];
     }[];
+    /** Label for the request-a-quote button inside the product detail dialog. */
+    dialogCta: string;
+    /** Catalogue search input and its no-results state. */
+    search: {
+      placeholder: string;
+      emptyTitle: string;
+      emptyBody: string;
+      emptyCta: string;
+    };
     cta: { title: string; body: string; button: string };
   };
   contact: {
@@ -64,6 +79,9 @@ export interface SiteContent {
     formTitle: string;
     formNote: string;
     responseNote: string;
+    /** WhatsApp button text and the opening message it prefills. */
+    whatsappLabel: string;
+    whatsappGreeting: string;
   };
   about: {
     title: string;

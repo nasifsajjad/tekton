@@ -66,18 +66,21 @@ export default async function RootLayout({
   const c = await getContent();
   const org = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     name: c.global.brand.fullName,
     url: SITE_URL,
     email: c.global.contact.email,
     telephone: c.global.contact.phone,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Manama",
+      streetAddress: c.global.contact.address,
+      addressLocality: c.global.contact.location || "Manama",
       addressCountry: "BH",
     },
+    openingHours: c.global.contact.hours,
     description: c.home.hero.subtitle,
   };
+  const analytics = c.global.analytics;
 
   return (
     <html lang="en" className={`${archivo.variable} ${inter.variable}`}>
@@ -90,6 +93,14 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }}
         />
         {children}
+        {analytics?.scriptSrc && (
+          <script
+            defer
+            src={analytics.scriptSrc}
+            data-website-id={analytics.websiteId || undefined}
+            data-domain={analytics.websiteId || undefined}
+          />
+        )}
       </body>
     </html>
   );

@@ -66,14 +66,110 @@ function CloseIcon() {
   );
 }
 
+/** One category cell — shared by the tab panels and the search results. */
+function CategoryCard({
+  cat,
+  visibleProducts,
+  indexLabel,
+  groupLabel,
+  onOpenProduct,
+}: {
+  cat: Category;
+  visibleProducts: string[];
+  indexLabel?: string;
+  groupLabel?: string;
+  onOpenProduct: (product: string, category: Category, trigger: HTMLButtonElement) => void;
+}) {
+  const logos = CATALOG_LOGOS[cat.icon];
+  const detail = CATALOG_DETAILS[cat.icon];
+
+  return (
+    <li className="grow basis-full bg-white sm:basis-[calc(50%-0.5px)] lg:basis-[calc(33.333%-0.667px)]">
+      <div className="flex h-full flex-col p-6">
+        <div className="flex items-start justify-between gap-4">
+          <span className="text-xs font-semibold tracking-widest text-gray-on-light uppercase">
+            {groupLabel ?? indexLabel}
+          </span>
+          <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-navy/5">
+            <CategoryIcon icon={cat.icon} className="size-6 text-ink" />
+          </div>
+        </div>
+        <h3 className="display mt-4 text-header-xs">{cat.name}</h3>
+        <p className="mt-3 text-sm leading-relaxed text-gray-on-light">{cat.description}</p>
+
+        {visibleProducts.length > 0 && (
+          <ul className="mt-5 space-y-2 border-t border-neutral-200 pt-5">
+            {visibleProducts.map((product) => (
+              <li key={product}>
+                <button
+                  type="button"
+                  aria-haspopup="dialog"
+                  onClick={(event) => onOpenProduct(product, cat, event.currentTarget)}
+                  className="group flex w-full items-center justify-between gap-4 border-b border-neutral-200 py-3 text-left text-base font-semibold text-ink transition-colors hover:border-forge hover:text-forge-dark"
+                >
+                  <span className="decoration-forge decoration-2 underline-offset-4 group-hover:underline">
+                    {product}
+                  </span>
+                  <span className="flex size-8 shrink-0 items-center justify-center border border-navy/20 bg-white text-ink transition-colors group-hover:border-forge group-hover:bg-forge group-hover:text-navy-deep">
+                    <OpenIcon />
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {logos && detail && (
+          <div className="mt-auto border-t border-neutral-200 pt-5">
+            <div className="relative h-24 overflow-hidden border border-neutral-200 bg-white">
+              <Image
+                src={logos}
+                alt={`Brand logos: ${detail.brands.join(", ")}`}
+                fill
+                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 90vw"
+                className="object-contain scale-[1.28]"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </li>
+  );
+}
+
 /** Multitab category browser with catalogue-backed product detail dialogs. */
-export default function ProductTabs({ tabs }: { tabs: CategoryTab[] }) {
+export default function ProductTabs({
+  tabs,
+  quoteCta,
+  search,
+}: {
+  tabs: CategoryTab[];
+  quoteCta: string;
+  search: { placeholder: string; emptyTitle: string; emptyBody: string; emptyCta: string };
+}) {
   const [active, setActive] = useState(0);
+  const [query, setQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<SelectedProduct | null>(null);
   const baseId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
   const tab = tabs[active];
+
+  // Search runs across every tab: a category matches on its name/description
+  // (all products shown) or on individual product lines (only those shown).
+  const q = query.trim().toLowerCase();
+  const searching = q.length > 0;
+  const searchResults = searching
+    ? tabs.flatMap((t) =>
+        t.categories.flatMap((cat) => {
+          const catMatch =
+            cat.name.toLowerCase().includes(q) || cat.description.toLowerCase().includes(q);
+          const productHits = cat.products.filter((p) => p.toLowerCase().includes(q));
+          if (!catMatch && productHits.length === 0) return [];
+          return [{ group: t.label, cat, products: catMatch ? cat.products : productHits }];
+        })
+      )
+    : [];
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -120,100 +216,111 @@ export default function ProductTabs({ tabs }: { tabs: CategoryTab[] }) {
 
   return (
     <div>
-      <div
-        role="tablist"
-        aria-label="Product categories"
-        className="scrollbar-none -mx-4 flex gap-1 overflow-x-auto border-b border-neutral-800 px-4 sm:mx-0 sm:flex-wrap sm:px-0"
-      >
-        {tabs.map((t, i) => (
-          <button
-            key={t.label}
-            role="tab"
-            id={`${baseId}-tab-${i}`}
-            aria-selected={i === active}
-            aria-controls={`${baseId}-panel-${i}`}
-            onClick={() => setActive(i)}
-            className={`-mb-px shrink-0 border-b-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black ${
-              i === active
-                ? "border-ink text-ink"
-                : "border-transparent text-gray-on-light hover:text-ink"
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
+      {/* Search across the whole catalogue */}
+      <div className="mb-8">
+        <label className="block max-w-xl">
+          <span className="sr-only">Search the catalogue</span>
+          <div className="flex items-center gap-3 border-2 border-navy/20 bg-white px-4 transition-colors focus-within:border-forge">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="size-5 shrink-0 text-gray-on-light">
+              <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.5" />
+              <path d="m13.5 13.5 4 4" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={search.placeholder}
+              className="w-full bg-transparent py-3.5 text-base text-ink outline-none placeholder:text-gray-on-light-2"
+            />
+          </div>
+        </label>
+        {searching && (
+          <p className="mt-3 text-sm text-gray-on-light" role="status">
+            {searchResults.length === 0
+              ? "No catalogue match"
+              : `${searchResults.length} matching ${searchResults.length === 1 ? "category" : "categories"}`}
+            {" for "}
+            <strong className="text-ink">“{query.trim()}”</strong>
+          </p>
+        )}
       </div>
 
+      {!searching && (
+        <div
+          role="tablist"
+          aria-label="Product categories"
+          className="scrollbar-none sticky top-20 z-30 -mx-4 flex gap-1 overflow-x-auto border-b border-neutral-800 bg-white px-4 sm:mx-0 sm:flex-wrap sm:px-0"
+        >
+          {tabs.map((t, i) => (
+            <button
+              key={t.label}
+              role="tab"
+              id={`${baseId}-tab-${i}`}
+              aria-selected={i === active}
+              aria-controls={`${baseId}-panel-${i}`}
+              onClick={() => setActive(i)}
+              className={`-mb-px shrink-0 border-b-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black ${
+                i === active
+                  ? "border-ink text-ink"
+                  : "border-transparent text-gray-on-light hover:text-ink"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {searching && (
+        <div className="panel-enter">
+          {searchResults.length === 0 ? (
+            <div className="border border-neutral-200 bg-surface p-8">
+              <p className="display text-header-xs">{search.emptyTitle}</p>
+              <p className="mt-3 max-w-[56ch] text-base leading-relaxed text-gray-on-light">
+                {search.emptyBody}
+              </p>
+              <a href="/contact" className="btn btn--primary mt-6 !min-w-0">
+                {search.emptyCta}
+              </a>
+            </div>
+          ) : (
+            <ul className="flex flex-wrap gap-px bg-neutral-800">
+              {searchResults.map((r) => (
+                <CategoryCard
+                  key={`${r.group}-${r.cat.name}`}
+                  cat={r.cat}
+                  visibleProducts={r.products}
+                  groupLabel={r.group}
+                  onOpenProduct={openProduct}
+                />
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {!searching && (
       <div
+        key={active}
         role="tabpanel"
         id={`${baseId}-panel-${active}`}
         aria-labelledby={`${baseId}-tab-${active}`}
-        className="mt-10"
+        className="panel-enter mt-10"
       >
         <p className="max-w-[60ch] text-lg leading-relaxed text-gray-on-light">{tab.blurb}</p>
         <ul className="mt-10 flex flex-wrap gap-px bg-neutral-800">
-          {tab.categories.map((cat, i) => {
-            const logos = CATALOG_LOGOS[cat.icon];
-            const detail = CATALOG_DETAILS[cat.icon];
-
-            return (
-              <li
-                key={cat.name}
-                className="grow basis-full bg-white sm:basis-[calc(50%-0.5px)] lg:basis-[calc(33.333%-0.667px)]"
-              >
-                <div className="flex h-full flex-col p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="text-xs font-semibold tracking-widest text-gray-on-light">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-navy/5">
-                      <CategoryIcon icon={cat.icon} className="size-6 text-ink" />
-                    </div>
-                  </div>
-                  <h3 className="display mt-4 text-header-xs">{cat.name}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-on-light">{cat.description}</p>
-
-                  {cat.products.length > 0 && (
-                    <ul className="mt-5 space-y-2 border-t border-neutral-200 pt-5">
-                      {cat.products.map((product) => (
-                        <li key={product}>
-                          <button
-                            type="button"
-                            aria-haspopup="dialog"
-                            onClick={(event) => openProduct(product, cat, event.currentTarget)}
-                            className="group flex w-full items-center justify-between gap-4 border-b border-neutral-200 py-3 text-left text-base font-semibold text-ink transition-colors hover:border-forge hover:text-forge-dark"
-                          >
-                            <span className="decoration-forge decoration-2 underline-offset-4 group-hover:underline">
-                              {product}
-                            </span>
-                            <span className="flex size-8 shrink-0 items-center justify-center border border-navy/20 bg-white text-ink transition-colors group-hover:border-forge group-hover:bg-forge group-hover:text-navy-deep">
-                              <OpenIcon />
-                            </span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {logos && detail && (
-                    <div className="mt-auto border-t border-neutral-200 pt-5">
-                      <div className="relative h-24 overflow-hidden border border-neutral-200 bg-white">
-                        <Image
-                          src={logos}
-                          alt={`Brand logos: ${detail.brands.join(", ")}`}
-                          fill
-                          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 90vw"
-                          className="object-contain scale-[1.28]"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </li>
-            );
-          })}
+          {tab.categories.map((cat, i) => (
+            <CategoryCard
+              key={cat.name}
+              cat={cat}
+              visibleProducts={cat.products}
+              indexLabel={String(i + 1).padStart(2, "0")}
+              onOpenProduct={openProduct}
+            />
+          ))}
         </ul>
       </div>
+      )}
 
       <dialog
         ref={dialogRef}
@@ -263,6 +370,13 @@ export default function ProductTabs({ tabs }: { tabs: CategoryTab[] }) {
                   <p id={`${baseId}-dialog-description`} className="mt-4 max-w-[68ch] text-base leading-relaxed text-gray-on-light">
                     {productDescription(selectedProduct.name, selectedProduct.category)}
                   </p>
+                  <a
+                    href={`/contact?product=${encodeURIComponent(selectedProduct.name)}&category=${encodeURIComponent(selectedProduct.category.name)}`}
+                    className="btn btn--primary mt-6 !min-w-0"
+                  >
+                    {quoteCta}
+                    <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               </div>
 

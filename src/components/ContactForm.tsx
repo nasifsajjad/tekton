@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 /**
  * Quote request form. Builds a prefilled mailto: message so it works with no
  * mail server or third-party form service; the client's email address is the
  * single point of delivery. Swap for an API-backed form later if needed.
+ * Arriving with ?product=&category= (from a product dialog) prefills the
+ * message so the enquiry names the exact catalogue line.
  */
 export default function ContactForm({
   email,
@@ -16,11 +19,16 @@ export default function ContactForm({
   formTitle: string;
   formNote: string;
 }) {
+  const params = useSearchParams();
+  const product = params.get("product");
+  const category = params.get("category");
   const [form, setForm] = useState({
     name: "",
     company: "",
     phone: "",
-    message: "",
+    message: product
+      ? `Quote request for: ${product}${category ? ` (${category})` : ""}\n\nQuantity:\nPart number / specification:`
+      : "",
   });
 
   function set(field: keyof typeof form) {

@@ -142,7 +142,16 @@ body {
   transition:
     background-color 0.3s var(--ease-quint),
     color 0.3s var(--ease-quint),
-    border-color 0.3s var(--ease-quint);
+    border-color 0.3s var(--ease-quint),
+    transform 0.15s ease-out;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:active {
+    transform: none;
+  }
 }
 
 .btn--primary {
@@ -194,23 +203,158 @@ body {
   text-transform: uppercase;
 }
 
-/* Reveal-on-scroll animation */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.75s var(--ease-quint),
-    transform 0.75s var(--ease-quint);
+/* ---------- Motion system ----------
+   Entrances animate transform/opacity only. Above-fold content uses the
+   CSS-only .hero-rise (transform-only, so LCP paint is never delayed and
+   no hydration is required). Below-fold content uses .reveal, driven by
+   IntersectionObserver; it is only hidden when scripting is available,
+   so no-JS visitors and legacy browsers always see the content. */
+
+@keyframes hero-rise {
+  from { transform: translateY(18px); }
+  to { transform: translateY(0); }
 }
-.reveal.is-visible {
+.hero-rise {
+  animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-rise-2 { animation-delay: 0.1s; }
+.hero-rise-3 { animation-delay: 0.2s; }
+
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tab panel swap — one quiet step, no bounce */
+@keyframes panel-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.panel-enter {
+  animation: panel-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Product dialog entrance (modern browsers; instant elsewhere) */
+dialog[open] {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@starting-style {
+  dialog[open] {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+}
+dialog::backdrop {
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Mobile menu toggle — two bars ("=") that morph into a cross when open */
+.burger {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 12px;
+}
+.burger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-ink);
+  transition:
+    translate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    rotate 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.burger span:first-child {
+  top: 2px;
+}
+.burger span:last-child {
+  bottom: 2px;
+}
+details[open] .burger span:first-child {
+  translate: 0 3px;
+  rotate: 45deg;
+}
+details[open] .burger span:last-child {
+  translate: 0 -3px;
+  rotate: -45deg;
+}
+@media (prefers-reduced-motion: reduce) {
+  .burger span {
+    transition: none;
+  }
+}
+
+/* Animated underline for nav/footer links — grows from the left */
+.link-underline {
+  padding-bottom: 3px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover,
+.link-underline:focus-visible,
+.link-underline.is-active {
+  background-size: 100% 2px;
+}
+
+/* Header entrance — one-time slide down on load, transform-only (no flash) */
+@keyframes nav-enter {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+.nav-enter {
+  animation: nav-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Film grain for dark surfaces — one faint layer of texture, no gradients */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-rise-2,
+  .hero-rise-3,
+  .panel-enter,
+  .nav-enter {
+    animation: none;
+  }
   .reveal {
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .link-underline {
+    transition: none;
+  }
+  dialog[open] {
     transition: none;
   }
   html {

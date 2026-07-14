@@ -10,11 +10,20 @@
       "email": "sales@tektonindustrial.com",
       "location": "Kingdom of Bahrain",
       "address": "Manama, Kingdom of Bahrain",
-      "hours": "Sunday to Thursday, 8:00 to 17:00 (GMT+3)"
+      "hours": "Sunday to Thursday, 8:00 to 17:00 (GMT+3)",
+      "whatsapp": "+973 1729 4880"
     },
     "footer": {
       "blurb": "Industrial supplies for plants in Bahrain and the wider Gulf. Genuine OEM parts, sourced direct and delivered on schedule.",
       "legal": "© 2026 Tekton Global Trading & Services W.L.L. All rights reserved."
+    },
+    "registration": {
+      "cr": "",
+      "vat": ""
+    },
+    "analytics": {
+      "scriptSrc": "",
+      "websiteId": ""
     }
   },
   "home": {
@@ -434,6 +443,13 @@
       "title": "Don't see the part listed?",
       "body": "The categories above cover our regular trade, not the limit of it. Send the part number or a nameplate photo and we will source it.",
       "button": "Send an enquiry"
+    },
+    "dialogCta": "Request a quote for this",
+    "search": {
+      "placeholder": "Search products — e.g. valves, bearings, RO membranes…",
+      "emptyTitle": "Can’t find it in the catalogue?",
+      "emptyBody": "The categories here cover our regular trade, not the limit of it. Send the part number or a nameplate photo and we will source it.",
+      "emptyCta": "Send an enquiry"
     }
   },
   "contact": {
@@ -441,7 +457,9 @@
     "intro": "Send an enquiry with a part number, drawing or nameplate photo and we will come back with a priced quote and a firm lead time. Most quotes go out within one working day.",
     "formTitle": "Request a Quote",
     "formNote": "This opens your email client with the details filled in. Attachments such as photos or drawings can be added before sending.",
-    "responseNote": "Enquiries received during working hours are usually answered the same day."
+    "responseNote": "Enquiries received during working hours are usually answered the same day.",
+    "whatsappLabel": "Chat on WhatsApp",
+    "whatsappGreeting": "Hello TEKTON, I would like to request a quote."
   },
   "about": {
     "title": "The Tekton Standard",

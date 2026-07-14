@@ -5,6 +5,7 @@ import { MediaImage } from "@/components/Media";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import StatCounter from "@/components/StatCounter";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContent();
@@ -27,26 +28,26 @@ export default async function AboutPage() {
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
       <main id="main-content">
-        <section className="bg-navy-deep pt-44 pb-fluid-6">
+        <section className="grain bg-navy-deep pt-44 pb-fluid-6">
           <div className="rail">
-            <Reveal>
+            <div className="hero-rise">
               <h1 className="display max-w-[14ch] text-header-lg text-white">{c.about.title}</h1>
               <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-gray-on-dark-2">
                 {c.about.intro}
               </p>
-            </Reveal>
+            </div>
 
             {/* Stats */}
-            <Reveal delay={120}>
+            <div className="hero-rise hero-rise-2">
               <dl className="mt-16 grid grid-cols-2 gap-8 border-t border-neutral-200 pt-8 md:grid-cols-4">
                 {c.about.stats.map((s) => (
                   <div key={s.label}>
-                    <dd className="display text-header-sm text-forge">{s.value}</dd>
+                    <dd className="display text-header-sm text-forge"><StatCounter value={s.value} /></dd>
                     <dt className="mt-2 text-sm text-gray-on-dark-2">{s.label}</dt>
                   </div>
                 ))}
               </dl>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -73,7 +74,7 @@ export default async function AboutPage() {
         </section>
 
         {/* Values — dark */}
-        <section className="bg-navy-deep py-fluid-6">
+        <section className="grain bg-navy-deep py-fluid-6">
           <div className="rail">
             <Reveal>
               <h2 className="display max-w-[16ch] text-header text-white">How We Work</h2>

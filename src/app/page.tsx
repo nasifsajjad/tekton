@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { MediaImage, hasMedia } from "@/components/Media";
+import MotionBackground from "@/components/MotionBackground";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -14,8 +15,9 @@ export default async function Home() {
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
       <main id="main-content">
-        {/* ============ 1. HERO — full-bleed video (canvas fallback) ============ */}
-        <section className="relative flex min-h-svh flex-col justify-end overflow-hidden bg-navy-deep pt-32">
+        {/* ============ 1. HERO — living canvas over navy, CSS-only entrance ============ */}
+        <section className="grain relative flex min-h-svh flex-col justify-end overflow-hidden bg-navy-deep pt-32">
+          <MotionBackground />
           <div
             aria-hidden="true"
             className="absolute inset-0 opacity-80"
@@ -29,15 +31,15 @@ export default async function Home() {
               className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-navy-deep"
           />
           <div className="rail relative z-10 pb-20 sm:pb-24">
-            <Reveal>
+            <div className="hero-rise">
               <h1 className="display max-w-[16ch] text-header-xl text-white">{c.home.hero.title}</h1>
-            </Reveal>
-            <Reveal delay={120}>
+            </div>
+            <div className="hero-rise hero-rise-2">
               <p className="mt-6 max-w-[54ch] text-lg leading-relaxed text-gray-on-dark-2">
                 {c.home.hero.subtitle}
               </p>
-            </Reveal>
-            <Reveal delay={220}>
+            </div>
+            <div className="hero-rise hero-rise-3">
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link href={c.home.hero.ctaPrimaryLink} className="btn btn--primary">
                   {c.home.hero.ctaPrimary}
@@ -46,7 +48,7 @@ export default async function Home() {
                   {c.home.hero.ctaSecondary}
                 </Link>
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -73,7 +75,7 @@ export default async function Home() {
         </section>
 
         {/* ============ 3. TRUST — two-column, dark ============ */}
-        <section className="bg-navy-deep py-fluid-6">
+        <section className="grain bg-navy-deep py-fluid-6">
           <div className="rail grid items-center gap-12 lg:grid-cols-2">
             <Reveal className="lg:order-2">
               <h2 className="display max-w-[16ch] text-header text-white">{c.home.trust.title}</h2>
@@ -119,11 +121,14 @@ export default async function Home() {
               {c.home.insights.cards.map((card, i) => (
                 <Reveal key={card.title} delay={i * 80} className="h-full">
                   <Link href={card.link} className="group flex h-full flex-col bg-white">
-                    <MediaImage
-                      file={`insight-${i + 1}.jpg`}
-                      alt={card.title}
-                      aspect="3/2"
-                    />
+                    <div className="overflow-hidden">
+                      <MediaImage
+                        file={`insight-${i + 1}.jpg`}
+                        alt={card.title}
+                        aspect="3/2"
+                        className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      />
+                    </div>
                     <div className="flex flex-1 flex-col justify-between p-6">
                       <div>
                         <span className="eyebrow text-gray-on-light">{card.tag}</span>
@@ -131,8 +136,9 @@ export default async function Home() {
                           {card.title}
                         </h3>
                       </div>
-                      <span className="mt-6 text-sm font-medium" aria-hidden="true">
-                        Read more →
+                      <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium" aria-hidden="true">
+                        Read more
+                        <span className="transition-transform duration-300 ease-out group-hover:translate-x-1">→</span>
                       </span>
                     </div>
                   </Link>
@@ -152,10 +158,13 @@ export default async function Home() {
                     file={`industry-${i + 1}.jpg`}
                     alt={`${ind.name} facilities in the Gulf`}
                     aspect="21/9"
-                    className="opacity-70 transition-opacity duration-300 group-hover:opacity-50"
+                    className="opacity-70 transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.03] group-hover:opacity-50"
                   />
                   <div className="absolute inset-0 flex items-end p-6">
-                    <h3 className="display text-header-sm text-white">{ind.name}</h3>
+                    <h3 className="display text-header-sm text-white">
+                      <span className="mr-0 inline-block h-[2px] w-0 bg-forge align-middle transition-all duration-300 ease-out group-hover:mr-3 group-hover:w-6" aria-hidden="true" />
+                      {ind.name}
+                    </h3>
                   </div>
                 </Link>
               ))}
@@ -164,7 +173,7 @@ export default async function Home() {
         </section>
 
         {/* ============ 6. SUPPLY LINE — dark tabs with accordions ============ */}
-        <section className="bg-navy-deep py-fluid-6">
+        <section className="grain bg-navy-deep py-fluid-6">
           <div className="rail">
             <Reveal>
               <h2 className="display max-w-[16ch] text-header text-white">{c.home.supplyLine.title}</h2>
