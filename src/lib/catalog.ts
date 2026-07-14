@@ -13,13 +13,13 @@ export interface CatalogImage {
 export const CATALOG_DETAILS: Record<string, CatalogDetail> = {
   electrical: {
     image: "/catalog/electrical-electronics.webp",
-    imageAlt: "Industrial circuit protection components from the Jethro catalogue",
+    imageAlt: "Industrial circuit protection components from the Tekton catalogue",
     brands: ["Allen-Bradley", "Eaton", "Finder", "Omron", "Siemens", "Schneider Electric", "SMC", "Phoenix Contact", "ABB", "ifm"],
     page: 4,
   },
   generators: {
     image: "/catalog/generators.webp",
-    imageAlt: "Industrial standby generator set from the Jethro catalogue",
+    imageAlt: "Industrial standby generator set from the Tekton catalogue",
     brands: ["Powerol by Mahindra", "Perkins", "Kirloskar", "Caterpillar", "Cummins"],
     page: 9,
   },
@@ -31,19 +31,19 @@ export const CATALOG_DETAILS: Record<string, CatalogDetail> = {
   },
   "hydraulics-pneumatics": {
     image: "/catalog/hydraulics-pneumatics.webp",
-    imageAlt: "Industrial hydraulic pump from the Jethro catalogue",
+    imageAlt: "Industrial hydraulic pump from the Tekton catalogue",
     brands: ["ASCO", "Aventics", "Bürkert", "Festo", "HYDAC", "Camozzi", "Parker", "Norgren", "AirTAC", "Bosch Rexroth", "Legris", "Turck", "Yuken", "Rego", "Metal Work"],
     page: 7,
   },
   "pumps-motors": {
     image: "/catalog/pumps-motors.webp",
-    imageAlt: "Industrial end-suction pump from the Jethro catalogue",
+    imageAlt: "Industrial end-suction pump from the Tekton catalogue",
     brands: ["Lowara", "Watreco", "Ebara", "Hyosung", "Denley", "ClydeUnion Pumps", "Wilden", "SEW-Eurodrive", "Armstrong", "Flowserve", "Busch", "Honda", "Pentair", "Goulds Pumps", "KSB", "Grundfos", "Kirloskar", "ABB", "Danfoss", "Siemens", "Franklin Electric", "LEWA"],
     page: 8,
   },
   compressors: {
     image: "/catalog/compressors.webp",
-    imageAlt: "Industrial reciprocating compressor from the Jethro catalogue",
+    imageAlt: "Industrial reciprocating compressor from the Tekton catalogue",
     brands: ["Ingersoll Rand", "CompAir", "ABAC", "BOGE", "ELGi", "Campbell Hausfeld", "Atlas Copco", "Kaeser"],
     page: 9,
   },
@@ -55,7 +55,7 @@ export const CATALOG_DETAILS: Record<string, CatalogDetail> = {
   },
   coupling: {
     image: "/catalog/coupling.webp",
-    imageAlt: "Industrial shaft couplings from the Jethro catalogue",
+    imageAlt: "Industrial shaft couplings from the Tekton catalogue",
     brands: ["Falk", "Renold", "Lovejoy", "KTR", "Dodge", "Dixon"],
     page: 14,
   },
@@ -97,7 +97,7 @@ export const CATALOG_DETAILS: Record<string, CatalogDetail> = {
   },
   packaging: {
     image: "/catalog/packaging.webp",
-    imageAlt: "Pallet stretch-wrapping machine from the Jethro catalogue",
+    imageAlt: "Pallet stretch-wrapping machine from the Tekton catalogue",
     brands: ["Robopac", "Atlanta Stretch", "LoeschPack", "Viking Masek", "Poly Pack"],
     page: 13,
   },
@@ -170,6 +170,6 @@ export function getCatalogGallery(icon: string): CatalogImage[] {
 
   return images.map((image, index) => ({
     src: `/catalog/online/${image}.webp`,
-    alt: `${detail.imageAlt.replace(" from the Jethro catalogue", "")} — reference view ${index + 1}`,
+    alt: `${detail.imageAlt.replace(" from the Tekton catalogue", "")} — reference view ${index + 1}`,
   }));
 }
