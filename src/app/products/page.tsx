@@ -27,9 +27,9 @@ export default async function ProductsPage() {
   return (
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
-      <main>
+      <main id="main-content">
         {/* Page hero — dark */}
-        <section className="relative overflow-hidden bg-black pt-40 pb-fluid-5">
+        <section className="relative overflow-hidden bg-navy-deep pt-44 pb-fluid-5">
           <div className="absolute inset-0">
             <MediaImage
               file="products-hero.jpg"
@@ -38,7 +38,7 @@ export default async function ProductsPage() {
               className="h-full opacity-40"
               eager
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/50 to-navy-deep" aria-hidden="true" />
           </div>
           <div className="rail relative z-10">
             <Reveal>
@@ -58,11 +58,11 @@ export default async function ProductsPage() {
         </section>
 
         {/* CTA band — yellow */}
-        <section className="bg-forge py-fluid-5 text-black">
+        <section className="bg-forge py-fluid-5 text-navy-deep">
           <div className="rail flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
             <div>
               <h2 className="display max-w-[20ch] text-header-sm">{c.products.cta.title}</h2>
-              <p className="mt-3 max-w-[56ch] text-base leading-relaxed text-black/75">
+              <p className="mt-3 max-w-[56ch] text-base leading-relaxed text-navy-deep/80">
                 {c.products.cta.body}
               </p>
             </div>

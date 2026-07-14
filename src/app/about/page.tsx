@@ -26,8 +26,8 @@ export default async function AboutPage() {
   return (
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
-      <main>
-        <section className="bg-black pt-40 pb-fluid-6">
+      <main id="main-content">
+        <section className="bg-navy-deep pt-44 pb-fluid-6">
           <div className="rail">
             <Reveal>
               <h1 className="display max-w-[14ch] text-header-lg text-white">{c.about.title}</h1>
@@ -73,7 +73,7 @@ export default async function AboutPage() {
         </section>
 
         {/* Values — dark */}
-        <section className="bg-black py-fluid-6">
+        <section className="bg-navy-deep py-fluid-6">
           <div className="rail">
             <Reveal>
               <h2 className="display max-w-[16ch] text-header text-white">How We Work</h2>
@@ -95,7 +95,7 @@ export default async function AboutPage() {
         </section>
 
         {/* CTA — yellow */}
-        <section className="bg-forge py-fluid-5 text-black">
+        <section className="bg-forge py-fluid-5 text-navy-deep">
           <div className="rail flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
             <h2 className="display max-w-[20ch] text-header-sm">
               Put us on your next enquiry list.

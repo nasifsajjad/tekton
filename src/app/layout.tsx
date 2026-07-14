@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo, Inter } from "next/font/google";
 import { getContent } from "@/lib/content";
 import "./globals.css";
@@ -14,6 +14,12 @@ const inter = Inter({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tektonindustrial.com";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0f395c",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContent();
@@ -44,6 +50,11 @@ export async function generateMetadata(): Promise<Metadata> {
       index: true,
       follow: true,
     },
+    icons: {
+      icon: "/brand/tekton-logo.svg",
+      shortcut: "/brand/tekton-logo.svg",
+      apple: "/brand/tekton-logo.svg",
+    },
   };
 }
 
@@ -71,6 +82,9 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${archivo.variable} ${inter.variable}`}>
       <body>
+        <a href="#main-content" className="fixed top-3 left-3 z-[200] -translate-y-20 bg-forge px-4 py-3 font-bold text-navy-deep transition-transform focus:translate-y-0">
+          Skip to content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }}

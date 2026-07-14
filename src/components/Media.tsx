@@ -1,5 +1,6 @@
 import { existsSync } from "fs";
 import path from "path";
+import Image from "next/image";
 
 function mediaExists(file: string): boolean {
   return existsSync(path.join(process.cwd(), "public", "media", file));
@@ -26,12 +27,14 @@ export function MediaImage({
 }) {
   if (mediaExists(file)) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
+      <Image
         src={`/media/${file}`}
         alt={alt}
-        loading={eager ? "eager" : "lazy"}
-        decoding="async"
+        width={1600}
+        height={1000}
+        priority={eager}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        quality={82}
         className={`w-full object-cover ${className}`}
         style={{ aspectRatio: aspect }}
       />

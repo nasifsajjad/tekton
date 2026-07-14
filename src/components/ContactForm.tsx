@@ -42,10 +42,10 @@ export default function ContactForm({
   }
 
   const inputClass =
-    "mt-1.5 w-full border-2 border-neutral-300 bg-neutral-100 px-4 py-3 text-white outline-none transition-colors focus:border-forge";
+    "mt-1.5 w-full border border-white/25 bg-white px-4 py-3 text-ink outline-none transition-colors placeholder:text-gray-on-light-2 focus:border-forge focus:ring-2 focus:ring-forge/30";
 
   return (
-    <form onSubmit={handleSubmit} className="border border-neutral-200 bg-neutral-100 p-6 sm:p-8">
+    <form onSubmit={handleSubmit} className="border border-white/15 bg-navy p-6 shadow-2xl shadow-black/10 sm:p-8">
       <h2 className="display text-header-xs text-white">{formTitle}</h2>
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
         <label className="block">

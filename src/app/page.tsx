@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { MediaImage, hasMedia } from "@/components/Media";
-import MotionBackground from "@/components/MotionBackground";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -11,35 +10,25 @@ const SUPPLY_MEDIA = ["supply-products.jpg", "supply-services.jpg", "supply-prog
 
 export default async function Home() {
   const c = await getContent();
-  const heroVideo = hasMedia("hero.mp4");
-  const heroPoster = hasMedia("hero-poster.jpg");
-
   return (
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
-      <main>
+      <main id="main-content">
         {/* ============ 1. HERO — full-bleed video (canvas fallback) ============ */}
-        <section className="relative flex min-h-svh flex-col justify-end overflow-hidden bg-black pt-32">
-          {heroVideo ? (
-            <video
-              className="absolute inset-0 h-full w-full object-cover opacity-60"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster={heroPoster ? "/media/hero-poster.jpg" : undefined}
-              src="/media/hero.mp4"
-              aria-hidden="true"
-            />
-          ) : (
-            <MotionBackground />
-          )}
+        <section className="relative flex min-h-svh flex-col justify-end overflow-hidden bg-navy-deep pt-32">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-black"
+            className="absolute inset-0 opacity-80"
+            style={{
+              backgroundImage:
+                "linear-gradient(120deg, rgba(251,118,16,.16), transparent 38%), repeating-linear-gradient(90deg, transparent 0 11.8%, rgba(255,255,255,.045) 11.8% 12%)",
+            }}
           />
-          <div className="rail relative z-10 pb-20">
+          <div
+            aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-navy-deep"
+          />
+          <div className="rail relative z-10 pb-20 sm:pb-24">
             <Reveal>
               <h1 className="display max-w-[16ch] text-header-xl text-white">{c.home.hero.title}</h1>
             </Reveal>
@@ -62,7 +51,7 @@ export default async function Home() {
         </section>
 
         {/* ============ 2. PLATFORM — two-column, light ============ */}
-        <section className="bg-white py-fluid-6 text-ink">
+        <section className="bg-surface py-fluid-6 text-ink">
           <div className="rail grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
               <h2 className="display max-w-[16ch] text-header">{c.home.platform.title}</h2>
@@ -84,7 +73,7 @@ export default async function Home() {
         </section>
 
         {/* ============ 3. TRUST — two-column, dark ============ */}
-        <section className="bg-black py-fluid-6">
+        <section className="bg-navy-deep py-fluid-6">
           <div className="rail grid items-center gap-12 lg:grid-cols-2">
             <Reveal className="lg:order-2">
               <h2 className="display max-w-[16ch] text-header text-white">{c.home.trust.title}</h2>
@@ -137,7 +126,7 @@ export default async function Home() {
                     />
                     <div className="flex flex-1 flex-col justify-between p-6">
                       <div>
-                        <span className="eyebrow text-neutral-500">{card.tag}</span>
+                        <span className="eyebrow text-gray-on-light">{card.tag}</span>
                         <h3 className="display mt-3 text-header-xs group-hover:underline group-hover:underline-offset-4">
                           {card.title}
                         </h3>
@@ -175,7 +164,7 @@ export default async function Home() {
         </section>
 
         {/* ============ 6. SUPPLY LINE — dark tabs with accordions ============ */}
-        <section className="bg-black py-fluid-6">
+        <section className="bg-navy-deep py-fluid-6">
           <div className="rail">
             <Reveal>
               <h2 className="display max-w-[16ch] text-header text-white">{c.home.supplyLine.title}</h2>
@@ -223,13 +212,13 @@ export default async function Home() {
         </section>
 
         {/* ============ 8. FOOTER CALLOUTS — three columns, yellow ============ */}
-        <section className="bg-forge py-fluid-5 text-black">
+        <section className="bg-forge py-fluid-5 text-navy-deep">
           <div className="rail grid gap-10 md:grid-cols-3">
             {c.home.callouts.map((call, i) => (
               <Reveal key={call.title} delay={i * 90}>
-                <div className="flex h-full flex-col border-t-2 border-black pt-6">
+                <div className="flex h-full flex-col border-t-2 border-navy-deep pt-6">
                   <h2 className="display text-header-xs">{call.title}</h2>
-                  <p className="mt-3 flex-1 text-base leading-relaxed text-black/75">{call.body}</p>
+                  <p className="mt-3 flex-1 text-base leading-relaxed text-navy-deep/80">{call.body}</p>
                   <div className="mt-6">
                     {call.ctaLink.startsWith("tel:") ? (
                       <a href={call.ctaLink} className="btn btn--black !min-w-0">

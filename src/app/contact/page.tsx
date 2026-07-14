@@ -26,8 +26,8 @@ export default async function ContactPage() {
   return (
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
-      <main>
-        <section className="bg-black pt-40 pb-fluid-6">
+      <main id="main-content">
+        <section className="bg-navy-deep pt-44 pb-fluid-6">
           <div className="rail">
             <Reveal>
               <h1 className="display max-w-[12ch] text-header-lg text-white">{c.contact.title}</h1>

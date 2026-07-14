@@ -6,3 +6,4 @@ next-env.d.ts
 .env.local
 *.tsbuildinfo
 MEDIA.md
+.lighthouse-edge/

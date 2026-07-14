@@ -2,9 +2,17 @@
 
 @theme {
   /* Colors — Brand */
-  --color-forge: hsl(55, 100%, 50%);
-  --color-forge-dim: hsl(55, 92%, 47%);
-  --color-ink: #0f0f0f;
+  --color-navy-deep: #071f33;
+  --color-navy: #0f395c;
+  --color-navy-soft: #1d557d;
+  --color-orange: #fb7610;
+  --color-orange-dark: #c94b00;
+  --color-orange-soft: #fff0e4;
+  --color-surface: #f4f7f8;
+  --color-forge: #fb7610;
+  --color-forge-dim: #e96108;
+  --color-forge-dark: #c94b00;
+  --color-ink: #0b2f4a;
 
   /* Colors — Neutral ramp (pure gray, 10% steps) */
   --color-neutral-0: hsl(0, 0%, 0%);
@@ -22,12 +30,12 @@
   --color-neutral-1000: hsl(0, 0%, 100%);
 
   /* Muted text steps */
-  --color-gray-on-dark: hsl(0, 0%, 96%);
-  --color-gray-on-dark-2: hsl(0, 0%, 72%);
-  --color-gray-on-light: hsl(0, 0%, 40%);
-  --color-gray-on-light-2: hsl(0, 0%, 60%);
-  --color-footer-link: #d8d8d8;
-  --color-footer-legal: #666666;
+  --color-gray-on-dark: #f4f7f8;
+  --color-gray-on-dark-2: #c4d0d8;
+  --color-gray-on-light: #496173;
+  --color-gray-on-light-2: #708597;
+  --color-footer-link: #d6e0e6;
+  --color-footer-legal: #93a8b7;
 
   /* Typography — Families (set via next/font variables) */
   --font-display: var(--font-archivo), "Archivo", ui-sans-serif, system-ui, sans-serif;
@@ -74,6 +82,7 @@
 
 :root {
   --page-max-width: 1364px;
+  color-scheme: light;
 }
 
 html {
@@ -82,10 +91,20 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: #000;
+  background: var(--color-navy-deep);
   color: #fff;
   -webkit-font-smoothing: antialiased;
   min-width: 320px;
+}
+
+::selection {
+  background: var(--color-forge);
+  color: var(--color-navy-deep);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-forge);
+  outline-offset: 3px;
 }
 
 /* Content rail matching the 12-col main grid */
@@ -111,13 +130,13 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 9999px;
+  border-radius: 0.25rem;
   border: 2px solid transparent;
   font-family: var(--font-body);
-  font-weight: 500;
+  font-weight: 700;
   font-size: 1rem;
   line-height: 1;
-  padding: 0.9rem 2rem;
+  padding: 0.95rem 1.75rem;
   min-width: 10rem;
   cursor: pointer;
   transition:
@@ -129,11 +148,12 @@ body {
 .btn--primary {
   background: var(--color-forge);
   border-color: var(--color-forge);
-  color: #000;
+  color: var(--color-navy-deep);
 }
 .btn--primary:hover {
-  background: transparent;
-  color: var(--color-forge);
+  background: var(--color-navy-deep);
+  border-color: var(--color-navy-deep);
+  color: #fff;
 }
 
 .btn--white-outline {
@@ -148,22 +168,22 @@ body {
 
 .btn--black-outline {
   background: transparent;
-  border-color: #0f0f0f;
-  color: #0f0f0f;
+  border-color: var(--color-navy);
+  color: var(--color-navy);
 }
 .btn--black-outline:hover {
-  background: #0f0f0f;
+  background: var(--color-navy);
   color: #fff;
 }
 
 .btn--black {
-  background: #0f0f0f;
-  border-color: #0f0f0f;
+  background: var(--color-navy-deep);
+  border-color: var(--color-navy-deep);
   color: #fff;
 }
 .btn--black:hover {
   background: transparent;
-  color: #0f0f0f;
+  color: var(--color-navy-deep);
 }
 
 /* Uppercase micro-label */
@@ -230,7 +250,7 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f0f0f;
+  background: var(--color-navy-deep);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-forge);
