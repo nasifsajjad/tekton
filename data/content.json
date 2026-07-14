@@ -190,15 +190,40 @@
         "categories": [
           {
             "name": "Electrical & Electronics",
-            "description": "Contactors, relays, drives, PLC components, cabling and panel hardware from established manufacturers."
+            "description": "Circuit protection, connection devices, PLCs and industrial wiring for panel builds and plant control rooms.",
+            "products": [
+              "Disconnect switches & circuit breakers",
+              "Contactors, relays & motor starters",
+              "PLCs (ControlLogix, CompactLogix, MicroLogix)",
+              "Servo drives, motors & actuators",
+              "Power supplies & energy monitors",
+              "Industrial cabling & wiring systems"
+            ],
+            "icon": "electrical"
           },
           {
             "name": "Generators",
-            "description": "Diesel generator sets for prime and standby power, with spares and service kits for common Gulf installations."
+            "description": "Diesel and industrial generator sets from portable duty to 2,000 kVA standby power, with supply and installation.",
+            "products": [
+              "Industrial & commercial generator sets",
+              "Standby power up to 2,000 kVA",
+              "Portable generators up to 10,000 W",
+              "Marine & recreational generators",
+              "Supply, installation & commissioning"
+            ],
+            "icon": "generators"
           },
           {
             "name": "IT & Printing Solutions",
-            "description": "Industrial computing, networking hardware and printing equipment for plant offices and control rooms."
+            "description": "Industrial computing hardware and printing machine spares for plant offices and production lines.",
+            "products": [
+              "Processors, graphics cards & Raspberry Pi",
+              "Power supplies & cooling fans",
+              "Interface & drive cards",
+              "Printing machine rollers & cutting blades",
+              "Access floor systems"
+            ],
+            "icon": "it-printing"
           }
         ]
       },
@@ -208,27 +233,75 @@
         "categories": [
           {
             "name": "Hydraulics & Pneumatics",
-            "description": "Cylinders, power packs, hoses, seals, air preparation units and pneumatic actuators."
+            "description": "Pumps, motors, cylinders, valves and power units for hydraulic and pneumatic circuits.",
+            "products": [
+              "Axial piston, gear & vane pumps",
+              "Hydraulic cylinders & power units",
+              "Directional, flow & proportional valves",
+              "Accumulators & manifolds",
+              "Air preparation units & pneumatic valves",
+              "Vacuum generators & actuators"
+            ],
+            "icon": "hydraulics-pneumatics"
           },
           {
             "name": "Pumps & Motors",
-            "description": "Centrifugal and positive displacement pumps, electric motors and mechanical seals."
+            "description": "Centrifugal, submersible and positive displacement pumps alongside general purpose and severe duty motors.",
+            "products": [
+              "End suction, multistage & submersible pumps",
+              "Self-priming & axial-flow pumps",
+              "General purpose & severe duty motors",
+              "Explosion proof & washdown duty motors",
+              "Mechanical seals, bearings & repair kits"
+            ],
+            "icon": "pumps-motors"
           },
           {
             "name": "Compressors",
-            "description": "Air and gas compressors with filters, dryers and genuine service parts."
+            "description": "Reciprocating, screw, scroll and centrifugal compressors with genuine service parts.",
+            "products": [
+              "Reciprocating, screw & scroll compressors",
+              "Rotary & centrifugal compressors",
+              "Compressor oils & service kits",
+              "Compressor elements & filters"
+            ],
+            "icon": "compressors"
           },
           {
-            "name": "Valves, Fittings & Fasteners",
-            "description": "Process valves, pipe fittings, flanges and certified fasteners in carbon steel, stainless and exotic alloys."
+            "name": "Mechanical Fittings & Fasteners",
+            "description": "Process valves, stainless steel fittings and fasteners in a full range of grades for industrial and marine duty.",
+            "products": [
+              "Ball, butterfly, gate & globe valves",
+              "Check, plug, pilot & needle valves",
+              "Stainless steel grades 304 to super duplex",
+              "Pipe fittings, flanges & fasteners",
+              "EPDM rubber components"
+            ],
+            "icon": "fittings-fasteners"
           },
           {
             "name": "Coupling Technology",
-            "description": "Shaft couplings, quick-connect couplings and drive elements for rotating machinery."
+            "description": "Shaft couplings and drive elements for rotating machinery, from elastic jaw to magnetic and fluid types.",
+            "products": [
+              "Elastic jaw & pin-and-bush couplings",
+              "Gear & flange couplings",
+              "Backlash-free servo couplings",
+              "Steel lamina couplings",
+              "Magnetic & fluid couplings"
+            ],
+            "icon": "coupling"
           },
           {
             "name": "Lifting & Handling",
-            "description": "Hoists, slings, shackles and material handling equipment with test certificates."
+            "description": "Cranes, hoists and rigging hardware with spares and control systems for material handling operations.",
+            "products": [
+              "Cranes, hoists & lifts with spares",
+              "Crane control motors & programming boards",
+              "Ropes, wires & slings",
+              "Shackles, swivels & link chains",
+              "Geared motors & bearings"
+            ],
+            "icon": "lifting-handling"
           }
         ]
       },
@@ -238,19 +311,50 @@
         "categories": [
           {
             "name": "Instrumentation & Measurement",
-            "description": "Pressure, temperature, level and flow instruments, plus calibration accessories."
+            "description": "Calibration devices, test instruments and measurement tools for pressure, temperature and flow.",
+            "products": [
+              "Electrical, RF & temperature calibration",
+              "Pressure & flow calibration tools",
+              "Multimeters, oscilloscopes & gauges",
+              "Dimensional measuring tools",
+              "Transducers & voltage detectors"
+            ],
+            "icon": "instrumentation"
           },
           {
             "name": "Filters",
-            "description": "Hydraulic, air, fuel and process filtration elements, cross-referenced to OEM part numbers."
+            "description": "Bag, panel and hydraulic filtration elements, cross-referenced to OEM part numbers.",
+            "products": [
+              "Bag & panel filters",
+              "Hydraulic & air filters",
+              "Gas filters & strainers",
+              "Filter cartridges & spargers"
+            ],
+            "icon": "filters"
           },
           {
             "name": "Pipe Testing Plugs",
-            "description": "Mechanical and inflatable plugs for hydrostatic testing and pipeline isolation."
+            "description": "Mechanical and inflatable pipe plugs for hydrostatic testing and pipeline isolation, sized 30-3,700 mm.",
+            "products": [
+              "Flexible multi-size & low pressure test plugs",
+              "Joint test plugs & flexible packers",
+              "Egg shaped & conical plugs",
+              "Manhole test plugs",
+              "Test accessories: hoses, gauges & adapters"
+            ],
+            "icon": "pipe-testing-plugs"
           },
           {
             "name": "Desalination & Water Treatment",
-            "description": "RO membranes, dosing systems and treatment chemicals for desalination and process water plants."
+            "description": "RO membranes, dosing systems and treatment chemicals for desalination and process water plants.",
+            "products": [
+              "RO membranes & pumps",
+              "Sludge dryers & evaporators",
+              "Chemical feeders & test kits",
+              "UV systems and lamps",
+              "Water quality instrumentation"
+            ],
+            "icon": "desalination"
           }
         ]
       },
@@ -260,15 +364,38 @@
         "categories": [
           {
             "name": "Chemicals & Lubricants",
-            "description": "Industrial lubricants, greases, cleaning chemicals and specialty fluids with safety data sheets."
+            "description": "Industrial lubricants, cleaning chemicals and specialty fluids with safety data sheets for energy, marine and automotive sectors.",
+            "products": [
+              "Engine oils, coolants & compressor oils",
+              "Acid, alkaline & solvent degreasers",
+              "Descalers & corrosion prevention chemicals",
+              "Welding anti-spatter & galvanizing products",
+              "Refrigerants & food-grade oils"
+            ],
+            "icon": "chemicals-lubricants"
           },
           {
             "name": "Packaging Materials",
-            "description": "Industrial packaging, strapping, stretch film and export-grade crating supplies."
+            "description": "Industrial packaging, strapping, stretch film and export-grade crating supplies.",
+            "products": [
+              "Packing tapes, stretch film & labels",
+              "Cushioning materials & Styrofoam sheets",
+              "Kraft packaging paper",
+              "Shrink, stretch & pallet wrapping machines"
+            ],
+            "icon": "packaging"
           },
           {
             "name": "Sawing Machines & Power Tools",
-            "description": "Bandsaws, cutting machines, power tools and consumable blades for fabrication shops."
+            "description": "Bandsaws, cutting machines, power tools and consumable blades for fabrication shops.",
+            "products": [
+              "Circular, CNC & bandsaw machines",
+              "Pipe & tubing tools",
+              "Threading, grooving & bending tools",
+              "Pneumatic & finishing tools",
+              "Cutting, drilling & tapping tools"
+            ],
+            "icon": "sawing-tools"
           }
         ]
       },
@@ -278,11 +405,27 @@
         "categories": [
           {
             "name": "Marine Products",
-            "description": "Deck stores, engine room spares and consumables, supplied against vessel schedules."
+            "description": "Deck stores, hull plating and marine electronics supplied against vessel schedules.",
+            "products": [
+              "Fenders & bollards",
+              "SS, CS, AS & Corten steel plates",
+              "Hardox wear-resistant plates",
+              "Surface finished metals",
+              "Marine electronics"
+            ],
+            "icon": "marine"
           },
           {
             "name": "HVAC & Safety Requirements",
-            "description": "Air conditioning components, ventilation equipment, PPE and site safety supplies."
+            "description": "Air conditioning components, ventilation equipment, PPE and site safety supplies.",
+            "products": [
+              "Axial & exhaust fans, blowers",
+              "Heaters & chiller spare parts",
+              "Cooling & air control units",
+              "Safety gloves & coveralls",
+              "Fire extinguishers & safety alarms"
+            ],
+            "icon": "hvac-safety"
           }
         ]
       }

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import type { SiteContent } from "@/lib/content";
 import LogoMark from "@/components/LogoMark";
+import CategoryIcon, { CATEGORY_ICON_KEYS } from "@/components/CategoryIcon";
 import { logout, saveContent } from "./actions";
 
 /* ---------- form primitives ---------- */
@@ -49,6 +50,36 @@ function Area({
         onChange={(e) => onChange(e.target.value)}
         className="mt-1.5 w-full resize-y border-2 border-neutral-800 bg-white px-3 py-2.5 text-sm leading-relaxed text-ink outline-none focus:border-ink"
       />
+    </label>
+  );
+}
+
+function IconPicker({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="text-xs font-semibold tracking-widest text-neutral-500 uppercase">Icon</span>
+      <div className="mt-1.5 flex items-center gap-3">
+        <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-black/5">
+          <CategoryIcon icon={value} className="size-6 text-ink" />
+        </div>
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full border-2 border-neutral-800 bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-ink"
+        >
+          {CATEGORY_ICON_KEYS.map((key) => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </select>
+      </div>
     </label>
   );
 }
@@ -323,9 +354,21 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
                 <ItemBox key={`cat-${ti}-${ci}`} label={`Category ${ci + 1}`} onRemove={() => patch((d) => d.products.tabs[ti].categories.splice(ci, 1))}>
                   <Field label="Name" value={cat.name} onChange={(v) => patch((d) => (d.products.tabs[ti].categories[ci].name = v))} />
                   <Area label="Description" value={cat.description} onChange={(v) => patch((d) => (d.products.tabs[ti].categories[ci].description = v))} rows={2} />
+                  <Area
+                    label="Products (one per line)"
+                    value={cat.products.join("\n")}
+                    onChange={(v) =>
+                      patch((d) => (d.products.tabs[ti].categories[ci].products = v.split("\n")))
+                    }
+                    rows={4}
+                  />
+                  <IconPicker
+                    value={cat.icon}
+                    onChange={(v) => patch((d) => (d.products.tabs[ti].categories[ci].icon = v))}
+                  />
                 </ItemBox>
               ))}
-              <AddButton label="Add category" onClick={() => patch((d) => d.products.tabs[ti].categories.push({ name: "", description: "" }))} />
+              <AddButton label="Add category" onClick={() => patch((d) => d.products.tabs[ti].categories.push({ name: "", description: "", products: [], icon: CATEGORY_ICON_KEYS[0] }))} />
             </ItemBox>
           ))}
           <AddButton label="Add tab" onClick={() => patch((d) => d.products.tabs.push({ label: "", blurb: "", categories: [] }))} />

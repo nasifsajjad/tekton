@@ -54,7 +54,7 @@ export interface SiteContent {
     tabs: {
       label: string;
       blurb: string;
-      categories: { name: string; description: string }[];
+      categories: { name: string; description: string; products: string[]; icon: string }[];
     }[];
     cta: { title: string; body: string; button: string };
   };
