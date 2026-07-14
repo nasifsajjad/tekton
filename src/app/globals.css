@@ -390,6 +390,115 @@ details[open] .burger span:last-child {
 }
 
 /* Custom scrollbar — yellow thumb on black, per brand */
+/* Homepage scroll-linked industrial sequence. Images remain in their native
+   JPEG quality; the canvas only maps each frame to the current scroll position. */
+.industrial-sequence {
+  position: relative;
+  isolation: isolate;
+  height: 100svh;
+  min-height: 38rem;
+  overflow: hidden;
+  background: #071014;
+}
+.industrial-sequence__fallback,
+.industrial-sequence__canvas,
+.industrial-sequence__shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.industrial-sequence__fallback {
+  z-index: -3;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.2s ease;
+}
+.industrial-sequence__fallback--hidden {
+  opacity: 0;
+}
+.industrial-sequence__canvas {
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.industrial-sequence__canvas--ready {
+  opacity: 1;
+}
+.industrial-sequence__shade {
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(2, 10, 15, 0.82) 0%, rgba(2, 10, 15, 0.28) 46%, rgba(2, 10, 15, 0.18) 100%);
+}
+.industrial-sequence__content {
+  position: relative;
+  z-index: 1;
+  padding-top: clamp(8rem, 16vh, 12rem);
+}
+.industrial-sequence__stage {
+  position: absolute;
+  z-index: 1;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(5.5rem, 11vh, 7rem);
+  width: min(13rem, 46vw);
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  padding-top: 0.8rem;
+}
+.industrial-sequence__progress {
+  position: absolute;
+  z-index: 1;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1.8rem, 4vh, 3rem);
+  width: min(13rem, 46vw);
+}
+.industrial-sequence__progress-label {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.industrial-sequence__progress-line {
+  display: block;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+.industrial-sequence__progress-line span {
+  display: block;
+  height: 100%;
+  transform-origin: left;
+  background: var(--color-forge);
+  transition: transform 0.3s ease;
+}
+.industrial-sequence__loading {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: 1.8rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.75rem;
+}
+@media (max-width: 40rem) {
+  .industrial-sequence {
+    min-height: 34rem;
+  }
+  .industrial-sequence__shade {
+    background: linear-gradient(180deg, rgba(2, 10, 15, 0.76) 0%, rgba(2, 10, 15, 0.24) 62%, rgba(2, 10, 15, 0.72) 100%);
+  }
+  .industrial-sequence__content {
+    padding-top: 7.3rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .industrial-sequence__fallback,
+  .industrial-sequence__canvas,
+  .industrial-sequence__progress-line span {
+    transition: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

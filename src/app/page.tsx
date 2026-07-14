@@ -4,6 +4,7 @@ import { MediaImage, hasMedia } from "@/components/Media";
 import MotionBackground from "@/components/MotionBackground";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import IndustrialSequence from "@/components/IndustrialSequence";
 import Reveal from "@/components/Reveal";
 import SupplyLineTabs from "@/components/SupplyLineTabs";
 
@@ -53,6 +54,8 @@ export default async function Home() {
         </section>
 
         {/* ============ 2. PLATFORM — two-column, light ============ */}
+        <IndustrialSequence />
+
         <section className="bg-surface py-fluid-6 text-ink">
           <div className="rail grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
