@@ -224,6 +224,7 @@ export default function IndustrialSequence() {
         className={`industrial-sequence__fallback ${isReady ? "industrial-sequence__fallback--hidden" : ""}`}
         src={FRAME_PATHS[0]}
         alt="Industrial bearing operating inside a production facility"
+        fetchPriority="high"
       />
       <canvas ref={canvasRef} className={`industrial-sequence__canvas ${isReady ? "industrial-sequence__canvas--ready" : ""}`} aria-hidden="true" />
 

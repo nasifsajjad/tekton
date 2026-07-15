@@ -39,7 +39,7 @@ export default async function AboutPage() {
 
             {/* Stats */}
             <div className="hero-rise hero-rise-2">
-              <dl className="mt-16 grid grid-cols-2 gap-8 border-t border-neutral-200 pt-8 md:grid-cols-4">
+              <dl className="mt-16 grid grid-cols-2 gap-8 border-t border-white/15 pt-8 md:grid-cols-4">
                 {c.about.stats.map((s) => (
                   <div key={s.label}>
                     <dd className="display text-header-sm text-forge"><StatCounter value={s.value} /></dd>
@@ -82,14 +82,14 @@ export default async function AboutPage() {
             <div className="mt-12 grid gap-8 md:grid-cols-3">
               {c.about.values.map((v, i) => (
                 <Reveal key={v.title} delay={i * 90}>
-                  <div className="h-full border-t border-neutral-200 pt-6">
+                  <div className="h-full border-t border-white/15 pt-6">
                     <h3 className="display text-header-xs text-forge">{v.title}</h3>
                     <p className="mt-3 text-base leading-relaxed text-gray-on-dark-2">{v.body}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
-            <p className="mt-16 max-w-[60ch] border-t border-neutral-200 pt-6 text-sm leading-relaxed text-neutral-500">
+            <p className="mt-16 max-w-[60ch] border-t border-white/15 pt-6 text-sm leading-relaxed text-gray-on-dark-2">
               {c.about.note}
             </p>
           </div>

@@ -11,7 +11,7 @@ export default function LoginForm() {
     <main className="flex min-h-svh items-center justify-center bg-black px-4">
       <form action={formAction} className="w-full max-w-sm">
         <div className="flex items-center gap-2">
-          <LogoMark square="hsl(55, 100%, 50%)" glyph="#000000" />
+          <LogoMark square="#f9a03c" glyph="#071f33" />
           <span className="display text-xl font-semibold text-white uppercase">TEKTON</span>
         </div>
         <h1 className="display mt-8 text-header-sm text-white">Site Editor</h1>

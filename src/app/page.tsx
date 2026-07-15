@@ -186,7 +186,7 @@ export default async function Home() {
             </Reveal>
 
             {/* Pillars */}
-            <div className="mt-12 grid gap-8 border-t border-neutral-200 pt-10 md:grid-cols-3">
+            <div className="mt-12 grid gap-8 border-t border-white/15 pt-10 md:grid-cols-3">
               {c.home.supplyLine.pillars.map((p, i) => (
                 <Reveal key={p.title} delay={i * 90}>
                   <h3 className="display text-header-xs text-forge">{p.title}</h3>

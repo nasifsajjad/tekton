@@ -57,19 +57,19 @@ export default function ContactForm({
       <h2 className="display text-header-xs text-white">{formTitle}</h2>
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
         <label className="block">
-          <span className="eyebrow text-neutral-500">Name</span>
+          <span className="eyebrow text-gray-on-dark-2">Name</span>
           <input type="text" required value={form.name} onChange={set("name")} className={inputClass} autoComplete="name" />
         </label>
         <label className="block">
-          <span className="eyebrow text-neutral-500">Company</span>
+          <span className="eyebrow text-gray-on-dark-2">Company</span>
           <input type="text" value={form.company} onChange={set("company")} className={inputClass} autoComplete="organization" />
         </label>
         <label className="block sm:col-span-2">
-          <span className="eyebrow text-neutral-500">Phone</span>
+          <span className="eyebrow text-gray-on-dark-2">Phone</span>
           <input type="tel" value={form.phone} onChange={set("phone")} className={inputClass} autoComplete="tel" />
         </label>
         <label className="block sm:col-span-2">
-          <span className="eyebrow text-neutral-500">What do you need?</span>
+          <span className="eyebrow text-gray-on-dark-2">What do you need?</span>
           <textarea
             required
             rows={5}
@@ -83,7 +83,7 @@ export default function ContactForm({
       <button type="submit" className="btn btn--primary mt-6">
         Send enquiry
       </button>
-      <p className="mt-4 text-xs leading-relaxed text-neutral-500">{formNote}</p>
+      <p className="mt-4 text-xs leading-relaxed text-gray-on-dark-2">{formNote}</p>
     </form>
   );
 }

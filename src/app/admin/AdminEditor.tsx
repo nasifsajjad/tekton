@@ -322,7 +322,7 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
       <header className="sticky top-0 z-40 bg-forge">
         <div className="rail flex min-h-15 flex-wrap items-center justify-between gap-3 py-2">
           <div className="flex items-center gap-2">
-            <LogoMark square="#000000" glyph="hsl(55, 100%, 50%)" />
+            <LogoMark square="#071f33" glyph="#f9a03c" />
             <span className="display text-lg font-semibold uppercase">Tekton — Site Editor</span>
           </div>
           <div className="flex items-center gap-3">

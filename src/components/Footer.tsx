@@ -43,7 +43,16 @@ export default function Footer({ content }: { content: SiteContent }) {
             </ul>
           </div>
         </div>
-        <p className="mt-14 border-t border-white/15 pt-6 text-xs text-footer-legal">{footer.legal}</p>
+        <div className="mt-14 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-t border-white/15 pt-6 text-xs text-footer-legal">
+          <p>{footer.legal}</p>
+          {(content.global.registration.cr || content.global.registration.vat) && (
+            <p>
+              {content.global.registration.cr && <>CR {content.global.registration.cr}</>}
+              {content.global.registration.cr && content.global.registration.vat && <span aria-hidden="true"> · </span>}
+              {content.global.registration.vat && <>VAT {content.global.registration.vat}</>}
+            </p>
+          )}
+        </div>
       </div>
     </footer>
   );
