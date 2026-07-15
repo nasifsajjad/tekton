@@ -140,23 +140,37 @@ export default function MotionBackground() {
       loop();
     }
 
-    const onResize = () => resize();
-    const onVisibility = () => {
+    // Only animate while the canvas is actually on screen; the hero sits below
+    // the pinned scroll sequence, so this avoids burning frames off-screen.
+    let onScreen = true;
+    const setRunning = (shouldRun: boolean) => {
       if (reduceMotion) return;
-      if (document.hidden) {
-        running = false;
-        cancelAnimationFrame(raf);
-      } else if (!running) {
+      if (shouldRun && !running) {
         running = true;
         loop();
+      } else if (!shouldRun && running) {
+        running = false;
+        cancelAnimationFrame(raf);
       }
     };
+
+    const onResize = () => resize();
+    const onVisibility = () => setRunning(!document.hidden && onScreen);
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        onScreen = entry.isIntersecting;
+        setRunning(!document.hidden && onScreen);
+      },
+      { rootMargin: "10% 0px" },
+    );
+    io.observe(canvas);
 
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       running = false;
       cancelAnimationFrame(raf);
+      io.disconnect();
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
     };

@@ -10,6 +10,10 @@ const FRAME_PATHS = Array.from(
   (_, index) => `/media/industrial-sequence/ezgif-frame-${String(index + 1).padStart(3, "0")}.jpg`,
 );
 
+// How many frame requests may be in flight at once. Keeps the network and the
+// server responsive instead of firing all 300 requests simultaneously.
+const MAX_CONCURRENT_LOADS = 6;
+
 const STAGES = [
   { at: 0, label: "Mechanical", detail: "Bearing online" },
   { at: 0.18, label: "Pneumatics", detail: "Motion engaged" },
@@ -18,6 +22,22 @@ const STAGES = [
   { at: 0.74, label: "Safety", detail: "Atmosphere monitored" },
   { at: 0.9, label: "Electrical", detail: "Systems live" },
 ];
+
+// Coarse-to-fine order: every 32nd frame first, then 8th, 2nd, then the rest.
+// Scrubbing looks correct almost immediately and refines as frames stream in.
+function buildLoadOrder(count: number): number[] {
+  const order: number[] = [];
+  const seen = new Set<number>();
+  for (const stride of [32, 8, 2, 1]) {
+    for (let i = 0; i < count; i += stride) {
+      if (!seen.has(i)) {
+        seen.add(i);
+        order.push(i);
+      }
+    }
+  }
+  return order;
+}
 
 function drawCover(
   context: CanvasRenderingContext2D,
@@ -36,7 +56,6 @@ export default function IndustrialSequence() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const activeStageRef = useRef(0);
-  const [loaded, setLoaded] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [activeStage, setActiveStage] = useState(0);
 
@@ -44,34 +63,58 @@ export default function IndustrialSequence() {
     const canvas = canvasRef.current;
     const section = sectionRef.current;
     if (!canvas || !section) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
 
     let cancelled = false;
     let animation: gsap.core.Tween | undefined;
     let resizeObserver: ResizeObserver | undefined;
-    const images: HTMLImageElement[] = [];
-    let lastFrame = -1;
+    let rafId = 0;
+    const images: (HTMLImageElement | undefined)[] = new Array(FRAME_COUNT);
+    let targetFrame = 0;
+    let drawnFrame = -1;
+    let viewWidth = 0;
+    let viewHeight = 0;
 
-    const render = (frameIndex: number) => {
-      const image = images[frameIndex];
-      const context = canvas.getContext("2d");
-      if (!image || !context) return;
-
+    // Measured once and on resize instead of per-drawn-frame; calling
+    // getBoundingClientRect inside the scroll handler forces layout every tick.
+    const measure = () => {
       const bounds = canvas.getBoundingClientRect();
       const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-      const width = Math.max(1, Math.round(bounds.width));
-      const height = Math.max(1, Math.round(bounds.height));
-      const requiredWidth = Math.round(width * pixelRatio);
-      const requiredHeight = Math.round(height * pixelRatio);
-
-      if (canvas.width !== requiredWidth || canvas.height !== requiredHeight) {
-        canvas.width = requiredWidth;
-        canvas.height = requiredHeight;
-      }
-
+      viewWidth = Math.max(1, Math.round(bounds.width));
+      viewHeight = Math.max(1, Math.round(bounds.height));
+      canvas.width = Math.round(viewWidth * pixelRatio);
+      canvas.height = Math.round(viewHeight * pixelRatio);
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = "high";
-      drawCover(context, image, width, height);
+    };
+
+    // Nearest loaded frame to the requested index, so scrubbing works while
+    // the full sequence is still streaming in.
+    const nearestLoaded = (index: number): number => {
+      if (images[index]) return index;
+      for (let offset = 1; offset < FRAME_COUNT; offset++) {
+        if (index - offset >= 0 && images[index - offset]) return index - offset;
+        if (index + offset < FRAME_COUNT && images[index + offset]) return index + offset;
+      }
+      return -1;
+    };
+
+    const draw = () => {
+      rafId = 0;
+      const frameIndex = nearestLoaded(targetFrame);
+      if (frameIndex < 0 || frameIndex === drawnFrame) return;
+      const image = images[frameIndex];
+      if (!image) return;
+      drawnFrame = frameIndex;
+      drawCover(context, image, viewWidth, viewHeight);
+    };
+
+    // Batch draws through requestAnimationFrame so rapid scrub updates paint
+    // at most once per display frame.
+    const requestDraw = () => {
+      if (!rafId) rafId = requestAnimationFrame(draw);
     };
 
     const updateStage = (frameIndex: number) => {
@@ -83,26 +126,48 @@ export default function IndustrialSequence() {
       }
     };
 
-    const preload = async () => {
-      await Promise.all(
-        FRAME_PATHS.map(
-          (source) =>
-            new Promise<void>((resolve) => {
-              const image = new Image();
-              image.decoding = "async";
-              image.onload = () => {
-                if (!cancelled) setLoaded((count) => count + 1);
-                resolve();
-              };
-              image.onerror = () => resolve();
-              images.push(image);
-              image.src = source;
-            }),
-        ),
-      );
+    const loadFrame = (index: number) =>
+      new Promise<void>((resolve) => {
+        const image = new Image();
+        image.decoding = "async";
+        // Keep frame streaming from competing with above-the-fold assets.
+        image.setAttribute("fetchpriority", "low");
+        image.onload = () => {
+          if (!cancelled) {
+            images[index] = image;
+            // Redraw if this frame improves what is currently on screen.
+            if (nearestLoaded(targetFrame) === index) {
+              drawnFrame = -1;
+              requestDraw();
+            }
+          }
+          resolve();
+        };
+        image.onerror = () => resolve();
+        image.src = FRAME_PATHS[index];
+      });
 
+    // Stream the remaining frames through a small worker pool instead of
+    // requesting all of them at once.
+    const streamFrames = (order: number[]) => {
+      let cursor = 0;
+      const next = (): Promise<void> => {
+        if (cancelled || cursor >= order.length) return Promise.resolve();
+        const index = order[cursor++];
+        const step = images[index] ? Promise.resolve() : loadFrame(index);
+        return step.then(next);
+      };
+      for (let i = 0; i < MAX_CONCURRENT_LOADS; i++) void next();
+    };
+
+    const start = async () => {
+      // Only the first frame gates interactivity; everything else streams in
+      // behind it.
+      await loadFrame(0);
       if (cancelled) return;
-      render(0);
+
+      measure();
+      requestDraw();
       setIsReady(true);
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -115,9 +180,9 @@ export default function IndustrialSequence() {
         snap: "value",
         onUpdate: () => {
           const frameIndex = Math.round(frame.value);
-          if (frameIndex === lastFrame) return;
-          lastFrame = frameIndex;
-          render(frameIndex);
+          if (frameIndex === targetFrame) return;
+          targetFrame = frameIndex;
+          requestDraw();
           updateStage(frameIndex);
         },
         scrollTrigger: {
@@ -131,15 +196,22 @@ export default function IndustrialSequence() {
         },
       });
 
-      resizeObserver = new ResizeObserver(() => render(lastFrame < 0 ? 0 : lastFrame));
+      resizeObserver = new ResizeObserver(() => {
+        measure();
+        drawnFrame = -1;
+        requestDraw();
+      });
       resizeObserver.observe(section);
       ScrollTrigger.refresh();
+
+      streamFrames(buildLoadOrder(FRAME_COUNT));
     };
 
-    void preload();
+    void start();
 
     return () => {
       cancelled = true;
+      if (rafId) cancelAnimationFrame(rafId);
       resizeObserver?.disconnect();
       animation?.scrollTrigger?.kill();
       animation?.kill();
@@ -178,7 +250,7 @@ export default function IndustrialSequence() {
 
       {!isReady && (
         <p className="industrial-sequence__loading" role="status">
-          Loading operational sequence {Math.round((loaded / FRAME_COUNT) * 100)}%
+          Loading operational sequence
         </p>
       )}
     </section>

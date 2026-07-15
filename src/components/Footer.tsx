@@ -17,7 +17,7 @@ export default function Footer({ content }: { content: SiteContent }) {
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <Link href="/" className="inline-flex rounded-sm bg-white p-2" aria-label={`${brand.name} — home`}>
-              <BrandLogo className="h-24 w-24 object-contain" />
+              <BrandLogo className="h-16 w-auto" />
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-footer-link">{footer.blurb}</p>
           </div>

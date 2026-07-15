@@ -16,7 +16,7 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
     <header className="nav-enter fixed inset-x-0 top-0 z-50 border-t-4 border-forge bg-white/95 text-ink shadow-[0_1px_0_rgba(15,57,92,.12)] backdrop-blur-xl">
       <div className="rail flex min-h-20 items-center justify-between gap-6">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${brandName} — home`}>
-          <BrandLogo className="h-16 w-16 object-contain sm:h-[4.5rem] sm:w-[4.5rem]" priority />
+          <BrandLogo className="h-11 w-auto sm:h-13" priority />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">

@@ -1,20 +1,20 @@
 export default function BrandLogo({
-  className = "h-14 w-auto",
+  className = "h-12 w-auto",
   priority = false,
 }: {
   className?: string;
   priority?: boolean;
 }) {
   return (
-    // The supplied SVG is the canonical brand artwork. A plain image keeps it
-    // cacheable and prevents the large embedded artwork from entering JS.
+    // Losslessly optimized brand artwork (WebP, 1440x480). A plain image keeps
+    // it cacheable and out of the JS bundle.
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/brand/tekton-header-footer.svg"
+      src="/brand/tekton-header-footer.webp"
       alt="Tekton Global Industrial Trading & Services"
       className={className}
-      width="1500"
-      height="1500"
+      width="1440"
+      height="480"
       loading={priority ? "eager" : "lazy"}
       decoding="async"
     />
