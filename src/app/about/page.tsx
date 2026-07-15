@@ -101,7 +101,7 @@ export default async function AboutPage() {
             <h2 className="display max-w-[20ch] text-header-sm">
               Put us on your next enquiry list.
             </h2>
-            <Link href="/contact" className="btn btn--black shrink-0">
+            <Link href="/contact" className="btn btn--black-outline shrink-0">
               Contact sales
             </Link>
           </div>

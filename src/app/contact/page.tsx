@@ -29,7 +29,7 @@ export default async function ContactPage() {
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
       <main id="main-content">
-        <section className="grain bg-navy-deep pt-44 pb-fluid-6">
+        <section className="grain bg-navy-deep pt-44 pb-fluid-5">
           <div className="rail">
             <div className="hero-rise">
               <h1 className="display max-w-[12ch] text-header-lg text-white">{c.contact.title}</h1>
@@ -37,17 +37,21 @@ export default async function ContactPage() {
                 {c.contact.intro}
               </p>
             </div>
+          </div>
+        </section>
 
-            <div className="mt-16 grid gap-12 lg:grid-cols-2">
+        <section className="bg-white py-fluid-6 text-ink">
+          <div className="rail">
+            <div className="grid gap-12 lg:grid-cols-2">
               {/* Contact details */}
               <Reveal>
                 <dl className="space-y-8">
-                  <div className="border-t border-neutral-200 pt-6">
-                    <dt className="eyebrow text-neutral-500">Phone</dt>
+                  <div className="border-t border-neutral-800 pt-6">
+                    <dt className="eyebrow text-gray-on-light">Phone</dt>
                     <dd className="mt-2">
                       <a
                         href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                        className="display text-header-sm text-white transition-colors hover:text-forge"
+                        className="display text-header-sm text-ink transition-colors hover:text-forge-dark"
                       >
                         {contact.phone}
                       </a>
@@ -62,25 +66,25 @@ export default async function ContactPage() {
                       </Suspense>
                     </dd>
                   </div>
-                  <div className="border-t border-neutral-200 pt-6">
-                    <dt className="eyebrow text-neutral-500">Email</dt>
+                  <div className="border-t border-neutral-800 pt-6">
+                    <dt className="eyebrow text-gray-on-light">Email</dt>
                     <dd className="mt-2">
                       <a
                         href={`mailto:${contact.email}`}
-                        className="display text-header-xs break-all text-white transition-colors hover:text-forge"
+                        className="display text-header-xs break-all text-ink transition-colors hover:text-forge-dark"
                       >
                         {contact.email}
                       </a>
                     </dd>
                   </div>
-                  <div className="border-t border-neutral-200 pt-6">
-                    <dt className="eyebrow text-neutral-500">Office</dt>
-                    <dd className="mt-2 text-lg text-white">{contact.address}</dd>
+                  <div className="border-t border-neutral-800 pt-6">
+                    <dt className="eyebrow text-gray-on-light">Office</dt>
+                    <dd className="mt-2 text-lg text-ink">{contact.address}</dd>
                   </div>
-                  <div className="border-t border-neutral-200 pt-6">
-                    <dt className="eyebrow text-neutral-500">Working hours</dt>
-                    <dd className="mt-2 text-lg text-white">{contact.hours}</dd>
-                    <dd className="mt-2 text-sm text-gray-on-dark-2">{c.contact.responseNote}</dd>
+                  <div className="border-t border-neutral-800 pt-6">
+                    <dt className="eyebrow text-gray-on-light">Working hours</dt>
+                    <dd className="mt-2 text-lg text-ink">{contact.hours}</dd>
+                    <dd className="mt-2 text-sm text-gray-on-light">{c.contact.responseNote}</dd>
                   </div>
                 </dl>
               </Reveal>

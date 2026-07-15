@@ -77,15 +77,15 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* ============ 3. TRUST — two-column, dark ============ */}
-        <section className="grain bg-navy-deep py-fluid-6">
+        {/* ============ 3. TRUST — two-column, light ============ */}
+        <section className="bg-white py-fluid-6 text-ink">
           <div className="rail grid items-center gap-12 lg:grid-cols-2">
             <Reveal className="lg:order-2">
-              <h2 className="display max-w-[16ch] text-header text-white">{c.home.trust.title}</h2>
-              <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-gray-on-dark-2">
+              <h2 className="display max-w-[16ch] text-header">{c.home.trust.title}</h2>
+              <p className="mt-6 max-w-[56ch] text-lg leading-relaxed" style={{ color: "hsl(0 0% 30%)" }}>
                 {c.home.trust.body}
               </p>
-              <Link href={c.home.trust.ctaLink} className="btn btn--white-outline mt-8">
+              <Link href={c.home.trust.ctaLink} className="btn btn--black-outline mt-8">
                 {c.home.trust.cta}
               </Link>
             </Reveal>
@@ -100,14 +100,14 @@ export default async function Home() {
         </section>
 
         {/* ============ 4. STATEMENT — one-column, light ============ */}
-        <section className="bg-white py-fluid-6 text-ink">
-          <div className="rail max-w-4xl text-center" style={{ marginInline: "auto" }}>
+        <section className="bg-surface py-fluid-6 text-ink">
+          <div className="rail">
             <Reveal>
-              <h2 className="display mx-auto max-w-[20ch] text-header">{c.home.statement.title}</h2>
-              <p className="mx-auto mt-6 max-w-[52ch] text-lg leading-relaxed" style={{ color: "hsl(0 0% 30%)" }}>
+              <h2 className="display max-w-[20ch] text-header">{c.home.statement.title}</h2>
+              <p className="mt-6 max-w-[52ch] text-lg leading-relaxed" style={{ color: "hsl(0 0% 30%)" }}>
                 {c.home.statement.body}
               </p>
-              <Link href={c.home.statement.ctaLink} className="btn btn--black mt-8">
+              <Link href={c.home.statement.ctaLink} className="btn btn--black-outline mt-8">
                 {c.home.statement.cta}
               </Link>
             </Reveal>
@@ -210,10 +210,10 @@ export default async function Home() {
 
         {/* ============ 7. WHY — one-column statement, light ============ */}
         <section className="bg-white py-fluid-6 text-ink">
-          <div className="rail max-w-4xl text-center" style={{ marginInline: "auto" }}>
+          <div className="rail">
             <Reveal>
-              <h2 className="display mx-auto max-w-[16ch] text-header">{c.home.why.title}</h2>
-              <p className="mx-auto mt-6 max-w-[54ch] text-lg leading-relaxed" style={{ color: "hsl(0 0% 30%)" }}>
+              <h2 className="display max-w-[16ch] text-header">{c.home.why.title}</h2>
+              <p className="mt-6 max-w-[54ch] text-lg leading-relaxed" style={{ color: "hsl(0 0% 30%)" }}>
                 {c.home.why.body}
               </p>
               <Link href={c.home.why.ctaLink} className="btn btn--black-outline mt-8">
@@ -233,11 +233,11 @@ export default async function Home() {
                   <p className="mt-3 flex-1 text-base leading-relaxed text-navy-deep/80">{call.body}</p>
                   <div className="mt-6">
                     {call.ctaLink.startsWith("tel:") ? (
-                      <a href={call.ctaLink} className="btn btn--black !min-w-0">
+                      <a href={call.ctaLink} className="btn btn--black-outline !min-w-0">
                         {call.cta}
                       </a>
                     ) : (
-                      <Link href={call.ctaLink} className="btn btn--black !min-w-0">
+                      <Link href={call.ctaLink} className="btn btn--black-outline !min-w-0">
                         {call.cta}
                       </Link>
                     )}

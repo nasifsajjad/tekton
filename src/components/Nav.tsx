@@ -33,7 +33,7 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
               </Link>
             );
           })}
-          <Link href="/contact" className="btn btn--black ml-4 !min-w-0 !px-6 !py-2.5 text-sm">{cta}</Link>
+          <Link href="/contact" className="btn btn--black-outline ml-4 !min-w-0 !px-6 !py-2.5 text-sm">{cta}</Link>
         </nav>
 
         <details className="group relative md:hidden">
@@ -44,11 +44,11 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
               <span />
             </span>
           </summary>
-          <nav className="fixed inset-x-0 top-20 flex flex-col border-t border-navy/10 bg-white px-4 pt-3 pb-6 shadow-xl" aria-label="Mobile navigation">
+          <nav className="fixed inset-x-0 top-20 flex flex-col border-t border-navy-deep/20 bg-forge px-4 pt-3 pb-6 shadow-xl" aria-label="Mobile navigation">
             {LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="border-b border-navy/10 py-3 text-lg font-semibold">{link.label}</Link>
+              <Link key={link.href} href={link.href} className="border-b border-navy-deep/20 py-3 text-lg font-semibold">{link.label}</Link>
             ))}
-            <Link href="/contact" className="btn btn--primary mt-3 !min-w-0 self-start !px-6 !py-2.5 text-sm">{cta}</Link>
+            <Link href="/contact" className="btn btn--black-outline mt-3 !min-w-0 self-start !px-6 !py-2.5 text-sm">{cta}</Link>
           </nav>
         </details>
       </div>
