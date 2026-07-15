@@ -26,7 +26,7 @@ export default async function Home() {
             className="absolute inset-0 opacity-80"
             style={{
               backgroundImage:
-                "linear-gradient(120deg, rgba(251,118,16,.16), transparent 38%), repeating-linear-gradient(90deg, transparent 0 11.8%, rgba(255,255,255,.045) 11.8% 12%)",
+                "linear-gradient(120deg, rgba(249,160,60,.16), transparent 38%), repeating-linear-gradient(90deg, transparent 0 11.8%, rgba(255,255,255,.045) 11.8% 12%)",
             }}
           />
           <div

@@ -5,13 +5,13 @@
   --color-navy-deep: #071f33;
   --color-navy: #0f395c;
   --color-navy-soft: #1d557d;
-  --color-orange: #fb7610;
-  --color-orange-dark: #c94b00;
-  --color-orange-soft: #fff0e4;
+  --color-orange: #f9a03c;
+  --color-orange-dark: #b96e0c;
+  --color-orange-soft: #fdf1e0;
   --color-surface: #f4f7f8;
-  --color-forge: #fb7610;
-  --color-forge-dim: #e96108;
-  --color-forge-dark: #c94b00;
+  --color-forge: #f9a03c;
+  --color-forge-dim: #e88a1b;
+  --color-forge-dark: #b96e0c;
   --color-ink: #0b2f4a;
 
   /* Colors — Neutral ramp (pure gray, 10% steps) */

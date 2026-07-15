@@ -91,7 +91,7 @@ export default function MotionBackground() {
             const alpha = (1 - d / LINK_DIST) * 0.16;
             ctx!.strokeStyle =
               a.glint > 0.5 || b.glint > 0.5
-                ? `rgba(251, 118, 16, ${alpha * 0.9})`
+                ? `rgba(249, 160, 60, ${alpha * 0.9})`
                 : `rgba(255, 255, 255, ${alpha})`;
             ctx!.lineWidth = 1;
             ctx!.beginPath();
@@ -108,7 +108,7 @@ export default function MotionBackground() {
         ctx!.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx!.fillStyle =
           n.glint > 0.5
-            ? `rgba(251, 118, 16, ${0.5 + n.glint * 0.5})`
+            ? `rgba(249, 160, 60, ${0.5 + n.glint * 0.5})`
             : "rgba(255, 255, 255, 0.35)";
         ctx!.fill();
 

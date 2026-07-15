@@ -13,7 +13,7 @@ const LINKS = [
 export default function Nav({ brandName, cta }: { brandName: string; cta: string }) {
   const pathname = usePathname();
   return (
-    <header className="nav-enter fixed inset-x-0 top-0 z-50 border-t-4 border-forge bg-white/95 text-ink shadow-[0_1px_0_rgba(15,57,92,.12)] backdrop-blur-xl">
+    <header className="nav-enter fixed inset-x-0 top-0 z-50 border-t-4 border-navy-deep bg-forge/95 text-navy-deep shadow-[0_1px_0_rgba(7,31,51,.18)] backdrop-blur-xl">
       <div className="rail flex min-h-20 items-center justify-between gap-6">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${brandName} — home`}>
           <BrandLogo className="h-11 w-auto sm:h-13" priority />
@@ -27,19 +27,17 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
                 key={link.href}
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`mx-3 px-0 py-7 text-sm font-semibold tracking-wide transition-colors hover:text-forge-dark ${
-                  isActive ? "text-forge-dark" : "text-ink"
-                }`}
+                className="mx-3 px-0 py-7 text-sm font-semibold tracking-wide text-navy-deep transition-colors hover:text-navy"
               >
                 <span className={`link-underline ${isActive ? "is-active" : ""}`}>{link.label}</span>
               </Link>
             );
           })}
-          <Link href="/contact" className="btn btn--primary ml-4 !min-w-0 !px-6 !py-2.5 text-sm">{cta}</Link>
+          <Link href="/contact" className="btn btn--black ml-4 !min-w-0 !px-6 !py-2.5 text-sm">{cta}</Link>
         </nav>
 
         <details className="group relative md:hidden">
-          <summary className="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-full border border-navy/15 [&::-webkit-details-marker]:hidden">
+          <summary className="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-full border border-navy-deep/25 [&::-webkit-details-marker]:hidden">
             <span className="sr-only">Toggle navigation</span>
             <span aria-hidden="true" className="burger">
               <span />
