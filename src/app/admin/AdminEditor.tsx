@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import type { SiteContent } from "@/lib/content";
+import { useEffect, useRef, useState, useTransition } from "react";
+import type { BackupInfo, SiteContent } from "@/lib/content";
+import { MEDIA_SLOTS, mediaSlotUrl } from "@/lib/mediaSlots";
 import LogoMark from "@/components/LogoMark";
 import CategoryIcon, { CATEGORY_ICON_KEYS } from "@/components/CategoryIcon";
-import { logout, saveContent } from "./actions";
+import { listBackups, logout, restoreBackup, saveContent, uploadMedia } from "./actions";
 
 /* ---------- form primitives ---------- */
 
@@ -150,13 +151,73 @@ function PageHeading({ title }: { title: string }) {
   );
 }
 
+/* ---------- media manager ---------- */
+
+function MediaSlotRow({ slot, label, hint }: { slot: string; label: string; hint: string }) {
+  const [state, setState] = useState<"idle" | "uploading" | "done" | "error">("idle");
+  const [error, setError] = useState("");
+  const [version, setVersion] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFile(file: File | undefined) {
+    if (!file) return;
+    setState("uploading");
+    const data = new FormData();
+    data.set("slot", slot);
+    data.set("file", file);
+    const result = await uploadMedia(data);
+    if (result.ok) {
+      setState("done");
+      setVersion((v) => v + 1);
+    } else {
+      setState("error");
+      setError(result.error ?? "Upload failed");
+    }
+    if (inputRef.current) inputRef.current.value = "";
+  }
+
+  return (
+    <div className="flex items-center gap-4 border-2 border-neutral-900 p-3">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`${mediaSlotUrl(slot)}?v=${version}`}
+        alt=""
+        className="h-16 w-24 shrink-0 border border-neutral-800 bg-neutral-950 object-contain"
+        loading="lazy"
+      />
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold">{label}</p>
+        <p className="text-xs text-neutral-400">{hint}</p>
+        {state === "done" && <p className="text-xs font-semibold text-green-700">✓ Replaced &amp; live</p>}
+        {state === "error" && <p className="text-xs font-semibold text-red-700">{error}</p>}
+      </div>
+      <label className={`btn btn--black-outline !min-w-0 shrink-0 cursor-pointer !px-4 !py-2 text-xs ${state === "uploading" ? "pointer-events-none opacity-50" : ""}`}>
+        {state === "uploading" ? "Uploading…" : "Replace"}
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          className="sr-only"
+          onChange={(e) => void handleFile(e.target.files?.[0])}
+        />
+      </label>
+    </div>
+  );
+}
+
 /* ---------- editor ---------- */
 
 export default function AdminEditor({ initialContent }: { initialContent: SiteContent }) {
   const [content, setContent] = useState<SiteContent>(initialContent);
-  const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "dirty" | "saved" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [pending, startTransition] = useTransition();
+  const [backups, setBackups] = useState<BackupInfo[] | null>(null);
+  const contentRef = useRef(content);
+  contentRef.current = content;
+  const statusRef = useRef(status);
+  statusRef.current = status;
+  const importRef = useRef<HTMLInputElement>(null);
 
   function patch(fn: (draft: SiteContent) => void) {
     setContent((prev) => {
@@ -164,18 +225,89 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
       fn(draft);
       return draft;
     });
-    setStatus("idle");
+    setStatus("dirty");
   }
 
   function handleSave() {
     startTransition(async () => {
-      const result = await saveContent(content);
+      const result = await saveContent(contentRef.current);
       if (result.ok) {
         setStatus("saved");
       } else {
         setStatus("error");
         setErrorMsg(result.error ?? "Unknown error");
       }
+    });
+  }
+
+  // Guard against losing unsaved edits, and save with Ctrl/Cmd+S.
+  useEffect(() => {
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (statusRef.current === "dirty") e.preventDefault();
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        handleSave();
+      }
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("beforeunload", onBeforeUnload);
+      window.removeEventListener("keydown", onKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function refreshBackups() {
+    startTransition(async () => {
+      const result = await listBackups();
+      if (result.ok) setBackups(result.backups);
+    });
+  }
+
+  function handleRestore(file: string, savedAt: string) {
+    if (!window.confirm(`Restore the version from ${new Date(savedAt).toLocaleString()}? The current version is snapshotted first, so this can be undone.`)) return;
+    startTransition(async () => {
+      const result = await restoreBackup(file);
+      if (result.ok && result.content) {
+        setContent(result.content);
+        setStatus("saved");
+        const refreshed = await listBackups();
+        if (refreshed.ok) setBackups(refreshed.backups);
+      } else {
+        setStatus("error");
+        setErrorMsg(result.error ?? "Unknown error");
+      }
+    });
+  }
+
+  function handleExport() {
+    const blob = new Blob([JSON.stringify(content, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tekton-content-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function handleImport(file: File | undefined) {
+    if (!file) return;
+    void file.text().then((text) => {
+      try {
+        const parsed = JSON.parse(text) as SiteContent;
+        for (const key of ["global", "home", "products", "contact", "about"] as const) {
+          if (!parsed[key] || typeof parsed[key] !== "object") throw new Error(`missing "${key}"`);
+        }
+        setContent(parsed);
+        setStatus("dirty");
+      } catch (err) {
+        setStatus("error");
+        setErrorMsg(`Not a valid content file: ${err instanceof Error ? err.message : "unknown error"}`);
+      }
+      if (importRef.current) importRef.current.value = "";
     });
   }
 
@@ -194,6 +326,7 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
             <span className="display text-lg font-semibold uppercase">Tekton — Site Editor</span>
           </div>
           <div className="flex items-center gap-3">
+            {status === "dirty" && <span className="text-sm font-semibold">● Unsaved changes</span>}
             {status === "saved" && <span className="text-sm font-semibold">✓ Saved &amp; published</span>}
             {status === "error" && <span className="text-sm font-semibold text-red-700">{errorMsg}</span>}
             <a href="/" target="_blank" className="text-sm font-medium underline underline-offset-4">
@@ -220,9 +353,24 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
 
       <main className="rail max-w-3xl space-y-6 py-10">
         <p className="text-sm text-neutral-400">
-          Edit any text below, then press <strong>Save &amp; Publish</strong>. Changes go live on
-          every page at once.
+          Edit any text below, then press <strong>Save &amp; Publish</strong> (or Ctrl+S). Changes
+          go live on every page at once.
         </p>
+
+        {/* ============ IMAGES ============ */}
+        <PageHeading title="Images & media" />
+
+        <Section title="Site images (upload replaces instantly)">
+          <p className="text-xs leading-relaxed text-neutral-400">
+            Photos are automatically rotated, resized and compressed on upload — files straight
+            from a phone or camera are fine. The image keeps its place on the site.
+          </p>
+          <div className="space-y-3">
+            {MEDIA_SLOTS.map((slot) => (
+              <MediaSlotRow key={slot.file} slot={slot.file} label={slot.label} hint={slot.hint} />
+            ))}
+          </div>
+        </Section>
 
         {/* ============ GLOBAL ============ */}
         <PageHeading title="Global — brand, contact, footer" />
@@ -452,10 +600,60 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           <Area label="Future note (small text at the bottom)" value={ab.note} onChange={(v) => patch((d) => (d.about.note = v))} rows={2} />
         </Section>
 
+        {/* ============ VERSIONS & BACKUP ============ */}
+        <PageHeading title="Versions & backup" />
+
+        <Section title="Version history (last 20 published versions)">
+          <p className="text-xs leading-relaxed text-neutral-400">
+            Every publish keeps a snapshot of the version it replaced. Restoring publishes that
+            older version immediately — and snapshots the current one first, so nothing is lost.
+          </p>
+          <AddButton label={backups === null ? "Load history" : "Refresh history"} onClick={refreshBackups} />
+          {backups !== null && backups.length === 0 && (
+            <p className="text-sm text-neutral-400">No snapshots yet — they appear after your next publish.</p>
+          )}
+          {backups?.map((b) => (
+            <div key={b.file} className="flex items-center justify-between gap-4 border-2 border-neutral-900 px-4 py-3">
+              <span className="text-sm">{new Date(b.savedAt).toLocaleString()}</span>
+              <button
+                type="button"
+                onClick={() => handleRestore(b.file, b.savedAt)}
+                disabled={pending}
+                className="btn btn--black-outline !min-w-0 !px-4 !py-2 text-xs disabled:opacity-50"
+              >
+                Restore
+              </button>
+            </div>
+          ))}
+        </Section>
+
+        <Section title="Export / import content">
+          <p className="text-xs leading-relaxed text-neutral-400">
+            Download all site text as a file for safekeeping, or load a previously exported file
+            into the editor (review it, then Save &amp; Publish).
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <button type="button" onClick={handleExport} className="btn btn--black-outline !min-w-0 !px-5 !py-2 text-xs">
+              ↓ Export content file
+            </button>
+            <label className="btn btn--black-outline !min-w-0 cursor-pointer !px-5 !py-2 text-xs">
+              ↑ Import content file
+              <input
+                ref={importRef}
+                type="file"
+                accept="application/json,.json"
+                className="sr-only"
+                onChange={(e) => handleImport(e.target.files?.[0])}
+              />
+            </label>
+          </div>
+        </Section>
+
         <div className="flex items-center gap-4 pt-4 pb-16">
           <button type="button" onClick={handleSave} disabled={pending} className="btn btn--black disabled:opacity-50">
             {pending ? "Saving…" : "Save & Publish"}
           </button>
+          {status === "dirty" && <span className="text-sm font-semibold text-neutral-400">● Unsaved changes</span>}
           {status === "saved" && <span className="text-sm font-semibold text-green-700">✓ Saved &amp; published</span>}
           {status === "error" && <span className="text-sm font-semibold text-red-700">{errorMsg}</span>}
         </div>

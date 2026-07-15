@@ -94,12 +94,78 @@ export interface SiteContent {
 }
 
 const CONTENT_PATH = path.join(process.cwd(), "data", "content.json");
+const BACKUP_DIR = path.join(process.cwd(), "data", "backups");
+const MAX_BACKUPS = 20;
+const BACKUP_NAME = /^content-[\dTZ-]+\.json$/;
 
 export async function getContent(): Promise<SiteContent> {
   const raw = await fs.readFile(CONTENT_PATH, "utf-8");
   return JSON.parse(raw) as SiteContent;
 }
 
+/** Trim strings and drop empty list entries the editor can produce. */
+function sanitize(content: SiteContent): SiteContent {
+  const walk = (value: unknown): unknown => {
+    if (typeof value === "string") return value.trim();
+    if (Array.isArray(value)) return value.map(walk);
+    if (value && typeof value === "object") {
+      return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, walk(v)]));
+    }
+    return value;
+  };
+  const clean = walk(content) as SiteContent;
+  for (const tab of clean.products.tabs) {
+    for (const cat of tab.categories) {
+      cat.products = cat.products.filter((p) => p.length > 0);
+    }
+  }
+  clean.about.paragraphs = clean.about.paragraphs.filter((p) => p.length > 0);
+  return clean;
+}
+
+/** Snapshot the current content file into data/backups, keeping the last 20. */
+async function backupCurrent(): Promise<void> {
+  try {
+    const current = await fs.readFile(CONTENT_PATH, "utf-8");
+    await fs.mkdir(BACKUP_DIR, { recursive: true });
+    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+    await fs.writeFile(path.join(BACKUP_DIR, `content-${stamp}.json`), current, "utf-8");
+    const files = (await fs.readdir(BACKUP_DIR)).filter((f) => BACKUP_NAME.test(f)).sort();
+    for (const f of files.slice(0, Math.max(0, files.length - MAX_BACKUPS))) {
+      await fs.unlink(path.join(BACKUP_DIR, f));
+    }
+  } catch {
+    // A failed snapshot must never block publishing.
+  }
+}
+
 export async function saveContentToDisk(content: SiteContent): Promise<void> {
-  await fs.writeFile(CONTENT_PATH, JSON.stringify(content, null, 2) + "\n", "utf-8");
+  await backupCurrent();
+  await fs.writeFile(CONTENT_PATH, JSON.stringify(sanitize(content), null, 2) + "\n", "utf-8");
+}
+
+export interface BackupInfo {
+  file: string;
+  /** ISO timestamp recovered from the filename. */
+  savedAt: string;
+}
+
+export async function listBackupsFromDisk(): Promise<BackupInfo[]> {
+  try {
+    const files = (await fs.readdir(BACKUP_DIR)).filter((f) => BACKUP_NAME.test(f)).sort().reverse();
+    return files.map((file) => {
+      const raw = file.slice("content-".length, -".json".length);
+      // 2026-07-16T10-30-00-000Z -> 2026-07-16T10:30:00.000Z
+      const savedAt = raw.replace(/T(\d{2})-(\d{2})-(\d{2})-(\d{3})Z/, "T$1:$2:$3.$4Z");
+      return { file, savedAt };
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function readBackupFromDisk(file: string): Promise<SiteContent> {
+  if (!BACKUP_NAME.test(file)) throw new Error("Invalid backup name.");
+  const raw = await fs.readFile(path.join(BACKUP_DIR, file), "utf-8");
+  return JSON.parse(raw) as SiteContent;
 }

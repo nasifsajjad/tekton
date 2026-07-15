@@ -323,6 +323,17 @@ details[open] .burger span:last-child {
   animation: nav-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Scroll-aware header: slides out of the way while scrolling down, returns
+   on scroll up. The entrance animation is dropped once hiding kicks in so
+   its fill-mode transform cannot fight the hidden state. */
+.nav-autohide {
+  transition: transform 0.35s var(--ease-quint);
+}
+.nav-autohide.nav-hidden {
+  transform: translateY(-100%);
+  animation: none;
+}
+
 /* Film grain for dark surfaces — one faint layer of texture, no gradients */
 .grain {
   position: relative;
@@ -352,6 +363,9 @@ details[open] .burger span:last-child {
     transition: none !important;
   }
   .link-underline {
+    transition: none;
+  }
+  .nav-autohide {
     transition: none;
   }
   dialog[open] {
