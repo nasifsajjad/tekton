@@ -12,7 +12,7 @@ import {
   type BackupInfo,
   type SiteContent,
 } from "@/lib/content";
-import { MEDIA_SLOTS } from "@/lib/mediaSlots";
+import { LOSSLESS_SLOTS, MEDIA_SLOTS } from "@/lib/mediaSlots";
 import {
   createSession,
   destroySession,
@@ -97,10 +97,13 @@ export async function uploadMedia(formData: FormData): Promise<{ ok: boolean; er
 
   try {
     const input = Buffer.from(await file.arrayBuffer());
-    if (slot === "brand-logo") {
-      // Logo keeps transparency and full quality; sized for header/footer use.
-      const out = await sharp(input).rotate().resize({ width: 1440, withoutEnlargement: true }).webp({ lossless: true, effort: 6 }).toBuffer();
-      await fs.writeFile(path.join(process.cwd(), "public", "brand", "tekton-header-footer.webp"), out);
+    const lossless = LOSSLESS_SLOTS[slot];
+    if (lossless) {
+      // Logos keep transparency and full quality.
+      const out = await sharp(input).rotate().resize({ width: lossless.width, withoutEnlargement: true }).webp({ lossless: true, effort: 6 }).toBuffer();
+      const target = path.join(process.cwd(), "public", ...lossless.path.split("/"));
+      await fs.mkdir(path.dirname(target), { recursive: true });
+      await fs.writeFile(target, out);
     } else if (slot === "og-image.jpg") {
       // Social preview has a fixed spec.
       const out = await sharp(input).rotate().resize({ width: 1200, height: 630, fit: "cover" }).jpeg({ quality: 85 }).toBuffer();

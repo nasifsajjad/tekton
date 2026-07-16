@@ -139,6 +139,16 @@ export default function FeaturedCarousel({
                 </span>
                 <p className="eyebrow text-gray-on-light">Featured solution</p>
               </div>
+              {slide.logo && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={slide.logo}
+                  alt={slide.logoAlt || ""}
+                  className="mt-4 h-7 w-auto max-w-[11rem] self-start object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
               <h3 className="display featured-card-title mt-3 max-w-[17ch] text-ink">{slide.title}</h3>
               <p className="featured-card-tagline mt-3 max-w-[36ch] leading-relaxed" style={{ color: "hsl(0 0% 34%)" }}>
                 {slide.tagline}

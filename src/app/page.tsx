@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getContent } from "@/lib/content";
-import { MediaImage, hasMedia } from "@/components/Media";
+import { MediaImage, hasMedia, publicFileExists } from "@/components/Media";
 import MotionBackground from "@/components/MotionBackground";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -61,7 +61,11 @@ export default async function Home() {
           <FeaturedCarousel
             title={c.home.featured.title}
             subtitle={c.home.featured.subtitle}
-            slides={c.home.featured.slides}
+            slides={c.home.featured.slides.map((slide) => ({
+              ...slide,
+              // Only show partner logos whose file has actually been uploaded.
+              logo: slide.logo && publicFileExists(slide.logo) ? slide.logo : undefined,
+            }))}
           />
         )}
 

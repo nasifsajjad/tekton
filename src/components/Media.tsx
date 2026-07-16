@@ -79,3 +79,10 @@ export function MediaImage({
 export function hasMedia(file: string): boolean {
   return mediaExists(file);
 }
+
+/** True if a site-absolute public path (e.g. /brand/partners/senko.webp)
+ *  exists on disk. Server-side only. */
+export function publicFileExists(sitePath: string): boolean {
+  if (!sitePath.startsWith("/") || sitePath.includes("..")) return false;
+  return existsSync(path.join(process.cwd(), "public", ...sitePath.slice(1).split("/")));
+}

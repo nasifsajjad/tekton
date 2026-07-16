@@ -463,6 +463,10 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
                 <Field label="Button text" value={slide.cta} onChange={(v) => patch((d) => (d.home.featured!.slides[si].cta = v))} />
                 <Field label="Button link" value={slide.ctaLink} onChange={(v) => patch((d) => (d.home.featured!.slides[si].ctaLink = v))} />
               </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Partner logo path (upload the file under Images first)" value={slide.logo ?? ""} onChange={(v) => patch((d) => (d.home.featured!.slides[si].logo = v))} />
+                <Field label="Partner logo alt text" value={slide.logoAlt ?? ""} onChange={(v) => patch((d) => (d.home.featured!.slides[si].logoAlt = v))} />
+              </div>
               {slide.items.map((item, ii) => (
                 <ItemBox key={ii} label={`Item ${ii + 1}`} onRemove={() => patch((d) => d.home.featured!.slides[si].items.splice(ii, 1))}>
                   <Field label="Title" value={item.title} onChange={(v) => patch((d) => (d.home.featured!.slides[si].items[ii].title = v))} />

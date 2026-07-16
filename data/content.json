@@ -224,7 +224,9 @@
               "title": "Gas detector calibration, repair and maintenance services",
               "body": ""
             }
-          ]
+          ],
+          "logo": "/brand/partners/senko.webp",
+          "logoAlt": "SENKO"
         },
         {
           "title": "Generator Supply, Installation & Commissioning",
@@ -280,7 +282,9 @@
               "title": "Controls, Spares & Lifecycle Support",
               "body": "Controllers, monitoring systems, replacement media, water-distribution components, inspections and maintenance support."
             }
-          ]
+          ],
+          "logo": "/brand/partners/munters.webp",
+          "logoAlt": "Munters"
         }
       ]
     }

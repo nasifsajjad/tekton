@@ -137,6 +137,10 @@ export interface FeaturedSlide {
   tagline: string;
   cta: string;
   ctaLink: string;
+  /** Optional partner logo shown on the intro card. Site path (e.g.
+   *  /brand/partners/senko.webp); rendered only when the file exists. */
+  logo?: string;
+  logoAlt?: string;
   /** body is optional detail text; empty string renders a plain bullet. */
   items: { title: string; body: string }[];
 }

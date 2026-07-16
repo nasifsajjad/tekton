@@ -14,6 +14,8 @@ export interface MediaSlot {
 
 export const MEDIA_SLOTS: MediaSlot[] = [
   { file: "brand-logo", label: "Brand logo (header & footer)", hint: "Wide logo on transparent background — stored losslessly" },
+  { file: "partner-senko", label: "Partner logo — SENKO (featured carousel)", hint: "Transparent logo — stored losslessly; appears on the slide once uploaded" },
+  { file: "partner-munters", label: "Partner logo — Munters (featured carousel)", hint: "Transparent logo — stored losslessly; appears on the slide once uploaded" },
   { file: "home-platform.jpg", label: "Homepage — One Supplier", hint: "Displayed 4:3" },
   { file: "home-oem.jpg", label: "Homepage — Genuine Parts", hint: "Displayed 4:3" },
   { file: "insight-1.jpg", label: "Homepage — Insight card 1", hint: "Displayed 3:2" },
@@ -30,7 +32,15 @@ export const MEDIA_SLOTS: MediaSlot[] = [
   { file: "og-image.jpg", label: "Social share preview (WhatsApp, LinkedIn…)", hint: "Cropped to 1200×630" },
 ];
 
+/** Slots stored as lossless transparent WebP under /brand instead of /media. */
+export const LOSSLESS_SLOTS: Record<string, { path: string; width: number }> = {
+  "brand-logo": { path: "brand/tekton-header-footer.webp", width: 1440 },
+  "partner-senko": { path: "brand/partners/senko.webp", width: 800 },
+  "partner-munters": { path: "brand/partners/munters.webp", width: 800 },
+};
+
 /** Public URL the slot is served from (for previews). */
 export function mediaSlotUrl(file: string): string {
-  return file === "brand-logo" ? "/brand/tekton-header-footer.webp" : `/media/${file}`;
+  const lossless = LOSSLESS_SLOTS[file];
+  return lossless ? `/${lossless.path}` : `/media/${file}`;
 }
