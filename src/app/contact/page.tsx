@@ -9,13 +9,15 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContent();
+  const title = c.seo?.contact?.title || "Contact Us";
+  const description = c.seo?.contact?.description || c.contact.intro;
   return {
-    title: "Contact Us",
-    description: c.contact.intro,
+    title,
+    description,
     alternates: { canonical: "/contact" },
     openGraph: {
-      title: `Contact Us — ${c.global.brand.fullName}`,
-      description: c.contact.intro,
+      title: `${title} — ${c.global.brand.fullName}`,
+      description,
       url: "/contact",
     },
   };

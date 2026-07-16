@@ -1,9 +1,22 @@
-import { existsSync } from "fs";
+import { existsSync, statSync } from "fs";
 import path from "path";
 import Image from "next/image";
 
 function mediaExists(file: string): boolean {
   return existsSync(path.join(process.cwd(), "public", "media", file));
+}
+
+/**
+ * Cache-busting version derived from the file's mtime. When the CMS replaces
+ * an image (same filename), the URL changes and visitors get the new file
+ * immediately instead of waiting out the CDN/browser cache.
+ */
+export function mediaVersion(file: string): string {
+  try {
+    return Math.round(statSync(path.join(process.cwd(), "public", "media", file)).mtimeMs).toString(36);
+  } catch {
+    return "0";
+  }
 }
 
 /**
@@ -28,7 +41,7 @@ export function MediaImage({
   if (mediaExists(file)) {
     return (
       <Image
-        src={`/media/${file}`}
+        src={`/media/${file}?v=${mediaVersion(file)}`}
         alt={alt}
         width={1600}
         height={1000}

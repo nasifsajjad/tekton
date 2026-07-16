@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Inter } from "next/font/google";
 import { getContent } from "@/lib/content";
+import { mediaVersion } from "@/components/Media";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -23,8 +25,8 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContent();
-  const title = `${c.global.brand.fullName} — ${c.global.brand.tagline}`;
-  const description = c.home.hero.subtitle;
+  const title = c.seo?.home?.title || `${c.global.brand.fullName} — ${c.global.brand.tagline}`;
+  const description = c.seo?.home?.description || c.home.hero.subtitle;
   return {
     metadataBase: new URL(SITE_URL),
     title: {
@@ -39,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url: "/",
-      images: [{ url: "/media/og-image.jpg", width: 1200, height: 630 }],
+      images: [{ url: `/media/og-image.jpg?v=${mediaVersion("og-image.jpg")}`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
@@ -51,9 +53,9 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: true,
     },
     icons: {
-      icon: "/brand/tekton-logo.svg",
-      shortcut: "/brand/tekton-logo.svg",
-      apple: "/brand/tekton-logo.svg",
+      icon: "/brand/tekton-mark.png",
+      shortcut: "/brand/tekton-mark.png",
+      apple: "/brand/tekton-mark.png",
     },
   };
 }
@@ -93,6 +95,11 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }}
         />
         {children}
+        <FloatingWhatsApp
+          number={c.global.contact.whatsapp}
+          greeting={c.contact.whatsappGreeting}
+          label={c.contact.whatsappLabel}
+        />
         {analytics?.scriptSrc && (
           <script
             defer

@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   compress: true,
+  images: {
+    // Allow the CMS cache-busting query (?v=<mtime>) on local images.
+    localPatterns: [{ pathname: "/media/**" }],
+  },
   async headers() {
     return [
       {
@@ -33,9 +37,11 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Brand assets are CMS-replaceable in place, so keep the cache short
+        // enough that a new logo shows up within the hour.
         source: "/brand/:path*",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=2592000" },
+          { key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" },
         ],
       },
     ];

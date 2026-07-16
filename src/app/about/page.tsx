@@ -9,13 +9,15 @@ import StatCounter from "@/components/StatCounter";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContent();
+  const title = c.seo?.about?.title || "About";
+  const description = c.seo?.about?.description || c.about.intro;
   return {
-    title: "About",
-    description: c.about.intro,
+    title,
+    description,
     alternates: { canonical: "/about" },
     openGraph: {
-      title: `About — ${c.global.brand.fullName}`,
-      description: c.about.intro,
+      title: `${title} — ${c.global.brand.fullName}`,
+      description,
       url: "/about",
     },
   };
@@ -66,7 +68,7 @@ export default async function AboutPage() {
             <Reveal delay={120} className="lg:col-span-5">
               <MediaImage
                 file="about-facility.jpg"
-                alt="Tekton warehouse and dispatch area in Bahrain"
+                alt={c.global.imageAlts?.aboutFacility || "Tekton warehouse and dispatch area in Bahrain"}
                 aspect="4/5"
               />
             </Reveal>

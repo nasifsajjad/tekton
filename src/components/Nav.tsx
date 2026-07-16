@@ -43,6 +43,26 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
     };
   }, []);
 
+  // Close the mobile menu on Escape or on a tap/click outside the header.
+  useEffect(() => {
+    const closeMenu = () => {
+      const menu = headerRef.current?.querySelector("details[open]");
+      if (menu) menu.removeAttribute("open");
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenu();
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) closeMenu();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, []);
+
   return (
     <header ref={headerRef} className={`nav-enter nav-autohide ${hidden ? "nav-hidden" : ""} fixed inset-x-0 top-0 z-50 border-t-4 border-navy-deep bg-forge/95 text-navy-deep shadow-[0_1px_0_rgba(7,31,51,.18)] backdrop-blur-xl`}>
       <div className="rail flex min-h-20 items-center justify-between gap-6">

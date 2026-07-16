@@ -25,10 +25,13 @@ const STAGES = [
 
 // Coarse-to-fine order: every 32nd frame first, then 8th, 2nd, then the rest.
 // Scrubbing looks correct almost immediately and refines as frames stream in.
-function buildLoadOrder(count: number): number[] {
+// On small screens the final stride-1 pass is skipped: phones load at most
+// every 2nd frame (still one frame per ~28px of scroll), halving transfer
+// while every frame shown remains a pixel-identical original.
+function buildLoadOrder(count: number, small: boolean): number[] {
   const order: number[] = [];
   const seen = new Set<number>();
-  for (const stride of [32, 8, 2, 1]) {
+  for (const stride of small ? [32, 8, 2] : [32, 8, 2, 1]) {
     for (let i = 0; i < count; i += stride) {
       if (!seen.has(i)) {
         seen.add(i);
@@ -52,7 +55,11 @@ function drawCover(
   context.drawImage(image, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
 }
 
-export default function IndustrialSequence() {
+export default function IndustrialSequence({
+  alt = "Industrial bearing operating inside a production facility",
+}: {
+  alt?: string;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const activeStageRef = useRef(0);
@@ -204,7 +211,7 @@ export default function IndustrialSequence() {
       resizeObserver.observe(section);
       ScrollTrigger.refresh();
 
-      streamFrames(buildLoadOrder(FRAME_COUNT));
+      streamFrames(buildLoadOrder(FRAME_COUNT, window.matchMedia("(max-width: 640px)").matches));
     };
 
     void start();
@@ -223,7 +230,7 @@ export default function IndustrialSequence() {
       <img
         className={`industrial-sequence__fallback ${isReady ? "industrial-sequence__fallback--hidden" : ""}`}
         src={FRAME_PATHS[0]}
-        alt="Industrial bearing operating inside a production facility"
+        alt={alt}
         fetchPriority="high"
       />
       <canvas ref={canvasRef} className={`industrial-sequence__canvas ${isReady ? "industrial-sequence__canvas--ready" : ""}`} aria-hidden="true" />

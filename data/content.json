@@ -24,6 +24,12 @@
     "analytics": {
       "scriptSrc": "",
       "websiteId": ""
+    },
+    "imageAlts": {
+      "sequence": "Industrial bearing operating inside a production facility",
+      "homePlatform": "Warehouse racking stocked with boxed industrial parts",
+      "homeOem": "Machined OEM part with its manufacturer certificate and tags",
+      "aboutFacility": "Tekton warehouse and dispatch area in Bahrain"
     }
   },
   "home": {
@@ -502,5 +508,23 @@
       }
     ],
     "note": "This page will grow as the company does. Certifications, partner brands and career openings will be published here."
+  },
+  "seo": {
+    "home": {
+      "title": "",
+      "description": ""
+    },
+    "products": {
+      "title": "",
+      "description": ""
+    },
+    "about": {
+      "title": "",
+      "description": ""
+    },
+    "contact": {
+      "title": "",
+      "description": ""
+    }
   }
 }

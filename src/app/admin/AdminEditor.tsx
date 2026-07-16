@@ -409,6 +409,35 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           <Field label="Legal line" value={g.footer.legal} onChange={(v) => patch((d) => (d.global.footer.legal = v))} />
         </Section>
 
+        <Section title="Image descriptions (screen readers & Google Images)">
+          <Field label="Homepage — scroll animation" value={g.imageAlts?.sequence ?? ""} onChange={(v) => patch((d) => ((d.global.imageAlts ??= {}).sequence = v))} />
+          <Field label="Homepage — One Supplier photo" value={g.imageAlts?.homePlatform ?? ""} onChange={(v) => patch((d) => ((d.global.imageAlts ??= {}).homePlatform = v))} />
+          <Field label="Homepage — Genuine Parts photo" value={g.imageAlts?.homeOem ?? ""} onChange={(v) => patch((d) => ((d.global.imageAlts ??= {}).homeOem = v))} />
+          <Field label="About — facility photo" value={g.imageAlts?.aboutFacility ?? ""} onChange={(v) => patch((d) => ((d.global.imageAlts ??= {}).aboutFacility = v))} />
+        </Section>
+
+        <Section title="SEO — search result titles & descriptions">
+          <p className="text-xs leading-relaxed text-neutral-400">
+            Optional overrides for what Google shows. Leave a field empty to use the page&apos;s own
+            copy automatically.
+          </p>
+          {(["home", "products", "about", "contact"] as const).map((page) => (
+            <ItemBox key={page} label={`${page} page`}>
+              <Field
+                label="Search title"
+                value={content.seo?.[page]?.title ?? ""}
+                onChange={(v) => patch((d) => (((d.seo ??= {})[page] ??= { title: "", description: "" }).title = v))}
+              />
+              <Area
+                label="Search description (~155 characters)"
+                value={content.seo?.[page]?.description ?? ""}
+                onChange={(v) => patch((d) => (((d.seo ??= {})[page] ??= { title: "", description: "" }).description = v))}
+                rows={2}
+              />
+            </ItemBox>
+          ))}
+        </Section>
+
         {/* ============ HOMEPAGE ============ */}
         <PageHeading title="Homepage" />
 

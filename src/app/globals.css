@@ -106,6 +106,12 @@ body {
   outline: 3px solid var(--color-forge);
   outline-offset: 3px;
 }
+/* On orange surfaces (header, accent bands) an orange outline is invisible —
+   keyboard users get a navy one instead. */
+header :focus-visible,
+.bg-forge :focus-visible {
+  outline-color: var(--color-navy-deep);
+}
 
 /* Content rail matching the 12-col main grid */
 .rail {
@@ -332,6 +338,11 @@ details[open] .burger span:last-child {
 .nav-autohide.nav-hidden {
   transform: translateY(-100%);
   animation: none;
+}
+/* A hidden header must reveal itself when keyboard focus lands inside it,
+   or tab order silently disappears off-screen. */
+.nav-autohide:focus-within {
+  transform: translateY(0);
 }
 
 /* Film grain for dark surfaces — one faint layer of texture, no gradients */

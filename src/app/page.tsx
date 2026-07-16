@@ -16,7 +16,7 @@ export default async function Home() {
     <>
       <Nav brandName={c.global.brand.name} cta={c.home.hero.ctaPrimary} />
       <main id="main-content">
-        <IndustrialSequence />
+        <IndustrialSequence alt={c.global.imageAlts?.sequence || undefined} />
 
         {/* ============ 1. HERO — living canvas over navy, CSS-only entrance ============ */}
         <section className="grain relative flex min-h-svh flex-col justify-end overflow-hidden bg-navy-deep pt-32">
@@ -70,7 +70,7 @@ export default async function Home() {
             <Reveal delay={120}>
               <MediaImage
                 file="home-platform.jpg"
-                alt="Warehouse racking stocked with boxed industrial parts"
+                alt={c.global.imageAlts?.homePlatform || "Warehouse racking stocked with boxed industrial parts"}
                 aspect="4/3"
               />
             </Reveal>
@@ -92,7 +92,7 @@ export default async function Home() {
             <Reveal delay={120} className="lg:order-1">
               <MediaImage
                 file="home-oem.jpg"
-                alt="Machined OEM part with its manufacturer certificate and tags"
+                alt={c.global.imageAlts?.homeOem || "Machined OEM part with its manufacturer certificate and tags"}
                 aspect="4/3"
               />
             </Reveal>
@@ -140,7 +140,7 @@ export default async function Home() {
                         </h3>
                       </div>
                       <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium" aria-hidden="true">
-                        Read more
+                        {card.link.startsWith("/products") ? "View products" : card.link.startsWith("/contact") ? "Talk to us" : "Explore"}
                         <span className="transition-transform duration-300 ease-out group-hover:translate-x-1">→</span>
                       </span>
                     </div>

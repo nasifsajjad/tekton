@@ -8,13 +8,15 @@ import ProductTabs from "@/components/ProductTabs";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContent();
+  const title = c.seo?.products?.title || "Products";
+  const description = c.seo?.products?.description || c.products.intro;
   return {
-    title: "Products",
-    description: c.products.intro,
+    title,
+    description,
     alternates: { canonical: "/products" },
     openGraph: {
-      title: `Products — ${c.global.brand.fullName}`,
-      description: c.products.intro,
+      title: `${title} — ${c.global.brand.fullName}`,
+      description,
       url: "/products",
     },
   };

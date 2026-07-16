@@ -23,6 +23,14 @@ export interface SiteContent {
     /** Self-hosted analytics (Umami/Plausible-style). Empty scriptSrc disables. */
     analytics: { scriptSrc: string; websiteId: string };
     footer: { blurb: string; legal: string };
+    /** Image descriptions for screen readers & SEO. Optional so older
+     *  backups without the block still restore cleanly. */
+    imageAlts?: {
+      sequence?: string;
+      homePlatform?: string;
+      homeOem?: string;
+      aboutFacility?: string;
+    };
   };
   home: {
     hero: {
@@ -91,6 +99,19 @@ export interface SiteContent {
     values: { title: string; body: string }[];
     note: string;
   };
+  /** Per-page search-result overrides. Empty strings fall back to the
+   *  page's own copy. Optional so older backups restore cleanly. */
+  seo?: {
+    home?: PageSeo;
+    products?: PageSeo;
+    about?: PageSeo;
+    contact?: PageSeo;
+  };
+}
+
+export interface PageSeo {
+  title: string;
+  description: string;
 }
 
 const CONTENT_PATH = path.join(process.cwd(), "data", "content.json");
