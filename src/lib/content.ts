@@ -61,6 +61,12 @@ export interface SiteContent {
     };
     why: { title: string; body: string } & LinkCta;
     callouts: ({ title: string; body: string } & LinkCta)[];
+    /** Featured-solutions carousel. Optional so older backups restore cleanly. */
+    featured?: {
+      title: string;
+      subtitle: string;
+      slides: FeaturedSlide[];
+    };
   };
   products: {
     title: string;
@@ -112,6 +118,15 @@ export interface SiteContent {
 export interface PageSeo {
   title: string;
   description: string;
+}
+
+export interface FeaturedSlide {
+  title: string;
+  tagline: string;
+  cta: string;
+  ctaLink: string;
+  /** body is optional detail text; empty string renders a plain bullet. */
+  items: { title: string; body: string }[];
 }
 
 const CONTENT_PATH = path.join(process.cwd(), "data", "content.json");

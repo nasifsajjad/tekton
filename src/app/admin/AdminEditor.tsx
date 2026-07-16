@@ -452,6 +452,29 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           </div>
         </Section>
 
+        <Section title="Featured solutions (carousel)">
+          <Field label="Section title" value={h.featured?.title ?? ""} onChange={(v) => patch((d) => ((d.home.featured ??= { title: "", subtitle: "", slides: [] }).title = v))} />
+          <Area label="Section subtitle" value={h.featured?.subtitle ?? ""} onChange={(v) => patch((d) => ((d.home.featured ??= { title: "", subtitle: "", slides: [] }).subtitle = v))} rows={2} />
+          {(h.featured?.slides ?? []).map((slide, si) => (
+            <ItemBox key={si} label={`Slide ${si + 1}: ${slide.title || "(untitled)"}`} onRemove={() => patch((d) => d.home.featured?.slides.splice(si, 1))}>
+              <Field label="Title" value={slide.title} onChange={(v) => patch((d) => (d.home.featured!.slides[si].title = v))} />
+              <Area label="Tagline" value={slide.tagline} onChange={(v) => patch((d) => (d.home.featured!.slides[si].tagline = v))} rows={2} />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Button text" value={slide.cta} onChange={(v) => patch((d) => (d.home.featured!.slides[si].cta = v))} />
+                <Field label="Button link" value={slide.ctaLink} onChange={(v) => patch((d) => (d.home.featured!.slides[si].ctaLink = v))} />
+              </div>
+              {slide.items.map((item, ii) => (
+                <ItemBox key={ii} label={`Item ${ii + 1}`} onRemove={() => patch((d) => d.home.featured!.slides[si].items.splice(ii, 1))}>
+                  <Field label="Title" value={item.title} onChange={(v) => patch((d) => (d.home.featured!.slides[si].items[ii].title = v))} />
+                  <Area label="Detail (optional)" value={item.body} onChange={(v) => patch((d) => (d.home.featured!.slides[si].items[ii].body = v))} rows={2} />
+                </ItemBox>
+              ))}
+              <AddButton label="Add item" onClick={() => patch((d) => d.home.featured!.slides[si].items.push({ title: "", body: "" }))} />
+            </ItemBox>
+          ))}
+          <AddButton label="Add slide" onClick={() => patch((d) => (d.home.featured ??= { title: "Featured Solutions", subtitle: "", slides: [] }).slides.push({ title: "", tagline: "", cta: "Request a quote", ctaLink: "/contact", items: [] }))} />
+        </Section>
+
         {(["platform", "trust", "statement", "why"] as const).map((key) => (
           <Section key={key} title={`Section: ${{ platform: "One Supplier (light)", trust: "Genuine Parts (dark)", statement: "Statement band", why: "Why Tekton" }[key]}`}>
             <Area label="Title" value={h[key].title} onChange={(v) => patch((d) => (d.home[key].title = v))} rows={2} />

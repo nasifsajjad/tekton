@@ -406,6 +406,24 @@ details[open] .burger span:last-child {
   }
 }
 
+/* Featured-solutions carousel: native scroll-snap track */
+.carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.carousel-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
 /* Hide scrollbars on horizontal tab strips */
 .scrollbar-none {
   scrollbar-width: none;

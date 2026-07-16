@@ -193,254 +193,369 @@
         "cta": "+973 1729 4880",
         "ctaLink": "tel:+97317294880"
       }
-    ]
+    ],
+    "featured": {
+      "title": "Featured Solutions",
+      "subtitle": "Specialist lines we supply, install, commission and service across the Gulf.",
+      "slides": [
+        {
+          "title": "SENKO Gas Detection & Calibration Services",
+          "tagline": "Portable and fixed gas detection with full calibration and lifecycle support.",
+          "cta": "Request a quote",
+          "ctaLink": "/contact",
+          "items": [
+            {
+              "title": "Portable single-gas and multi-gas detectors",
+              "body": ""
+            },
+            {
+              "title": "Fixed gas detection systems and controllers",
+              "body": ""
+            },
+            {
+              "title": "Gas detection sensors and accessories",
+              "body": ""
+            },
+            {
+              "title": "Calibration gas, docking and testing equipment",
+              "body": ""
+            },
+            {
+              "title": "Gas detector calibration, repair and maintenance services",
+              "body": ""
+            }
+          ]
+        },
+        {
+          "title": "Generator Supply, Installation & Commissioning",
+          "tagline": "Complete power packages from a single generator to synchronized plants.",
+          "cta": "Request a quote",
+          "ctaLink": "/contact",
+          "items": [
+            {
+              "title": "Diesel, gas, standby and prime-power generators",
+              "body": ""
+            },
+            {
+              "title": "Portable, industrial and marine generator systems",
+              "body": ""
+            },
+            {
+              "title": "ATS, synchronizing and generator control panels",
+              "body": ""
+            },
+            {
+              "title": "UPS systems, batteries and power backup solutions",
+              "body": ""
+            },
+            {
+              "title": "Supply, installation, testing, commissioning and maintenance",
+              "body": ""
+            }
+          ]
+        },
+        {
+          "title": "Munters Industrial Climate Control & Air Treatment Solutions",
+          "tagline": "Engineered humidity control, evaporative cooling and air treatment.",
+          "cta": "Request a quote",
+          "ctaLink": "/contact",
+          "items": [
+            {
+              "title": "Industrial Dehumidification & Humidity Control",
+              "body": "Desiccant dehumidifiers, dry-air systems and humidity-control solutions for production, storage and preservation."
+            },
+            {
+              "title": "Evaporative Cooling & Humidification Media",
+              "body": "CELdek® and GLASdek™ evaporative media, cooling pads, humidification modules and water-distribution systems."
+            },
+            {
+              "title": "Industrial Cooling, Humidification & Air Treatment Systems",
+              "body": "Direct evaporative coolers, FA6™ systems, WETdek®, GTEC and integrated air-handling solutions."
+            },
+            {
+              "title": "Mist Elimination, Gas–Liquid Separation & Mass Transfer",
+              "body": "Mist eliminators, droplet separators and mass-transfer components for process, power, chemical and environmental applications."
+            },
+            {
+              "title": "Controls, Spares & Lifecycle Support",
+              "body": "Controllers, monitoring systems, replacement media, water-distribution components, inspections and maintenance support."
+            }
+          ]
+        }
+      ]
+    }
   },
   "products": {
     "title": "Product Range",
     "intro": "Eighteen categories of industrial supply, all through one purchase order. As an authorized OEM partner we ship genuine parts with the manufacturer's documentation attached.",
     "tabs": [
       {
-        "label": "Electrical & Power",
-        "blurb": "Power generation and distribution equipment for plants, sites and standby duty.",
+        "label": "Flow & Fluid Power",
+        "blurb": "Valves, pumps, hydraulics, pneumatics and compressed-air systems for process and utility lines.",
         "categories": [
           {
-            "name": "Electrical & Electronics",
-            "description": "Circuit protection, connection devices, PLCs and industrial wiring for panel builds and plant control rooms.",
+            "name": "Valves, Actuation & Flow Control",
+            "description": "Manual, actuated and safety valves with the actuation and spares to keep lines controlled.",
             "products": [
-              "Disconnect switches & circuit breakers",
-              "Contactors, relays & motor starters",
-              "PLCs (ControlLogix, CompactLogix, MicroLogix)",
-              "Servo drives, motors & actuators",
-              "Power supplies & energy monitors",
-              "Industrial cabling & wiring systems"
+              "Ball, gate, globe, check, butterfly and plug valves",
+              "Control, solenoid, needle and pilot-operated valves",
+              "Safety relief, pressure-reducing and regulating valves",
+              "Pneumatic, electric and hydraulic actuators",
+              "Positioners, limit switches, solenoid boxes and valve spares"
             ],
-            "icon": "electrical"
+            "icon": "coupling"
           },
           {
-            "name": "Generators",
-            "description": "Diesel and industrial generator sets from portable duty to 2,000 kVA standby power, with supply and installation.",
+            "name": "Pumps & Pumping Systems",
+            "description": "Process, transfer and dosing pumps with seals and rotating spares for every duty.",
             "products": [
-              "Industrial & commercial generator sets",
-              "Standby power up to 2,000 kVA",
-              "Portable generators up to 10,000 W",
-              "Marine & recreational generators",
-              "Supply, installation & commissioning"
+              "Centrifugal, end-suction, multistage and submersible pumps",
+              "Gear, screw and positive-displacement pumps",
+              "Chemical-process, dosing, diaphragm and vacuum pumps",
+              "Self-priming, axial-flow and marine pumping systems",
+              "Mechanical seals, impellers, shafts, bearings and pump spares"
+            ],
+            "icon": "pumps-motors"
+          },
+          {
+            "name": "Hydraulics & Pneumatics",
+            "description": "Hydraulic and pneumatic power, control and preparation equipment down to hoses and fittings.",
+            "products": [
+              "Hydraulic pumps, motors, cylinders and power units",
+              "Hydraulic valves, manifolds, accumulators and filters",
+              "Pneumatic cylinders, valves and rotary actuators",
+              "FRL units, air-preparation and vacuum equipment",
+              "Hoses, tubes, fittings, grippers and system spares"
+            ],
+            "icon": "hydraulics-pneumatics"
+          },
+          {
+            "name": "Compressors & Compressed Air Systems",
+            "description": "Compressors, dryers and air-treatment equipment with genuine service parts.",
+            "products": [
+              "Screw, reciprocating, scroll and centrifugal compressors",
+              "Compressor air ends, elements and control components",
+              "Refrigerated and desiccant air dryers",
+              "Filters, separators, air receivers and treatment equipment",
+              "Compressor oils, service kits and replacement parts"
+            ],
+            "icon": "compressors"
+          }
+        ]
+      },
+      {
+        "label": "Power & Automation",
+        "blurb": "Motors, drives, electrical control and the instrumentation and computing that runs the plant.",
+        "categories": [
+          {
+            "name": "Motors, Drives & Power Transmission",
+            "description": "Electric motors, drives and the transmission components between them and the load.",
+            "products": [
+              "General-purpose, severe-duty and explosion-proof motors",
+              "Servo, brake and geared motor systems",
+              "Variable-frequency drives, soft starters and motor controls",
+              "Gearboxes, bearings, shafts, bushes and transmission components",
+              "Flexible, gear, servo, magnetic and fluid couplings"
             ],
             "icon": "generators"
           },
           {
-            "name": "IT & Printing Solutions",
-            "description": "Industrial computing hardware and printing machine spares for plant offices and production lines.",
+            "name": "Electrical, Automation & Control",
+            "description": "Control systems, switchgear components and panel-building material for plant automation.",
             "products": [
-              "Processors, graphics cards & Raspberry Pi",
-              "Power supplies & cooling fans",
-              "Interface & drive cards",
-              "Printing machine rollers & cutting blades",
-              "Access floor systems"
+              "PLC, DCS, SCADA and HMI systems",
+              "Control panels, MCC components and motor starters",
+              "Contactors, relays, circuit breakers and disconnect switches",
+              "Sensors, encoders, power supplies and industrial electronics",
+              "Cables, glands, junction boxes, terminal blocks and enclosures"
+            ],
+            "icon": "electrical"
+          },
+          {
+            "name": "Instrumentation, Calibration & Measurement",
+            "description": "Process instruments and the calibration and test equipment that keeps them accurate.",
+            "products": [
+              "Pressure, temperature, flow and level instruments",
+              "Analytical instruments, gauges, switches and transducers",
+              "Electrical, pressure, flow and temperature calibration equipment",
+              "Multimeters, oscilloscopes, clamp meters and voltage detectors",
+              "Data-acquisition, dimensional-measurement and test accessories"
+            ],
+            "icon": "instrumentation"
+          },
+          {
+            "name": "IT & Industrial Computing",
+            "description": "Industrial computing, networking and printing hardware built for plant environments.",
+            "products": [
+              "Industrial PCs, panel PCs and HMI systems",
+              "Industrial network switches and communication modules",
+              "Interface cards, drive cards and embedded computing systems",
+              "Industrial printers, barcode equipment and peripherals",
+              "Cooling fans, printing-machine parts and access-floor systems"
             ],
             "icon": "it-printing"
           }
         ]
       },
       {
-        "label": "Mechanical & Fluid Power",
-        "blurb": "Rotating equipment and the hardware that connects it, for process and utility service.",
+        "label": "Mechanical & Piping",
+        "blurb": "Rotating-equipment spares, piping products, pipeline testing tools and filtration.",
         "categories": [
           {
-            "name": "Hydraulics & Pneumatics",
-            "description": "Pumps, motors, cylinders, valves and power units for hydraulic and pneumatic circuits.",
+            "name": "Mechanical Equipment & Industrial Spare Parts",
+            "description": "Seals, bearings, fasteners and machined components across all common materials.",
             "products": [
-              "Axial piston, gear & vane pumps",
-              "Hydraulic cylinders & power units",
-              "Directional, flow & proportional valves",
-              "Accumulators & manifolds",
-              "Air preparation units & pneumatic valves",
-              "Vacuum generators & actuators"
-            ],
-            "icon": "hydraulics-pneumatics"
-          },
-          {
-            "name": "Pumps & Motors",
-            "description": "Centrifugal, submersible and positive displacement pumps alongside general purpose and severe duty motors.",
-            "products": [
-              "End suction, multistage & submersible pumps",
-              "Self-priming & axial-flow pumps",
-              "General purpose & severe duty motors",
-              "Explosion proof & washdown duty motors",
-              "Mechanical seals, bearings & repair kits"
-            ],
-            "icon": "pumps-motors"
-          },
-          {
-            "name": "Compressors",
-            "description": "Reciprocating, screw, scroll and centrifugal compressors with genuine service parts.",
-            "products": [
-              "Reciprocating, screw & scroll compressors",
-              "Rotary & centrifugal compressors",
-              "Compressor oils & service kits",
-              "Compressor elements & filters"
-            ],
-            "icon": "compressors"
-          },
-          {
-            "name": "Mechanical Fittings & Fasteners",
-            "description": "Process valves, stainless steel fittings and fasteners in a full range of grades for industrial and marine duty.",
-            "products": [
-              "Ball, butterfly, gate & globe valves",
-              "Check, plug, pilot & needle valves",
-              "Stainless steel grades 304 to super duplex",
-              "Pipe fittings, flanges & fasteners",
-              "EPDM rubber components"
-            ],
-            "icon": "fittings-fasteners"
-          },
-          {
-            "name": "Coupling Technology",
-            "description": "Shaft couplings and drive elements for rotating machinery, from elastic jaw to magnetic and fluid types.",
-            "products": [
-              "Elastic jaw & pin-and-bush couplings",
-              "Gear & flange couplings",
-              "Backlash-free servo couplings",
-              "Steel lamina couplings",
-              "Magnetic & fluid couplings"
+              "Mechanical seals, bearings, oil seals and gaskets",
+              "O-rings, rubber bellows and elastomer components",
+              "Fasteners, stud bolts, nuts, washers and clamps",
+              "Shafts, bushes, pulleys, sprockets and gear components",
+              "Stainless-steel, alloy, rubber and engineering-plastic parts"
             ],
             "icon": "coupling"
           },
           {
-            "name": "Lifting & Handling",
-            "description": "Cranes, hoists and rigging hardware with spares and control systems for material handling operations.",
+            "name": "Piping, Fittings & Pipeline Products",
+            "description": "Pipe, flanges and fittings in carbon steel, stainless and alloys, with supports and repair products.",
             "products": [
-              "Cranes, hoists & lifts with spares",
-              "Crane control motors & programming boards",
-              "Ropes, wires & slings",
-              "Shackles, swivels & link chains",
-              "Geared motors & bearings"
+              "Carbon-steel, stainless-steel and alloy piping products",
+              "Flanges, elbows, tees, reducers, caps and unions",
+              "Tube, compression and instrumentation fittings",
+              "Expansion bellows, flexible hoses and pipe couplings",
+              "Pipe supports, clamps, repair products and sealing materials"
             ],
-            "icon": "lifting-handling"
-          }
-        ]
-      },
-      {
-        "label": "Instrumentation & Process",
-        "blurb": "Measurement, filtration and water treatment for controlled, documented processes.",
-        "categories": [
-          {
-            "name": "Instrumentation & Measurement",
-            "description": "Calibration devices, test instruments and measurement tools for pressure, temperature and flow.",
-            "products": [
-              "Electrical, RF & temperature calibration",
-              "Pressure & flow calibration tools",
-              "Multimeters, oscilloscopes & gauges",
-              "Dimensional measuring tools",
-              "Transducers & voltage detectors"
-            ],
-            "icon": "instrumentation"
+            "icon": "fittings-fasteners"
           },
           {
-            "name": "Filters",
-            "description": "Bag, panel and hydraulic filtration elements, cross-referenced to OEM part numbers.",
+            "name": "Pipe Testing, Isolation & Pipeline Tools",
+            "description": "Test plugs, isolation systems and inflation equipment for pipeline testing and maintenance.",
             "products": [
-              "Bag & panel filters",
-              "Hydraulic & air filters",
-              "Gas filters & strainers",
-              "Filter cartridges & spargers"
-            ],
-            "icon": "filters"
-          },
-          {
-            "name": "Pipe Testing Plugs",
-            "description": "Mechanical and inflatable pipe plugs for hydrostatic testing and pipeline isolation, sized 30-3,700 mm.",
-            "products": [
-              "Flexible multi-size & low pressure test plugs",
-              "Joint test plugs & flexible packers",
-              "Egg shaped & conical plugs",
-              "Manhole test plugs",
-              "Test accessories: hoses, gauges & adapters"
+              "Mechanical, inflatable and flexible pipe-test plugs",
+              "Low-pressure, high-pressure and multi-size testing plugs",
+              "Joint-test plugs, flexible packers and isolation systems",
+              "Manhole, sewer, drain, egg-shaped and conical plugs",
+              "Test pumps, hoses, gauges, adaptors and inflation controls"
             ],
             "icon": "pipe-testing-plugs"
           },
           {
-            "name": "Desalination & Water Treatment",
-            "description": "RO membranes, dosing systems and treatment chemicals for desalination and process water plants.",
+            "name": "Filters, Filtration & Separation",
+            "description": "Filtration for oil, air, gas and water — elements, housings and separation systems.",
             "products": [
-              "RO membranes & pumps",
-              "Sludge dryers & evaporators",
-              "Chemical feeders & test kits",
-              "UV systems and lamps",
-              "Water quality instrumentation"
+              "Hydraulic, oil, air, gas and water filters",
+              "Cartridge, bag, panel and coalescing filters",
+              "Filter elements, housings and OEM-equivalent replacements",
+              "Basket strainers, Y-strainers and filtration accessories",
+              "Oil-water, air-oil and process-separation systems"
             ],
-            "icon": "desalination"
+            "icon": "filters"
           }
         ]
       },
       {
-        "label": "Chemicals & Consumables",
-        "blurb": "The materials a plant burns through every month, supplied on schedule.",
+        "label": "Site, Safety & Tools",
+        "blurb": "Safety and emergency equipment, workshop tooling, lifting gear and packaging supplies.",
         "categories": [
           {
-            "name": "Chemicals & Lubricants",
-            "description": "Industrial lubricants, cleaning chemicals and specialty fluids with safety data sheets for energy, marine and automotive sectors.",
+            "name": "Safety, Fire & Emergency Equipment",
+            "description": "PPE, fire-fighting and emergency equipment for workplace and site safety.",
             "products": [
-              "Engine oils, coolants & compressor oils",
-              "Acid, alkaline & solvent degreasers",
-              "Descalers & corrosion prevention chemicals",
-              "Welding anti-spatter & galvanizing products",
-              "Refrigerants & food-grade oils"
+              "Personal protective equipment and safety wear",
+              "Respiratory, eye, face and hearing protection",
+              "Fire extinguishers, fire alarms and fire-fighting equipment",
+              "Safety showers, eyewash stations and emergency equipment",
+              "Spill-control, rescue and workplace-safety products"
+            ],
+            "icon": "hvac-safety"
+          },
+          {
+            "name": "Tools, Fabrication & Workshop Equipment",
+            "description": "Hand and power tools through to fabrication and sawing machinery.",
+            "products": [
+              "Hand, torque, hydraulic and pneumatic tools",
+              "Electrical, drilling, cutting, grinding and tapping tools",
+              "Pipe threading, grooving, bending and tubing equipment",
+              "Welding, fabrication and workshop machinery",
+              "Circular, bandsaw, CNC and industrial sawing machines"
+            ],
+            "icon": "sawing-tools"
+          },
+          {
+            "name": "Lifting & Material Handling",
+            "description": "Slings, hoists and cranes with the accessories and load monitoring to lift safely.",
+            "products": [
+              "Wire-rope, chain and synthetic lifting slings",
+              "Shackles, hooks, swivels, chains and lifting accessories",
+              "Manual and electric hoists, cranes and winches",
+              "Crane motors, control boards and electrical components",
+              "Load cells, weighing systems and load-monitoring equipment"
+            ],
+            "icon": "lifting-handling"
+          },
+          {
+            "name": "Industrial Consumables & Packaging",
+            "description": "Packaging materials and machines for protecting and shipping industrial goods.",
+            "products": [
+              "Packing tapes, labels, stretch and shrink films",
+              "Cushioning materials, foam sheets and kraft paper",
+              "Strapping materials, pallets and export-packaging supplies",
+              "Shrink-wrapping and stretch-wrapping machines",
+              "Pallet-wrapping, strapping and packaging equipment"
+            ],
+            "icon": "packaging"
+          }
+        ]
+      },
+      {
+        "label": "Utilities & Marine",
+        "blurb": "HVAC and ventilation, water treatment, lubricants and marine and offshore supply.",
+        "categories": [
+          {
+            "name": "HVAC, Cooling & Ventilation",
+            "description": "Fans, chillers and air-handling equipment with controls and replacement parts.",
+            "products": [
+              "Axial, exhaust and industrial ventilation fans",
+              "Blowers, air-handling and air-control units",
+              "Chillers, cooling towers and heat exchangers",
+              "Heaters, condensers, coils and refrigeration components",
+              "HVAC controls, filters, duct accessories and replacement parts"
+            ],
+            "icon": "hvac-safety"
+          },
+          {
+            "name": "Desalination & Water Treatment",
+            "description": "RO, dosing and filtration equipment with instrumentation and plant spares.",
+            "products": [
+              "Reverse-osmosis membranes, vessels and high-pressure pumps",
+              "Dosing systems, chemical feeders and treatment pumps",
+              "Cartridge, sand, multimedia and activated-carbon filters",
+              "UV systems, water-test kits and quality instrumentation",
+              "Sludge dryers, evaporators and treatment-plant spare parts"
+            ],
+            "icon": "desalination"
+          },
+          {
+            "name": "Industrial Lubricants",
+            "description": "Lubricants, greases and metal-treatment chemistry for plant and workshop.",
+            "products": [
+              "Hydraulic, gear, turbine, compressor and engine oils",
+              "Industrial greases, coolants and food-grade lubricants",
+              "Acid, alkaline and solvent-based degreasers",
+              "Descalers, corrosion inhibitors and rust preventives",
+              "Welding anti-spatter, galvanizing and metal-treatment products"
             ],
             "icon": "chemicals-lubricants"
           },
           {
-            "name": "Packaging Materials",
-            "description": "Industrial packaging, strapping, stretch film and export-grade crating supplies.",
+            "name": "Marine, Offshore & Ship Supply",
+            "description": "Marine spares, deck equipment, plates and vessel stores for fleet and offshore work.",
             "products": [
-              "Packing tapes, stretch film & labels",
-              "Cushioning materials & Styrofoam sheets",
-              "Kraft packaging paper",
-              "Shrink, stretch & pallet wrapping machines"
-            ],
-            "icon": "packaging"
-          },
-          {
-            "name": "Sawing Machines & Power Tools",
-            "description": "Bandsaws, cutting machines, power tools and consumable blades for fabrication shops.",
-            "products": [
-              "Circular, CNC & bandsaw machines",
-              "Pipe & tubing tools",
-              "Threading, grooving & bending tools",
-              "Pneumatic & finishing tools",
-              "Cutting, drilling & tapping tools"
-            ],
-            "icon": "sawing-tools"
-          }
-        ]
-      },
-      {
-        "label": "Marine & HVAC",
-        "blurb": "Stores for vessels calling at Gulf ports, and climate and safety equipment for shore facilities.",
-        "categories": [
-          {
-            "name": "Marine Products",
-            "description": "Deck stores, hull plating and marine electronics supplied against vessel schedules.",
-            "products": [
-              "Fenders & bollards",
-              "SS, CS, AS & Corten steel plates",
-              "Hardox wear-resistant plates",
-              "Surface finished metals",
-              "Marine electronics"
+              "Marine pumps, valves, generators and engine spares",
+              "Navigation, communication and marine electronics",
+              "Deck equipment, fenders, bollards and mooring products",
+              "Carbon-steel, stainless-steel, Corten and wear-resistant plates",
+              "Offshore safety, vessel stores and maintenance supplies"
             ],
             "icon": "marine"
-          },
-          {
-            "name": "HVAC & Safety Requirements",
-            "description": "Air conditioning components, ventilation equipment, PPE and site safety supplies.",
-            "products": [
-              "Axial & exhaust fans, blowers",
-              "Heaters & chiller spare parts",
-              "Cooling & air control units",
-              "Safety gloves & coveralls",
-              "Fire extinguishers & safety alarms"
-            ],
-            "icon": "hvac-safety"
           }
         ]
       }
