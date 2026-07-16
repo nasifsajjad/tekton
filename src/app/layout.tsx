@@ -69,17 +69,22 @@ export default async function RootLayout({
   const org = {
     "@context": "https://schema.org",
     "@type": ["Organization", "LocalBusiness"],
+    "@id": `${SITE_URL}/#organization`,
     name: c.global.brand.fullName,
+    alternateName: c.global.brand.name,
     url: SITE_URL,
+    logo: `${SITE_URL}/brand/tekton-mark.png`,
+    image: `${SITE_URL}/media/og-image.jpg`,
     email: c.global.contact.email,
     telephone: c.global.contact.phone,
     address: {
       "@type": "PostalAddress",
       streetAddress: c.global.contact.address,
-      addressLocality: c.global.contact.location || "Manama",
+      addressLocality: "Manama",
       addressCountry: "BH",
     },
-    openingHours: c.global.contact.hours,
+    // schema.org format; the human-readable hours stay in the CMS/contact page
+    openingHours: "Su,Mo,Tu,We,Th 08:00-17:00",
     description: c.home.hero.subtitle,
   };
   const analytics = c.global.analytics;

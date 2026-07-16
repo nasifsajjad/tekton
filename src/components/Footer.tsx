@@ -44,7 +44,13 @@ export default function Footer({ content }: { content: SiteContent }) {
           </div>
         </div>
         <div className="mt-14 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-t border-white/15 pt-6 text-xs text-footer-legal">
-          <p>{footer.legal}</p>
+          <p>
+            {footer.legal}
+            <span aria-hidden="true"> · </span>
+            <Link href="/privacy" className="underline-offset-2 transition-colors hover:text-white hover:underline">Privacy</Link>
+            <span aria-hidden="true"> · </span>
+            <Link href="/terms" className="underline-offset-2 transition-colors hover:text-white hover:underline">Terms</Link>
+          </p>
           {(content.global.registration.cr || content.global.registration.vat) && (
             <p>
               {content.global.registration.cr && <>CR {content.global.registration.cr}</>}

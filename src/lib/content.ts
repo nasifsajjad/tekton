@@ -113,6 +113,18 @@ export interface SiteContent {
     about?: PageSeo;
     contact?: PageSeo;
   };
+  /** Privacy policy & terms of use. Optional so older backups restore cleanly. */
+  legal?: {
+    privacy: LegalPage;
+    terms: LegalPage;
+  };
+}
+
+export interface LegalPage {
+  title: string;
+  /** Human-readable "last updated" line, e.g. "16 July 2026". */
+  updated: string;
+  sections: { heading: string; body: string }[];
 }
 
 export interface PageSeo {

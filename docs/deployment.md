@@ -62,6 +62,19 @@ npm ci && npm run build
 - The editor's **Export content file** button downloads all site text as JSON
   for an off-server copy.
 
+## Going-live checklist (once, after first deploy)
+
+1. Set `NEXT_PUBLIC_SITE_URL` to the real domain and rebuild — canonical
+   URLs, the sitemap and social tags all derive from it.
+2. Set a strong `ADMIN_PASSWORD`.
+3. [Google Search Console](https://search.google.com/search-console): verify
+   the domain, then submit `https://<domain>/sitemap.xml`.
+4. Create/claim the [Google Business Profile](https://business.google.com)
+   with the same name, address, phone and hours as the site footer — the
+   site already publishes matching LocalBusiness structured data.
+5. Fill in the CR/VAT numbers in `/admin` (footer trust signal).
+6. Point an uptime monitor (e.g. UptimeRobot, free) at the homepage.
+
 ## Caching notes
 
 - `public/media/industrial-sequence/*` is served immutable (1 year) — those

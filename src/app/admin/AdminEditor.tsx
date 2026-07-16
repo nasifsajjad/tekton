@@ -652,6 +652,29 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           <Area label="Future note (small text at the bottom)" value={ab.note} onChange={(v) => patch((d) => (d.about.note = v))} rows={2} />
         </Section>
 
+        {/* ============ LEGAL PAGES ============ */}
+        <PageHeading title="Legal pages" />
+
+        {(["privacy", "terms"] as const).map((key) => {
+          const page = content.legal?.[key];
+          if (!page) return null;
+          return (
+            <Section key={key} title={key === "privacy" ? "Privacy policy (/privacy)" : "Terms of use (/terms)"}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Page title" value={page.title} onChange={(v) => patch((d) => (d.legal![key].title = v))} />
+                <Field label="Last updated (shown under the title)" value={page.updated} onChange={(v) => patch((d) => (d.legal![key].updated = v))} />
+              </div>
+              {page.sections.map((s, i) => (
+                <ItemBox key={i} label={`Section ${i + 1}: ${s.heading || "(untitled)"}`} onRemove={() => patch((d) => d.legal![key].sections.splice(i, 1))}>
+                  <Field label="Heading" value={s.heading} onChange={(v) => patch((d) => (d.legal![key].sections[i].heading = v))} />
+                  <Area label="Text" value={s.body} onChange={(v) => patch((d) => (d.legal![key].sections[i].body = v))} rows={3} />
+                </ItemBox>
+              ))}
+              <AddButton label="Add section" onClick={() => patch((d) => d.legal![key].sections.push({ heading: "", body: "" }))} />
+            </Section>
+          );
+        })}
+
         {/* ============ VERSIONS & BACKUP ============ */}
         <PageHeading title="Versions & backup" />
 

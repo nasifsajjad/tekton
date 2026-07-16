@@ -23,7 +23,7 @@ import {
   verifyPassword,
 } from "@/lib/auth";
 
-const PUBLIC_PATHS = ["/", "/products", "/about", "/contact"];
+const PUBLIC_PATHS = ["/", "/products", "/about", "/contact", "/privacy", "/terms"];
 
 export async function login(
   _prevState: { error?: string },
