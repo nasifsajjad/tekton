@@ -4,10 +4,12 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import type { FeaturedSlide } from "@/lib/content";
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
 /**
  * Homepage featured-solutions carousel. One slide per solution, navy card on
  * the light page. Native scroll-snap does the sliding (touch swipe works for
- * free); the buttons and dots drive/reflect the scroll position.
+ * free); the buttons and progress segments drive/reflect the scroll position.
  */
 export default function FeaturedCarousel({
   title,
@@ -54,25 +56,30 @@ export default function FeaturedCarousel({
             </p>
           </div>
           {slides.length > 1 && (
-            <div className="flex gap-2" aria-hidden={false}>
-              <button
-                type="button"
-                onClick={() => goTo(index - 1)}
-                disabled={index === 0}
-                aria-label="Previous solution"
-                className="flex size-11 items-center justify-center border-2 border-navy text-navy transition-colors hover:bg-navy hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-navy"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                onClick={() => goTo(index + 1)}
-                disabled={index === slides.length - 1}
-                aria-label="Next solution"
-                className="flex size-11 items-center justify-center border-2 border-navy text-navy transition-colors hover:bg-navy hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-navy"
-              >
-                →
-              </button>
+            <div className="flex items-center gap-4">
+              <span className="display text-sm font-semibold tracking-widest text-gray-on-light tabular-nums" aria-hidden="true">
+                {pad(index + 1)} / {pad(slides.length)}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => goTo(index - 1)}
+                  disabled={index === 0}
+                  aria-label="Previous solution"
+                  className="flex size-11 items-center justify-center border-2 border-navy text-navy transition-colors hover:bg-navy hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-navy"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  onClick={() => goTo(index + 1)}
+                  disabled={index === slides.length - 1}
+                  aria-label="Next solution"
+                  className="flex size-11 items-center justify-center border-2 border-navy text-navy transition-colors hover:bg-navy hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-navy"
+                >
+                  →
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -86,29 +93,50 @@ export default function FeaturedCarousel({
               aria-label={`${i + 1} of ${slides.length}`}
               className="carousel-slide"
             >
-              <div className="grain h-full border-t-4 border-forge bg-navy-deep p-7 sm:p-10">
-                <div className="grid gap-8 lg:grid-cols-12">
-                  <div className="lg:col-span-5">
-                    <p className="eyebrow text-forge">Featured solution</p>
-                    <h3 className="display mt-3 max-w-[18ch] text-header-sm text-white">{slide.title}</h3>
-                    <p className="mt-4 max-w-[40ch] text-base leading-relaxed text-gray-on-dark-2">{slide.tagline}</p>
-                    <Link href={slide.ctaLink} className="btn btn--primary mt-8 !min-w-0">
-                      {slide.cta}
-                    </Link>
+              <div className="grain relative h-full overflow-hidden border-t-4 border-forge bg-navy-deep">
+                {/* Oversized slide numeral, watermark style */}
+                <span
+                  aria-hidden="true"
+                  className="display pointer-events-none absolute -top-8 right-2 text-[8rem] leading-none font-bold text-white/[.06] select-none sm:text-[13rem] sm:-top-12"
+                >
+                  {pad(i + 1)}
+                </span>
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{ background: "linear-gradient(115deg, rgba(249,160,60,.10), transparent 42%)" }}
+                />
+
+                <div className="relative grid gap-10 p-7 sm:p-10 lg:grid-cols-12 lg:gap-14 lg:p-14">
+                  <div className="flex flex-col lg:col-span-5">
+                    <p className="eyebrow text-forge">Featured solution — {pad(i + 1)}</p>
+                    <h3 className="display mt-4 max-w-[16ch] text-header-md text-white">{slide.title}</h3>
+                    <p className="mt-5 max-w-[40ch] text-base leading-relaxed text-gray-on-dark-2">{slide.tagline}</p>
+                    <div className="mt-8 lg:mt-auto lg:pt-10">
+                      <Link href={slide.ctaLink} className="btn btn--primary !min-w-0">
+                        {slide.cta}
+                      </Link>
+                    </div>
                   </div>
-                  <ul className="space-y-4 lg:col-span-7">
-                    {slide.items.map((item) => (
-                      <li key={item.title} className="flex gap-3 border-t border-white/15 pt-4 first:border-t-0 first:pt-0">
-                        <span className="mt-2 block size-2 shrink-0 bg-forge" aria-hidden="true" />
+
+                  <ol className="lg:col-span-7">
+                    {slide.items.map((item, ii) => (
+                      <li
+                        key={item.title}
+                        className="flex gap-5 border-t border-white/12 py-4 first:border-t-0 first:pt-0 last:pb-0"
+                      >
+                        <span className="display w-8 shrink-0 pt-0.5 text-sm font-semibold text-forge tabular-nums" aria-hidden="true">
+                          {pad(ii + 1)}
+                        </span>
                         <div>
-                          <p className="text-sm font-semibold text-white sm:text-base">{item.title}</p>
+                          <p className="text-base font-semibold text-white">{item.title}</p>
                           {item.body && (
-                            <p className="mt-1 text-sm leading-relaxed text-gray-on-dark-2">{item.body}</p>
+                            <p className="mt-1.5 max-w-[58ch] text-sm leading-relaxed text-gray-on-dark-2">{item.body}</p>
                           )}
                         </div>
                       </li>
                     ))}
-                  </ul>
+                  </ol>
                 </div>
               </div>
             </article>
@@ -116,7 +144,7 @@ export default function FeaturedCarousel({
         </div>
 
         {slides.length > 1 && (
-          <div className="mt-6 flex justify-center gap-2">
+          <div className="mt-8 flex items-center gap-2" role="group" aria-label="Choose slide">
             {slides.map((slide, i) => (
               <button
                 key={slide.title}
@@ -124,7 +152,7 @@ export default function FeaturedCarousel({
                 onClick={() => goTo(i)}
                 aria-label={`Go to slide ${i + 1}: ${slide.title}`}
                 aria-current={i === index}
-                className={`h-1.5 transition-all ${i === index ? "w-8 bg-forge" : "w-4 bg-navy/25 hover:bg-navy/50"}`}
+                className={`h-1.5 flex-1 transition-colors ${i === index ? "bg-forge" : "bg-navy/15 hover:bg-navy/40"}`}
               />
             ))}
           </div>
