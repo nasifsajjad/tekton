@@ -406,22 +406,74 @@ details[open] .burger span:last-child {
   }
 }
 
-/* Featured-solutions carousel: native scroll-snap track */
-.carousel-track {
+/* Featured-solutions carousel.
+   Pinned mode (default with JS + motion): the section pins to the viewport
+   and vertical scroll drives the track horizontally via GSAP; the next card
+   peeks in from the right. Static mode (no JS / reduced motion): a native
+   scroll-snap strip driven by swipe and the arrow buttons. */
+.featured-section {
+  padding-block: var(--spacing-fluid-6);
+}
+.featured-track {
   display: flex;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  margin-top: clamp(1.5rem, 3.5vh, 2.75rem);
+  /* Cards start aligned with the content rail's left edge. */
+  padding-inline: calc((100vw - min(100vw, var(--page-max-width))) / 2 + clamp(1rem, 2.5vw, 2rem));
+}
+.featured-card {
+  flex: 0 0 auto;
+  width: min(78vw, 1020px);
+  border: 1px solid rgba(15, 57, 92, 0.14);
+  border-top: 3px solid var(--color-forge);
+  background: #fff;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.featured-card:hover {
+  border-color: rgba(15, 57, 92, 0.35);
+  border-top-color: var(--color-forge);
+  box-shadow: 0 12px 40px rgba(7, 31, 51, 0.08);
+}
+@media (max-width: 640px) {
+  .featured-card {
+    width: 88vw;
+  }
+}
+.featured-foot {
+  margin-top: clamp(1.25rem, 3vh, 2rem);
+}
+
+[data-carousel="static"] .featured-track {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
   scrollbar-width: none;
 }
-.carousel-track::-webkit-scrollbar {
+[data-carousel="static"] .featured-track::-webkit-scrollbar {
   display: none;
 }
-.carousel-slide {
-  flex: 0 0 100%;
-  min-width: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+[data-carousel="static"] .featured-card {
+  scroll-snap-align: center;
+}
+
+[data-carousel="pinned"] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100svh;
+  min-height: 36rem;
+  overflow: hidden;
+  padding-block: clamp(5.75rem, 11vh, 7rem) clamp(1.25rem, 3vh, 2rem);
+}
+[data-carousel="pinned"] .featured-track {
+  flex: 0 0 auto;
+  will-change: transform;
+}
+/* Never let a tall card push the pinned section past the viewport. */
+[data-carousel="pinned"] .featured-card {
+  max-height: calc(100svh - 17rem);
+  overflow-y: auto;
 }
 
 /* Hide scrollbars on horizontal tab strips */
