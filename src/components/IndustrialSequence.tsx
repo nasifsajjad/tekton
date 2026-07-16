@@ -200,6 +200,11 @@ export default function IndustrialSequence({
           scrub: 0.35,
           anticipatePin: 1,
           invalidateOnRefresh: true,
+          // This pin sits above other pinned sections (featured carousel) and
+          // is created late (after frame 0 loads), so it must refresh first —
+          // otherwise the pins below measure without this pin's spacer and
+          // their animations trigger thousands of pixels too early.
+          refreshPriority: 2,
         },
       });
 
@@ -209,6 +214,9 @@ export default function IndustrialSequence({
         requestDraw();
       });
       resizeObserver.observe(section);
+      // Created after triggers further down the page — re-sort before
+      // refreshing so pin spacers are accounted for top-to-bottom.
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
 
       streamFrames(buildLoadOrder(FRAME_COUNT, window.matchMedia("(max-width: 640px)").matches));

@@ -58,6 +58,9 @@ export default function FeaturedCarousel({
         scrub: 1,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        // Refresh after the industrial-sequence pin above (priority 2), so
+        // this trigger's start includes that pin's spacer.
+        refreshPriority: 1,
         onUpdate: (self) => {
           if (fillRef.current) fillRef.current.style.transform = `scaleX(${self.progress})`;
           const next = Math.round(self.progress * (slides.length - 1));
@@ -66,6 +69,7 @@ export default function FeaturedCarousel({
       },
     });
     stRef.current = tween.scrollTrigger ?? null;
+    ScrollTrigger.sort();
     ScrollTrigger.refresh();
 
     return () => {
