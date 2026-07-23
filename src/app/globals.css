@@ -81,7 +81,8 @@
 }
 
 :root {
-  --page-max-width: 1364px;
+  /* Slightly narrower content rail — tighter, more composed line lengths. */
+  --page-max-width: 1240px;
   color-scheme: light;
 }
 
@@ -128,6 +129,30 @@ header :focus-visible,
   letter-spacing: var(--tracking-tight);
   line-height: 1.02;
   text-wrap: balance;
+}
+
+/* Hero glass panel — a frosted, semi-transparent white card that floats over
+   the living navy canvas. Sharp rectangular corners (no radius) and a soft
+   drop shadow give it an elevated, floating feel, so the brand orange (logo
+   flame + primary CTA) reads crisp and bold against the light surface. */
+.hero-panel {
+  max-width: min(100%, 44rem);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-top: 3px solid var(--color-forge);
+  box-shadow:
+    0 32px 70px -24px rgba(7, 31, 51, 0.6),
+    0 4px 16px rgba(7, 31, 51, 0.16);
+  padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+}
+/* Browsers without backdrop-filter fall back to a more opaque white so the
+   dark text never loses contrast over the moving background. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-panel {
+    background: rgba(255, 255, 255, 0.92);
+  }
 }
 
 /* Pill button base — 2px border, invert on hover */
@@ -320,6 +345,23 @@ details[open] .burger span:last-child {
   background-size: 100% 2px;
 }
 
+/* Primary-nav hover — a brand-orange highlight bar sweeps in from the left
+   under the label (Mastercard-style). Unlike .link-underline it is always the
+   forge orange, not the text colour, so it pops against the light header. */
+.nav-link {
+  padding-bottom: 4px;
+  background-image: linear-gradient(var(--color-forge), var(--color-forge));
+  background-size: 0% 3px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.is-active {
+  background-size: 100% 3px;
+}
+
 /* Header entrance — one-time slide down on load, transform-only (no flash) */
 @keyframes nav-enter {
   from { transform: translateY(-100%); }
@@ -373,7 +415,8 @@ details[open] .burger span:last-child {
     transform: none !important;
     transition: none !important;
   }
-  .link-underline {
+  .link-underline,
+  .nav-link {
     transition: none;
   }
   .nav-autohide {

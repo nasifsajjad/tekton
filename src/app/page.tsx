@@ -35,22 +35,24 @@ export default async function Home() {
               className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-navy-deep"
           />
           <div className="rail relative z-10 pb-20 sm:pb-24">
-            <div className="hero-rise">
-              <h1 className="display max-w-[16ch] text-header-xl text-white">{c.home.hero.title}</h1>
-            </div>
-            <div className="hero-rise hero-rise-2">
-              <p className="mt-6 max-w-[54ch] text-lg leading-relaxed text-gray-on-dark-2">
-                {c.home.hero.subtitle}
-              </p>
-            </div>
-            <div className="hero-rise hero-rise-3">
-              <div className="mt-10 flex flex-wrap gap-4">
-                <Link href={c.home.hero.ctaPrimaryLink} className="btn btn--primary">
-                  {c.home.hero.ctaPrimary}
-                </Link>
-                <Link href={c.home.hero.ctaSecondaryLink} className="btn btn--white-outline">
-                  {c.home.hero.ctaSecondary}
-                </Link>
+            <div className="hero-panel">
+              <div className="hero-rise">
+                <h1 className="display max-w-[16ch] text-header-xl text-navy-deep">{c.home.hero.title}</h1>
+              </div>
+              <div className="hero-rise hero-rise-2">
+                <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-navy-soft">
+                  {c.home.hero.subtitle}
+                </p>
+              </div>
+              <div className="hero-rise hero-rise-3">
+                <div className="mt-10 flex flex-wrap gap-4">
+                  <Link href={c.home.hero.ctaPrimaryLink} className="btn btn--primary">
+                    {c.home.hero.ctaPrimary}
+                  </Link>
+                  <Link href={c.home.hero.ctaSecondaryLink} className="btn btn--black-outline">
+                    {c.home.hero.ctaSecondary}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

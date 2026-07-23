@@ -64,8 +64,9 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
   }, []);
 
   return (
-    <header ref={headerRef} className={`nav-enter nav-autohide ${hidden ? "nav-hidden" : ""} fixed inset-x-0 top-0 z-50 border-t-4 border-navy-deep bg-forge/95 text-navy-deep shadow-[0_1px_0_rgba(7,31,51,.18)] backdrop-blur-xl`}>
-      <div className="rail flex min-h-20 items-center justify-between gap-6">
+    <header ref={headerRef} className={`nav-enter nav-autohide ${hidden ? "nav-hidden" : ""} pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4`}>
+      <div className="rail">
+        <div className="pointer-events-auto flex min-h-16 items-center justify-between gap-6 border border-navy-deep/10 bg-white/80 px-4 text-navy-deep shadow-[0_16px_40px_-14px_rgba(7,31,51,0.45)] backdrop-blur-xl sm:min-h-[4.5rem] sm:px-6">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${brandName} — home`}>
           <BrandLogo className="h-11 w-auto sm:h-13" priority />
         </Link>
@@ -80,7 +81,7 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
                 aria-current={isActive ? "page" : undefined}
                 className="mx-3 px-0 py-7 text-sm font-semibold tracking-wide text-navy-deep transition-colors hover:text-navy"
               >
-                <span className={`link-underline ${isActive ? "is-active" : ""}`}>{link.label}</span>
+                <span className={`nav-link ${isActive ? "is-active" : ""}`}>{link.label}</span>
               </Link>
             );
           })}
@@ -95,13 +96,14 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
               <span />
             </span>
           </summary>
-          <nav className="fixed inset-x-0 top-[84px] flex flex-col border-t border-navy-deep/20 bg-forge px-4 pt-3 pb-6 shadow-xl" aria-label="Mobile navigation">
+          <nav className="fixed inset-x-2 top-[76px] flex flex-col border border-navy-deep/10 bg-white/95 px-4 pt-3 pb-6 shadow-xl backdrop-blur-xl" aria-label="Mobile navigation">
             {LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className="border-b border-navy-deep/20 py-3 text-lg font-semibold">{link.label}</Link>
+              <Link key={link.href} href={link.href} className="border-b border-navy-deep/10 py-3 text-lg font-semibold transition-colors hover:text-orange-dark">{link.label}</Link>
             ))}
             <Link href="/contact" className="btn btn--black-outline mt-3 !min-w-0 self-start !px-6 !py-2.5 text-sm">{cta}</Link>
           </nav>
         </details>
+        </div>
       </div>
     </header>
   );

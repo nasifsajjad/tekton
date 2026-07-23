@@ -20,7 +20,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tektonindustrial.c
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f9a03c",
+  // Matches the dark hero/body so there is no colour flash on first paint.
+  themeColor: "#071f33",
 };
 
 export async function generateMetadata(): Promise<Metadata> {
