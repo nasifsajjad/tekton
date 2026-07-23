@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import BrandLogo from "./BrandLogo";
 
 const LINKS = [
@@ -14,34 +14,6 @@ const LINKS = [
 export default function Nav({ brandName, cta }: { brandName: string; cta: string }) {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
-  const [hidden, setHidden] = useState(false);
-
-  // Auto-hide on scroll: the bar tucks away while the visitor scrolls down
-  // (e.g. through the homepage scroll sequence) and returns on any scroll up
-  // or near the top of the page.
-  useEffect(() => {
-    let lastY = window.scrollY;
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const y = window.scrollY;
-        const delta = y - lastY;
-        lastY = y;
-        // Never hide while the mobile menu is open.
-        if (headerRef.current?.querySelector("details[open]")) return;
-        if (y < 120) setHidden(false);
-        else if (delta > 4) setHidden(true);
-        else if (delta < -4) setHidden(false);
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   // Close the mobile menu on Escape or on a tap/click outside the header.
   useEffect(() => {
@@ -64,9 +36,9 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
   }, []);
 
   return (
-    <header ref={headerRef} className={`nav-enter nav-autohide ${hidden ? "nav-hidden" : ""} pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4`}>
+    <header ref={headerRef} className="nav-enter pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
       <div className="rail">
-        <div className="pointer-events-auto flex min-h-16 items-center justify-between gap-6 border border-navy-deep/10 bg-white/80 px-4 text-navy-deep shadow-[0_16px_40px_-14px_rgba(7,31,51,0.45)] backdrop-blur-xl sm:min-h-[4.5rem] sm:px-6">
+        <div className="pointer-events-auto flex min-h-16 items-center justify-between gap-6 border border-navy-deep/10 bg-white/70 px-4 text-navy-deep shadow-[0_16px_40px_-14px_rgba(7,31,51,0.45)] backdrop-blur-xl sm:min-h-[4.5rem] sm:px-6">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${brandName} — home`}>
           <BrandLogo className="h-11 w-auto sm:h-13" priority />
         </Link>
