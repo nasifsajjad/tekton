@@ -362,15 +362,6 @@ details[open] .burger span:last-child {
   background-size: 100% 3px;
 }
 
-/* Header entrance — one-time slide down on load, transform-only (no flash) */
-@keyframes nav-enter {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(0); }
-}
-.nav-enter {
-  animation: nav-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
 /* Film grain for dark surfaces — one faint layer of texture, no gradients */
 .grain {
   position: relative;
@@ -390,8 +381,7 @@ details[open] .burger span:last-child {
   .hero-rise,
   .hero-rise-2,
   .hero-rise-3,
-  .panel-enter,
-  .nav-enter {
+  .panel-enter {
     animation: none;
   }
   .reveal {

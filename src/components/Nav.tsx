@@ -36,7 +36,7 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
   }, []);
 
   return (
-    <header ref={headerRef} className="nav-enter pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
+    <header ref={headerRef} className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
       <div className="rail">
         <div className="pointer-events-auto flex min-h-16 items-center justify-between gap-6 border border-navy-deep/10 bg-white/70 px-4 text-navy-deep shadow-[0_16px_40px_-14px_rgba(7,31,51,0.45)] backdrop-blur-xl sm:min-h-[4.5rem] sm:px-6">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${brandName} — home`}>
