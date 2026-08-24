@@ -77,7 +77,7 @@ function CategoryCard({
   visibleProducts: string[];
   indexLabel?: string;
   groupLabel?: string;
-  onOpenProduct: (product: string, category: Category, trigger: HTMLButtonElement) => void;
+  onOpenProduct: (product: string, category: Category) => void;
 }) {
   const logos = CATALOG_LOGOS[cat.name];
 
@@ -102,7 +102,7 @@ function CategoryCard({
                 <button
                   type="button"
                   aria-haspopup="dialog"
-                  onClick={(event) => onOpenProduct(product, cat, event.currentTarget)}
+                  onClick={() => onOpenProduct(product, cat)}
                   className="group flex w-full items-center justify-between gap-4 border-b border-neutral-200 py-3 text-left text-base font-semibold text-ink transition-colors hover:border-forge hover:text-forge-dark"
                 >
                   <span className="decoration-forge decoration-2 underline-offset-4 group-hover:underline">
@@ -150,7 +150,6 @@ export default function ProductTabs({
   const [selectedProduct, setSelectedProduct] = useState<SelectedProduct | null>(null);
   const baseId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
   const tab = tabs[active];
 
   // Search runs across every tab: a category matches on its name/description
@@ -199,15 +198,12 @@ export default function ProductTabs({
   const closeDialog = () => {
     setSelectedProduct(null);
     document.body.style.overflow = "";
-    requestAnimationFrame(() => lastTriggerRef.current?.focus());
   };
 
   const openProduct = (
     product: string,
     category: Category,
-    trigger: HTMLButtonElement,
   ) => {
-    lastTriggerRef.current = trigger;
     setSelectedProduct({ name: product, category });
   };
 
@@ -345,7 +341,7 @@ export default function ProductTabs({
         onMouseDown={(event) => {
           if (event.target === event.currentTarget) closeDialog();
         }}
-        className="fixed inset-0 z-[100] m-auto max-h-[92dvh] w-[min(1100px,calc(100%-1.5rem))] overflow-y-auto border-0 bg-white p-0 text-ink shadow-2xl focus:outline-none backdrop:bg-navy-deep/80 backdrop:backdrop-blur-sm open:block"
+        className="fixed inset-0 z-[100] m-auto max-h-[92dvh] w-[min(1100px,calc(100%-1.5rem))] overflow-y-auto border-0 bg-white p-0 text-ink shadow-2xl focus:outline-none focus-visible:outline-none backdrop:bg-navy-deep/80 backdrop:backdrop-blur-sm open:block"
       >
         {selectedProduct && selectedDetail && (
           <div>
