@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { getContent } from "@/lib/content";
-import { MediaImage, hasMedia, publicFileExists } from "@/components/Media";
+import { MediaImage, hasMedia } from "@/components/Media";
 import MotionBackground from "@/components/MotionBackground";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import FeaturedCarousel from "@/components/FeaturedCarousel";
 import IndustrialSequence from "@/components/IndustrialSequence";
 import Reveal from "@/components/Reveal";
 import SupplyLineTabs from "@/components/SupplyLineTabs";
@@ -57,19 +56,6 @@ export default async function Home() {
             </div>
           </div>
         </section>
-
-        {/* ============ 1.5 FEATURED SOLUTIONS — carousel, white ============ */}
-        {c.home.featured && c.home.featured.slides.length > 0 && (
-          <FeaturedCarousel
-            title={c.home.featured.title}
-            subtitle={c.home.featured.subtitle}
-            slides={c.home.featured.slides.map((slide) => ({
-              ...slide,
-              // Only show partner logos whose file has actually been uploaded.
-              logo: slide.logo && publicFileExists(slide.logo) ? slide.logo : undefined,
-            }))}
-          />
-        )}
 
         {/* ============ 2. PLATFORM — two-column, light ============ */}
         <section className="bg-surface py-fluid-6 text-ink">
