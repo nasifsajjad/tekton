@@ -144,6 +144,30 @@ export const CATALOG_LOGOS: Record<string, string> = {
   "Marine, Offshore & Ship Supply": "/catalog/brands/category-logos/Marine,%20Offshore%20%26%20Ship%20Supply.png",
 };
 
+/** Supplied product images, keyed by category name so shared icons stay distinct. */
+export const CATALOG_CATEGORY_IMAGES: Record<string, string> = {
+  "Valves, Actuation & Flow Control": "/catalog/category-products/Valves,%20Actuation%20%26%20Flow%20Control.png",
+  "Pumps & Pumping Systems": "/catalog/category-products/Pumps%20%26%20Pumping%20Systems.png",
+  "Hydraulics & Pneumatics": "/catalog/category-products/Hydraulics%20%26%20Pneumatics.png",
+  "Compressors & Compressed Air Systems": "/catalog/category-products/Compressors%20%26%20Compressed%20Air%20Systems.png",
+  "Motors, Drives & Power Transmission": "/catalog/category-products/Motors,%20Drives%20%26%20Power%20Transmission.png",
+  "Electrical, Automation & Control": "/catalog/category-products/Electrical,%20Automation%20%26%20Control.png",
+  "Instrumentation, Calibration & Measurement": "/catalog/category-products/Instrumentation,%20Calibration%20%26%20Measurement.png",
+  "IT & Industrial Computing": "/catalog/category-products/IT%20%26%20Industrial%20Computing.png",
+  "Mechanical Equipment & Industrial Spare Parts": "/catalog/category-products/Mechanical%20Equipment%20%26%20Industrial%20Spares.png",
+  "Piping, Fittings & Pipeline Products": "/catalog/category-products/Piping,%20Fittings%20%26%20Pipeline%20Products.png",
+  "Pipe Testing, Isolation & Pipeline Tools": "/catalog/category-products/Pipe%20Testing,%20Isolation%20%26%20Pipeline%20Tools.png",
+  "Filters, Filtration & Separation": "/catalog/category-products/Filters,%20Filtration%20%26%20Separation.png",
+  "Safety, Fire & Emergency Equipment": "/catalog/category-products/Safety,%20Fire%20%26%20Emergency%20Equipment.png",
+  "Tools, Fabrication & Workshop Equipment": "/catalog/category-products/Tools,%20Fabrication%20%26%20Workshop%20Equipment.png",
+  "Lifting & Material Handling": "/catalog/category-products/Lifting%20%26%20Material%20Handling.png",
+  "Industrial Consumables & Packaging": "/catalog/category-products/Industrial%20Consumables%20%26%20Packaging.png",
+  "HVAC, Cooling & Ventilation": "/catalog/category-products/HVAC,%20Cooling%20%26%20Ventilation.png",
+  "Desalination & Water Treatment": "/catalog/category-products/Desalination%20%26%20Water%20Treatment.png",
+  "Industrial Lubricants": "/catalog/category-products/Industrial%20Lubricants.png",
+  "Marine, Offshore & Ship Supply": "/catalog/category-products/Marine,%20Offshore%20%26%20Ship%20Supply.png",
+};
+
 const ONLINE_GALLERIES: Record<string, string[]> = {
   electrical: ["electrical-electronics-02", "electrical-electronics-03", "electrical-electronics-01"],
   generators: ["generators-03", "compressors-01", "compressors-03"],

@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import CategoryIcon from "@/components/CategoryIcon";
 import {
   CATALOG_DETAILS,
+  CATALOG_CATEGORY_IMAGES,
   CATALOG_LOGOS,
-  getCatalogGallery,
 } from "@/lib/catalog";
 
 interface Category {
@@ -209,9 +208,9 @@ export default function ProductTabs({
   const selectedLogos = selectedProduct
     ? CATALOG_LOGOS[selectedProduct.category.name]
     : undefined;
-  const selectedGallery = selectedProduct
-    ? getCatalogGallery(selectedProduct.category.icon)
-    : [];
+  const selectedImage = selectedProduct
+    ? CATALOG_CATEGORY_IMAGES[selectedProduct.category.name]
+    : undefined;
 
   return (
     <div>
@@ -379,22 +378,19 @@ export default function ProductTabs({
                 </div>
               </div>
 
-              <section aria-label="Product images" className="py-8">
-                <div className="grid gap-3">
-                  {selectedGallery.map((image, index) => (
-                    <div key={image.src} className="relative aspect-[3/2] overflow-hidden border border-neutral-200 bg-surface">
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        priority={index === 0}
-                        sizes="(min-width: 768px) 80vw, 95vw"
-                        className="object-cover transition-transform duration-500 hover:scale-[1.03]"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </section>
+              {selectedImage && (
+                <section aria-label="Product image" className="py-8">
+                  <div className="relative mx-auto aspect-[561/701] w-full max-w-2xl overflow-hidden border border-neutral-200 bg-surface">
+                    <img
+                      src={decodeURI(selectedImage)}
+                      alt={`${selectedProduct.category.name} product range`}
+                      fetchPriority="high"
+                      decoding="async"
+                      className="absolute inset-0 size-full object-cover"
+                    />
+                  </div>
+                </section>
+              )}
 
               {selectedLogos && (
                 <section aria-label="Available manufacturers" className="border-t border-neutral-200 pt-8">
