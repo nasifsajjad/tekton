@@ -119,13 +119,13 @@ function CategoryCard({
 
         {logos && (
           <div className="mt-auto border-t border-neutral-200 pt-5">
-            <div className="relative aspect-[37/15] w-full overflow-hidden border border-neutral-200 bg-white">
+            <div className="relative aspect-[3059/1447] w-full overflow-hidden border border-neutral-200 bg-white">
               <img
                 src={decodeURI(logos)}
                 alt={`Brand logos for ${cat.name}`}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 size-full object-contain p-2"
+                className="absolute inset-0 size-full object-contain"
               />
             </div>
           </div>
@@ -173,9 +173,15 @@ export default function ProductTabs({
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    if (selectedProduct && !dialog.open) {
-      dialog.showModal();
+    if (selectedProduct) {
+      // A dialog element keeps its own scroll position between opens unless
+      // explicitly reset. Every product detail should start at its heading.
+      dialog.scrollTop = 0;
+      if (!dialog.open) dialog.showModal();
       document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => {
+        dialog.scrollTop = 0;
+      });
     } else if (!selectedProduct && dialog.open) {
       dialog.close();
     }
@@ -247,7 +253,7 @@ export default function ProductTabs({
         <div
           role="tablist"
           aria-label="Product categories"
-          className="scrollbar-none sticky top-20 z-30 -mx-4 flex gap-1 overflow-x-auto border-b border-neutral-800 bg-white px-4 sm:mx-0 sm:flex-wrap sm:px-0"
+          className="sticky top-20 z-30 -mx-4 grid grid-cols-2 gap-px border-b border-neutral-800 bg-white px-4 sm:mx-0 sm:grid-cols-5 sm:px-0"
         >
           {tabs.map((t, i) => (
             <button
@@ -257,7 +263,7 @@ export default function ProductTabs({
               aria-selected={i === active}
               aria-controls={`${baseId}-panel-${i}`}
               onClick={() => setActive(i)}
-              className={`-mb-px shrink-0 border-b-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black ${
+              className={`-mb-px min-w-0 border-b-2 px-3 py-3 text-left text-xs leading-snug font-medium whitespace-normal transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:px-4 sm:text-center sm:text-sm ${
                 i === active
                   ? "border-ink text-ink"
                   : "border-transparent text-gray-on-light hover:text-ink"
@@ -394,13 +400,13 @@ export default function ProductTabs({
 
               {selectedLogos && (
                 <section aria-label="Available manufacturers" className="border-t border-neutral-200 pt-8">
-                  <div className="relative mx-auto aspect-[37/15] w-full max-w-4xl overflow-hidden border border-neutral-200 bg-white">
+                  <div className="relative mx-auto aspect-[3059/1447] w-full max-w-4xl overflow-hidden border border-neutral-200 bg-white">
                     <img
                       src={decodeURI(selectedLogos)}
                       alt={`Brand logos for ${selectedProduct.category.name}`}
                       loading="lazy"
                       decoding="async"
-                      className="absolute inset-0 size-full object-contain p-3 sm:p-4"
+                      className="absolute inset-0 size-full object-contain"
                     />
                   </div>
                 </section>
