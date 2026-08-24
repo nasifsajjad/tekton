@@ -107,6 +107,10 @@ body {
   outline: 3px solid var(--color-forge);
   outline-offset: 3px;
 }
+dialog:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
 /* On orange surfaces (header, accent bands) an orange outline is invisible —
    keyboard users get a navy one instead. */
 header :focus-visible,
