@@ -253,7 +253,7 @@ export default function ProductTabs({
         <div
           role="tablist"
           aria-label="Product categories"
-          className="sticky top-20 z-30 -mx-4 grid grid-cols-2 gap-px border-b border-neutral-800 bg-white px-4 sm:mx-0 sm:grid-cols-5 sm:px-0"
+          className="scrollbar-none sticky top-20 z-30 -mx-4 flex gap-1 overflow-x-auto overflow-y-hidden border-b border-neutral-800 bg-white px-4 touch-pan-x overscroll-x-contain snap-x snap-mandatory sm:mx-0 sm:px-0"
         >
           {tabs.map((t, i) => (
             <button
@@ -263,7 +263,7 @@ export default function ProductTabs({
               aria-selected={i === active}
               aria-controls={`${baseId}-panel-${i}`}
               onClick={() => setActive(i)}
-              className={`-mb-px min-w-0 border-b-2 px-3 py-3 text-left text-xs leading-snug font-medium whitespace-normal transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:px-4 sm:text-center sm:text-sm ${
+              className={`-mb-px shrink-0 snap-start border-b-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black ${
                 i === active
                   ? "border-ink text-ink"
                   : "border-transparent text-gray-on-light hover:text-ink"
