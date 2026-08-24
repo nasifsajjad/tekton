@@ -121,24 +121,27 @@ export const CATALOG_DETAILS: Record<string, CatalogDetail> = {
   },
 };
 
+/** Supplied source SVGs, keyed by category name (some categories share an icon). */
 export const CATALOG_LOGOS: Record<string, string> = {
-  electrical: "/catalog/brands/electrical-electronics-logos.webp",
-  generators: "/catalog/brands/generators-logos.webp",
-  "it-printing": "/catalog/brands/it-printing-logos.webp",
-  "hydraulics-pneumatics": "/catalog/brands/hydraulics-pneumatics-logos.webp",
-  "pumps-motors": "/catalog/brands/pumps-motors-logos.webp",
-  compressors: "/catalog/brands/compressors-logos.webp",
-  "fittings-fasteners": "/catalog/brands/fittings-fasteners-logos.webp",
-  coupling: "/catalog/brands/coupling-logos.webp",
-  "lifting-handling": "/catalog/brands/lifting-handling-logos.webp",
-  instrumentation: "/catalog/brands/instrumentation-logos.webp",
-  filters: "/catalog/brands/filters-logos.webp",
-  "pipe-testing-plugs": "/catalog/brands/pipe-testing-plugs-logos.webp",
-  desalination: "/catalog/brands/desalination-logos.webp",
-  "chemicals-lubricants": "/catalog/brands/chemicals-lubricants-logos.webp",
-  packaging: "/catalog/brands/packaging-logos.webp",
-  "sawing-tools": "/catalog/brands/sawing-tools-logos.webp",
-  "hvac-safety": "/catalog/brands/hvac-safety-logos.webp",
+  "Valves, Actuation & Flow Control": "/catalog/brands/category-logos/Valves,%20Actuation%20%26%20Flow%20Control.svg",
+  "Pumps & Pumping Systems": "/catalog/brands/category-logos/Pumps%20%26%20Pumping%20Systems.svg",
+  "Hydraulics & Pneumatics": "/catalog/brands/category-logos/Hydraulics%20%26%20Pneumatics.svg",
+  "Compressors & Compressed Air Systems": "/catalog/brands/category-logos/Compressors%20%26%20Compressed%20Air%20Systems.svg",
+  "Motors, Drives & Power Transmission": "/catalog/brands/category-logos/Motors,%20Drives%20%26%20Power%20Transmission.svg",
+  "Electrical, Automation & Control": "/catalog/brands/category-logos/Electrical,%20Automation%20%26%20Control.svg",
+  "Instrumentation, Calibration & Measurement": "/catalog/brands/category-logos/Instrumentation,%20Calibration%20%26%20Measurement.svg",
+  "IT & Industrial Computing": "/catalog/brands/category-logos/IT%20%26%20Industrial%20Computing.svg",
+  "Mechanical Equipment & Industrial Spare Parts": "/catalog/brands/category-logos/Mechanical%20Equipment%20%26%20Industrial%20Spares.svg",
+  "Piping, Fittings & Pipeline Products": "/catalog/brands/category-logos/Piping,%20Fittings%20%26%20Pipeline%20Products.svg",
+  "Filters, Filtration & Separation": "/catalog/brands/category-logos/Filters,%20Filtration%20%26%20Separation.svg",
+  "Safety, Fire & Emergency Equipment": "/catalog/brands/category-logos/Safety,%20Fire%20%20%26%20Emergency%20Equipment.svg",
+  "Tools, Fabrication & Workshop Equipment": "/catalog/brands/category-logos/Tools,%20Fabrication%20%26%20Workshop%20Equipment.svg",
+  "Lifting & Material Handling": "/catalog/brands/category-logos/Lifting%20%26%20Material%20Handling.svg",
+  "Industrial Consumables & Packaging": "/catalog/brands/category-logos/Industrial%20Consumables%20%26%20Packaging.svg",
+  "HVAC, Cooling & Ventilation": "/catalog/brands/category-logos/HVAC,%20Cooling%20%26%20Ventilation.svg",
+  "Desalination & Water Treatment": "/catalog/brands/category-logos/Desalination%20%26%20Water%20Treatment.svg",
+  "Industrial Lubricants": "/catalog/brands/category-logos/Industrial%20Lubricants.svg",
+  "Marine, Offshore & Ship Supply": "/catalog/brands/category-logos/Marine,%20Offshore%20%26%20Ship%20Supply.svg",
 };
 
 const ONLINE_GALLERIES: Record<string, string[]> = {
@@ -168,7 +171,7 @@ export function getCatalogGallery(icon: string): CatalogImage[] {
 
   if (!detail || !images) return [];
 
-  return images.map((image, index) => ({
+  return images.slice(0, 1).map((image, index) => ({
     src: `/catalog/online/${image}.webp`,
     alt: `${detail.imageAlt.replace(" from the Tekton catalogue", "")} — reference view ${index + 1}`,
   }));

@@ -80,8 +80,7 @@ function CategoryCard({
   groupLabel?: string;
   onOpenProduct: (product: string, category: Category, trigger: HTMLButtonElement) => void;
 }) {
-  const logos = CATALOG_LOGOS[cat.icon];
-  const detail = CATALOG_DETAILS[cat.icon];
+  const logos = CATALOG_LOGOS[cat.name];
 
   return (
     <li className="grow basis-full bg-white sm:basis-[calc(50%-0.5px)] lg:basis-[calc(33.333%-0.667px)]">
@@ -119,15 +118,15 @@ function CategoryCard({
           </ul>
         )}
 
-        {logos && detail && (
+        {logos && (
           <div className="mt-auto border-t border-neutral-200 pt-5">
             <div className="relative h-24 overflow-hidden border border-neutral-200 bg-white">
               <Image
                 src={logos}
-                alt={`Brand logos: ${detail.brands.join(", ")}`}
+                alt={`Brand logos for ${cat.name}`}
                 fill
                 sizes="(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 90vw"
-                className="object-contain scale-[1.28]"
+                className="object-contain p-3"
               />
             </div>
           </div>
@@ -208,7 +207,7 @@ export default function ProductTabs({
     ? CATALOG_DETAILS[selectedProduct.category.icon]
     : undefined;
   const selectedLogos = selectedProduct
-    ? CATALOG_LOGOS[selectedProduct.category.icon]
+    ? CATALOG_LOGOS[selectedProduct.category.name]
     : undefined;
   const selectedGallery = selectedProduct
     ? getCatalogGallery(selectedProduct.category.icon)
@@ -381,7 +380,7 @@ export default function ProductTabs({
               </div>
 
               <section aria-label="Product images" className="py-8">
-                <div className="grid gap-3 md:grid-cols-3">
+                <div className="grid gap-3">
                   {selectedGallery.map((image, index) => (
                     <div key={image.src} className="relative aspect-[3/2] overflow-hidden border border-neutral-200 bg-surface">
                       <Image
@@ -389,7 +388,7 @@ export default function ProductTabs({
                         alt={image.alt}
                         fill
                         priority={index === 0}
-                        sizes="(min-width: 768px) 30vw, 90vw"
+                        sizes="(min-width: 768px) 80vw, 95vw"
                         className="object-cover transition-transform duration-500 hover:scale-[1.03]"
                       />
                     </div>
@@ -402,10 +401,10 @@ export default function ProductTabs({
                   <div className="relative h-32 overflow-hidden border border-neutral-200 bg-white sm:h-40">
                     <Image
                       src={selectedLogos}
-                      alt={`Brand logos: ${selectedDetail.brands.join(", ")}`}
+                      alt={`Brand logos for ${selectedProduct.category.name}`}
                       fill
                       sizes="(min-width: 768px) 80vw, 95vw"
-                      className="object-contain scale-[1.24]"
+                      className="object-contain p-4"
                     />
                   </div>
                 </section>
