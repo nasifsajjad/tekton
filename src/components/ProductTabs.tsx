@@ -120,13 +120,13 @@ function CategoryCard({
 
         {logos && (
           <div className="mt-auto border-t border-neutral-200 pt-5">
-            <div className="relative h-24 overflow-hidden border border-neutral-200 bg-white">
+            <div className="relative aspect-[37/15] w-full overflow-hidden border border-neutral-200 bg-white">
               <Image
                 src={logos}
                 alt={`Brand logos for ${cat.name}`}
                 fill
                 sizes="(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 90vw"
-                className="object-contain p-3"
+                className="object-contain p-2"
               />
             </div>
           </div>
@@ -398,13 +398,13 @@ export default function ProductTabs({
 
               {selectedLogos && (
                 <section aria-label="Available manufacturers" className="border-t border-neutral-200 pt-8">
-                  <div className="relative h-32 overflow-hidden border border-neutral-200 bg-white sm:h-40">
+                  <div className="relative mx-auto aspect-[37/15] w-full max-w-4xl overflow-hidden border border-neutral-200 bg-white">
                     <Image
                       src={selectedLogos}
                       alt={`Brand logos for ${selectedProduct.category.name}`}
                       fill
                       sizes="(min-width: 768px) 80vw, 95vw"
-                      className="object-contain p-4"
+                      className="object-contain p-3 sm:p-4"
                     />
                   </div>
                 </section>
