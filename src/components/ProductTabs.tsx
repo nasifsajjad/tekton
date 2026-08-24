@@ -178,6 +178,9 @@ export default function ProductTabs({
       // explicitly reset. Every product detail should start at its heading.
       dialog.scrollTop = 0;
       if (!dialog.open) dialog.showModal();
+      // Native dialogs otherwise focus the first control (the close button),
+      // making it look selected as soon as the panel appears.
+      dialog.focus({ preventScroll: true });
       document.body.style.overflow = "hidden";
       requestAnimationFrame(() => {
         dialog.scrollTop = 0;
@@ -328,6 +331,7 @@ export default function ProductTabs({
 
       <dialog
         ref={dialogRef}
+        tabIndex={-1}
         aria-labelledby={`${baseId}-dialog-title`}
         aria-describedby={`${baseId}-dialog-description`}
         onClose={() => {
@@ -341,7 +345,7 @@ export default function ProductTabs({
         onMouseDown={(event) => {
           if (event.target === event.currentTarget) closeDialog();
         }}
-        className="fixed inset-0 z-[100] m-auto max-h-[92dvh] w-[min(1100px,calc(100%-1.5rem))] overflow-y-auto border-0 bg-white p-0 text-ink shadow-2xl backdrop:bg-navy-deep/80 backdrop:backdrop-blur-sm open:block"
+        className="fixed inset-0 z-[100] m-auto max-h-[92dvh] w-[min(1100px,calc(100%-1.5rem))] overflow-y-auto border-0 bg-white p-0 text-ink shadow-2xl focus:outline-none backdrop:bg-navy-deep/80 backdrop:backdrop-blur-sm open:block"
       >
         {selectedProduct && selectedDetail && (
           <div>
@@ -356,7 +360,7 @@ export default function ProductTabs({
                 type="button"
                 onClick={closeDialog}
                 aria-label="Close product details"
-                className="flex size-10 items-center justify-center border border-white/30 text-white transition-colors hover:border-forge hover:bg-forge hover:text-navy-deep"
+                className="flex size-10 items-center justify-center border border-white/30 text-white transition-colors hover:border-forge active:border-forge active:bg-forge active:text-navy-deep"
               >
                 <CloseIcon />
               </button>
