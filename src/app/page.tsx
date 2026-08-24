@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { MediaImage, hasMedia } from "@/components/Media";
-import MotionBackground from "@/components/MotionBackground";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import IndustrialSequence from "@/components/IndustrialSequence";
@@ -19,44 +18,6 @@ export default async function Home() {
         <IndustrialSequence alt={c.global.imageAlts?.sequence || undefined} />
 
         {/* ============ 1. HERO — living canvas over navy, CSS-only entrance ============ */}
-        <section className="grain relative flex min-h-svh flex-col justify-end overflow-hidden bg-navy-deep pt-32">
-          <MotionBackground />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-80"
-            style={{
-              backgroundImage:
-                "linear-gradient(120deg, rgba(249,160,60,.16), transparent 38%), repeating-linear-gradient(90deg, transparent 0 11.8%, rgba(255,255,255,.045) 11.8% 12%)",
-            }}
-          />
-          <div
-            aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-navy-deep"
-          />
-          <div className="rail relative z-10 pb-20 sm:pb-24">
-            <div className="hero-panel">
-              <div className="hero-rise">
-                <h1 className="display max-w-[16ch] text-header-xl text-navy-deep">{c.home.hero.title}</h1>
-              </div>
-              <div className="hero-rise hero-rise-2">
-                <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-navy-soft">
-                  {c.home.hero.subtitle}
-                </p>
-              </div>
-              <div className="hero-rise hero-rise-3">
-                <div className="mt-10 flex flex-wrap gap-4">
-                  <Link href={c.home.hero.ctaPrimaryLink} className="btn btn--primary">
-                    {c.home.hero.ctaPrimary}
-                  </Link>
-                  <Link href={c.home.hero.ctaSecondaryLink} className="btn btn--black-outline">
-                    {c.home.hero.ctaSecondary}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ============ 2. PLATFORM — two-column, light ============ */}
         <section className="bg-surface py-fluid-6 text-ink">
           <div className="rail grid items-center gap-12 lg:grid-cols-2">

@@ -590,8 +590,20 @@ details[open] .burger span:last-child {
   overflow: hidden;
   background: #071014;
 }
+.industrial-sequence--scroll {
+  height: 500svh;
+  overflow: visible;
+}
+.industrial-sequence__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 38rem;
+  overflow: hidden;
+}
 .industrial-sequence__fallback,
 .industrial-sequence__canvas,
+.industrial-sequence__video,
 .industrial-sequence__shade {
   position: absolute;
   inset: 0;
@@ -614,6 +626,11 @@ details[open] .burger span:last-child {
 }
 .industrial-sequence__canvas--ready {
   opacity: 1;
+}
+.industrial-sequence__video {
+  z-index: -3;
+  object-fit: cover;
+  object-position: center;
 }
 .industrial-sequence__shade {
   z-index: -1;
