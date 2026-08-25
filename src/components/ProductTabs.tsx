@@ -223,7 +223,7 @@ export default function ProductTabs({
       <div className="mb-8">
         <label className="block max-w-xl">
           <span className="sr-only">Search the catalogue</span>
-          <div className="flex items-center gap-3 border-2 border-navy/20 bg-white px-4 transition-colors focus-within:border-forge">
+          <div className="flex items-center gap-3 border-2 border-navy/20 bg-white px-4 transition-colors focus-within:border-navy">
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="size-5 shrink-0 text-gray-on-light">
               <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.5" />
               <path d="m13.5 13.5 4 4" stroke="currentColor" strokeWidth="1.5" />
@@ -233,7 +233,7 @@ export default function ProductTabs({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={search.placeholder}
-              className="w-full bg-transparent py-3.5 text-base text-ink outline-none placeholder:text-gray-on-light-2"
+              className="w-full bg-transparent py-3.5 text-base text-ink outline-none focus-visible:outline-none placeholder:text-gray-on-light-2"
             />
           </div>
         </label>

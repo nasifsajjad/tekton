@@ -11,6 +11,12 @@ const STAGES = [
   { at: 0.9, label: "Electrical", detail: "Systems live" },
 ];
 
+// Begin on a meaningful visible frame rather than an empty first frame, and
+// seek at a video-friendly cadence instead of interrupting the decoder on
+// every scroll event.
+const START_TIME = 1;
+const SEEK_STEP = 1 / 24;
+
 /** Scroll-scrubbed 4K hero. The supplied video is served unchanged. */
 export default function IndustrialSequence({ alt = "Industrial operations in motion" }: { alt?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,6 +30,8 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
 
     let frame = 0;
     let stage = -1;
+    let waitingForSeek = false;
+    let seekPending = false;
     const update = () => {
       frame = 0;
       const duration = video.duration;
@@ -36,8 +44,15 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
         stage = nextStage;
         setActiveStage(nextStage);
       }
-      const time = progress * duration;
-      if (Math.abs(video.currentTime - time) > 0.02) video.currentTime = time;
+      const time = START_TIME + progress * Math.max(0, duration - START_TIME);
+      const targetTime = Math.min(duration, Math.round(time / SEEK_STEP) * SEEK_STEP);
+      if (Math.abs(video.currentTime - targetTime) <= SEEK_STEP / 2) return;
+      if (waitingForSeek || video.seeking) {
+        seekPending = true;
+        return;
+      }
+      waitingForSeek = true;
+      video.currentTime = targetTime;
     };
     const requestUpdate = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -45,12 +60,21 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
 
     video.pause();
     video.addEventListener("loadedmetadata", requestUpdate);
+    const onSeeked = () => {
+      waitingForSeek = false;
+      if (seekPending) {
+        seekPending = false;
+        requestUpdate();
+      }
+    };
+    video.addEventListener("seeked", onSeeked);
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
     requestUpdate();
     return () => {
       if (frame) cancelAnimationFrame(frame);
       video.removeEventListener("loadedmetadata", requestUpdate);
+      video.removeEventListener("seeked", onSeeked);
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
     };
@@ -59,7 +83,15 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
   return (
     <section ref={sectionRef} className="industrial-sequence industrial-sequence--scroll" aria-labelledby="industry-sequence-title">
       <div className="industrial-sequence__sticky">
-        <video ref={videoRef} className="industrial-sequence__video" muted playsInline preload="metadata" aria-label={alt}>
+        <video
+          ref={videoRef}
+          className="industrial-sequence__video"
+          muted
+          playsInline
+          preload="auto"
+          poster="/media/industrial-sequence/ezgif-frame-001.jpg"
+          aria-label={alt}
+        >
           <source src="/media/industrial-hero.mp4" type="video/mp4" />
         </video>
         <div className="industrial-sequence__shade" aria-hidden="true" />
