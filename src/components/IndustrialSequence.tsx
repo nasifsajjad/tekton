@@ -17,7 +17,7 @@ const STAGES = [
 const START_TIME = 1;
 const SEEK_STEP = 1 / 24;
 
-/** Scroll-scrubbed 4K hero. The supplied video is served unchanged. */
+/** Scroll-scrubbed hero, optimized from the supplied 4K source for web playback. */
 export default function IndustrialSequence({ alt = "Industrial operations in motion" }: { alt?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -89,10 +89,10 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
           muted
           playsInline
           preload="auto"
-          poster="/media/industrial-sequence/ezgif-frame-001.jpg"
+          poster="/media/industrial-hero-poster.jpg"
           aria-label={alt}
         >
-          <source src="/media/industrial-hero.mp4" type="video/mp4" />
+          <source src="/media/industrial-hero-web.mp4" type="video/mp4" />
         </video>
         <div className="industrial-sequence__shade" aria-hidden="true" />
         <div className="industrial-sequence__content rail">
