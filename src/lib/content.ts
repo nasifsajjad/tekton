@@ -43,7 +43,6 @@ export interface SiteContent {
     };
     platform: { title: string; body: string } & LinkCta;
     trust: { title: string; body: string } & LinkCta;
-    statement: { title: string; body: string } & LinkCta;
     insights: {
       title: string;
       cards: { tag: string; title: string; link: string }[];
@@ -61,7 +60,7 @@ export interface SiteContent {
     };
     why: { title: string; body: string } & LinkCta;
     callouts: ({ title: string; body: string } & LinkCta)[];
-    /** Featured-solutions carousel. Optional so older backups restore cleanly. */
+    /** Featured services. Optional so older backups restore cleanly. */
     featured?: {
       title: string;
       subtitle: string;
@@ -85,6 +84,15 @@ export interface SiteContent {
       emptyBody: string;
       emptyCta: string;
     };
+    /** Staff-maintained records searched on /references. */
+    referenceEntries?: {
+      brand: string;
+      partNumber: string;
+      product: string;
+      category: string;
+      keywords: string;
+      notes: string;
+    }[];
     cta: { title: string; body: string; button: string };
   };
   contact: {
@@ -137,8 +145,7 @@ export interface FeaturedSlide {
   tagline: string;
   cta: string;
   ctaLink: string;
-  /** Optional partner logo shown on the intro card. Site path (e.g.
-   *  /brand/partners/senko.webp); rendered only when the file exists. */
+  /** Legacy optional logo fields retained so older content backups restore. */
   logo?: string;
   logoAlt?: string;
   /** body is optional detail text; empty string renders a plain bullet. */
@@ -170,6 +177,11 @@ function sanitize(content: SiteContent): SiteContent {
     for (const cat of tab.categories) {
       cat.products = cat.products.filter((p) => p.length > 0);
     }
+  }
+  if (clean.products.referenceEntries) {
+    clean.products.referenceEntries = clean.products.referenceEntries.filter((entry) =>
+      [entry.brand, entry.partNumber, entry.product, entry.category, entry.keywords, entry.notes].some(Boolean),
+    );
   }
   clean.about.paragraphs = clean.about.paragraphs.filter((p) => p.length > 0);
   return clean;

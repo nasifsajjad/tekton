@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import BrandLogo from "./BrandLogo";
 
 const LINKS = [
+  { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -37,13 +38,13 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
 
   return (
     <header ref={headerRef} className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
-      <div className="rail">
+      <div className="rail" style={{ maxWidth: "1400px" }}>
         <div className="pointer-events-auto flex min-h-16 items-center justify-between gap-6 border border-navy-deep/10 bg-white/70 px-4 text-navy-deep shadow-[0_16px_40px_-14px_rgba(7,31,51,0.45)] backdrop-blur-xl sm:min-h-[4.5rem] sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center" aria-label={`${brandName} — home`}>
-          <BrandLogo className="h-11 w-auto sm:h-13" priority />
+        <Link href="/" className="flex shrink-0 items-center self-stretch py-2" aria-label={`${brandName} — home`}>
+          <BrandLogo className="block h-11 w-auto object-contain sm:h-13" priority />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
           {LINKS.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -60,7 +61,7 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
           <Link href="/contact" className="btn btn--black-outline ml-4 !min-w-0 !px-6 !py-2.5 text-sm">{cta}</Link>
         </nav>
 
-        <details className="group relative md:hidden">
+        <details className="group relative lg:hidden">
           <summary className="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-full border border-navy-deep/25 [&::-webkit-details-marker]:hidden">
             <span className="sr-only">Toggle navigation</span>
             <span aria-hidden="true" className="burger">

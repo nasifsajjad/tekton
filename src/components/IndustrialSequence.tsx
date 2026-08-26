@@ -4,11 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 const STAGES = [
   { at: 0, label: "Mechanical", detail: "Bearing online" },
-  { at: 0.18, label: "Pneumatics", detail: "Motion engaged" },
-  { at: 0.36, label: "Flow control", detail: "Valve opening" },
-  { at: 0.56, label: "Instrumentation", detail: "Pressure in range" },
-  { at: 0.74, label: "Safety", detail: "Atmosphere monitored" },
-  { at: 0.9, label: "Electrical", detail: "Systems live" },
+  { at: 0.22, label: "Pneumatics", detail: "Motion engaged" },
+  { at: 0.43, label: "Flow control", detail: "Valve opening" },
+  { at: 0.64, label: "Instrumentation", detail: "Process monitored" },
+  { at: 0.84, label: "Electrical", detail: "Systems live" },
 ];
 
 // Begin on a meaningful visible frame rather than an empty first frame, and
@@ -22,6 +21,8 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [activeStage, setActiveStage] = useState(0);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -58,8 +59,15 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
       if (!frame) frame = requestAnimationFrame(update);
     };
 
+    const onReady = () => {
+      setVideoReady(true);
+      requestUpdate();
+    };
     video.pause();
-    video.addEventListener("loadedmetadata", requestUpdate);
+    video.addEventListener("loadeddata", onReady);
+    video.addEventListener("canplay", onReady);
+    video.load();
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) onReady();
     const onSeeked = () => {
       waitingForSeek = false;
       if (seekPending) {
@@ -73,7 +81,8 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
     requestUpdate();
     return () => {
       if (frame) cancelAnimationFrame(frame);
-      video.removeEventListener("loadedmetadata", requestUpdate);
+      video.removeEventListener("loadeddata", onReady);
+      video.removeEventListener("canplay", onReady);
       video.removeEventListener("seeked", onSeeked);
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
@@ -83,21 +92,33 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
   return (
     <section ref={sectionRef} className="industrial-sequence industrial-sequence--scroll" aria-labelledby="industry-sequence-title">
       <div className="industrial-sequence__sticky">
+        {/* The poster is a real element rather than only a video attribute, so
+            Safari/iOS and failed media requests always retain a meaningful frame. */}
+        <img
+          src="/media/industrial-hero-poster.jpg"
+          alt=""
+          aria-hidden="true"
+          className="industrial-sequence__fallback"
+          decoding="async"
+        />
         <video
           ref={videoRef}
-          className="industrial-sequence__video"
+          className={`industrial-sequence__video ${videoReady && !videoFailed ? "industrial-sequence__video--ready" : ""}`}
           muted
           playsInline
           preload="auto"
           poster="/media/industrial-hero-poster.jpg"
+          disablePictureInPicture
+          onError={() => setVideoFailed(true)}
           aria-label={alt}
         >
+          <source src="/media/industrial-hero-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
           <source src="/media/industrial-hero-web.mp4" type="video/mp4" />
+          <img src="/media/industrial-hero-poster.jpg" alt={alt} />
         </video>
         <div className="industrial-sequence__shade" aria-hidden="true" />
         <div className="industrial-sequence__content rail">
-          <p className="eyebrow text-forge">Tekton operational sequence</p>
-          <h2 id="industry-sequence-title" className="display mt-3 max-w-[11ch] text-header-lg text-white sm:text-header-xl">
+          <h2 id="industry-sequence-title" className="display max-w-[11ch] text-header-lg text-white sm:text-header-xl">
             Keep the industry moving.
           </h2>
           <p className="mt-4 max-w-[44ch] text-base leading-relaxed text-gray-on-dark-2 sm:text-lg">

@@ -10,19 +10,20 @@ export default function Footer({ content }: { content: SiteContent }) {
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ];
+  const productGroups = content.products.tabs.map((tab) => tab.label);
 
   return (
     <footer className="border-t-4 border-forge bg-navy-deep pt-16 pb-8">
       <div className="rail">
         <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <Link href="/" className="inline-flex rounded-sm bg-white p-2" aria-label={`${brand.name} — home`}>
-              <BrandLogo className="h-16 w-auto" />
+          <div className="md:col-span-4">
+            <Link href="/" className="inline-flex" aria-label={`${brand.name} — home`}>
+              <BrandLogo className="block h-16 w-auto" light />
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-footer-link">{footer.blurb}</p>
           </div>
 
-          <nav className="md:col-span-3" aria-label="Footer navigation">
+          <nav className="md:col-span-2" aria-label="Footer navigation">
             <h2 className="eyebrow text-forge">Explore</h2>
             <ul className="mt-4 space-y-1 text-sm">
               {pages.map((link) => (
@@ -33,7 +34,25 @@ export default function Footer({ content }: { content: SiteContent }) {
             </ul>
           </nav>
 
-          <div className="md:col-span-4">
+          <nav className="md:col-span-3" aria-label="Product groups">
+            <h2 className="eyebrow text-forge">Products</h2>
+            <ul className="mt-4 space-y-1 text-sm">
+              {productGroups.map((group) => (
+                <li key={group}>
+                  <Link href="/products#catalogue" className="inline-flex min-h-9 items-center text-footer-link transition-colors hover:text-white">
+                    {group}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/references" className="inline-flex min-h-9 items-center font-semibold text-forge transition-colors hover:text-white">
+                  Reference database
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <div className="md:col-span-3">
             <h2 className="eyebrow text-forge">Contact</h2>
             <ul className="mt-4 space-y-1 text-sm text-footer-link">
               <li><a href={`tel:${contact.phone.replace(/\s+/g, "")}`} className="inline-flex min-h-11 items-center transition-colors hover:text-white">{contact.phone}</a></li>

@@ -6,6 +6,7 @@ import {
   CATALOG_DETAILS,
   CATALOG_CATEGORY_IMAGES,
   CATALOG_LOGOS,
+  getCatalogBrands,
 } from "@/lib/catalog";
 
 interface Category {
@@ -80,6 +81,7 @@ function CategoryCard({
   onOpenProduct: (product: string, category: Category) => void;
 }) {
   const logos = CATALOG_LOGOS[cat.name];
+  const brands = getCatalogBrands(cat.name, cat.icon);
 
   return (
     <li className="grow basis-full bg-white sm:basis-[calc(50%-0.5px)] lg:basis-[calc(33.333%-0.667px)]">
@@ -128,6 +130,7 @@ function CategoryCard({
                 className="absolute inset-0 size-full object-contain"
               />
             </div>
+            {brands.length > 0 && <p className="sr-only">Available brands: {brands.join(", ")}</p>}
           </div>
         )}
       </div>
@@ -159,8 +162,11 @@ export default function ProductTabs({
   const searchResults = searching
     ? tabs.flatMap((t) =>
         t.categories.flatMap((cat) => {
+          const brandText = getCatalogBrands(cat.name, cat.icon).join(" ").toLowerCase();
           const catMatch =
-            cat.name.toLowerCase().includes(q) || cat.description.toLowerCase().includes(q);
+            cat.name.toLowerCase().includes(q) ||
+            cat.description.toLowerCase().includes(q) ||
+            brandText.includes(q);
           const productHits = cat.products.filter((p) => p.toLowerCase().includes(q));
           if (!catMatch && productHits.length === 0) return [];
           return [{ group: t.label, cat, products: catMatch ? cat.products : productHits }];
@@ -220,32 +226,36 @@ export default function ProductTabs({
   return (
     <div>
       {/* Search across the whole catalogue */}
-      <div className="mb-8">
-        <label className="block max-w-xl">
-          <span className="sr-only">Search the catalogue</span>
-          <div className="flex items-center gap-3 border-2 border-navy/20 bg-white px-4 transition-colors focus-within:border-navy">
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="size-5 shrink-0 text-gray-on-light">
-              <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.5" />
-              <path d="m13.5 13.5 4 4" stroke="currentColor" strokeWidth="1.5" />
-            </svg>
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={search.placeholder}
-              className="w-full bg-transparent py-3.5 text-base text-ink outline-none focus-visible:outline-none placeholder:text-gray-on-light-2"
-            />
-          </div>
-        </label>
-        {searching && (
-          <p className="mt-3 text-sm text-gray-on-light" role="status">
-            {searchResults.length === 0
-              ? "No catalogue match"
-              : `${searchResults.length} matching ${searchResults.length === 1 ? "category" : "categories"}`}
-            {" for "}
-            <strong className="text-ink">“{query.trim()}”</strong>
-          </p>
-        )}
+      <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+        <div className="w-full max-w-xl">
+          <label className="block">
+            <span className="sr-only">Search the catalogue</span>
+            <div className="flex items-center gap-3 border-2 border-navy/20 bg-white px-4 transition-colors focus-within:border-navy">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="size-5 shrink-0 text-gray-on-light">
+                <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.5" />
+                <path d="m13.5 13.5 4 4" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={search.placeholder}
+                className="w-full bg-transparent py-3.5 text-base text-ink outline-none focus-visible:outline-none placeholder:text-gray-on-light-2"
+              />
+            </div>
+          </label>
+          {searching && (
+            <p className="mt-3 text-sm text-gray-on-light" role="status">
+              {searchResults.length === 0
+                ? "No catalogue match"
+                : `${searchResults.length} matching ${searchResults.length === 1 ? "category" : "categories"}`}
+              {" for "}<strong className="text-ink">“{query.trim()}”</strong>
+            </p>
+          )}
+        </div>
+        <a href="/references" className="text-sm font-semibold text-navy underline decoration-forge decoration-2 underline-offset-4">
+          Search the reference database →
+        </a>
       </div>
 
       {!searching && (
@@ -409,6 +419,11 @@ export default function ProductTabs({
                       className="absolute inset-0 size-full object-contain"
                     />
                   </div>
+                  {getCatalogBrands(selectedProduct.category.name, selectedProduct.category.icon).length > 0 && (
+                    <p className="sr-only">
+                      Available brands: {getCatalogBrands(selectedProduct.category.name, selectedProduct.category.icon).join(", ")}
+                    </p>
+                  )}
                 </section>
               )}
             </div>

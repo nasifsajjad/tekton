@@ -1,9 +1,12 @@
 export default function BrandLogo({
   className = "h-12 w-auto",
   priority = false,
+  light = false,
 }: {
   className?: string;
   priority?: boolean;
+  /** Render the complete supplied artwork in white on dark surfaces. */
+  light?: boolean;
 }) {
   return (
     // Losslessly optimized brand artwork (WebP, 1440x480). A plain image keeps
@@ -12,7 +15,7 @@ export default function BrandLogo({
     <img
       src="/brand/tekton-header-footer.webp"
       alt="Tekton Global Industrial Trading & Services"
-      className={className}
+      className={`${className} ${light ? "brightness-0 invert" : ""}`}
       width="1440"
       height="480"
       loading={priority ? "eager" : "lazy"}

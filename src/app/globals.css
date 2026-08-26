@@ -719,3 +719,35 @@ details[open] .burger span:last-child {
 ::-webkit-scrollbar-thumb {
   background: var(--color-forge);
 }
+
+/* Review-sheet refresh: Featured Services is a normal responsive grid. */
+.featured-service-card {
+  border: 1px solid rgba(15, 57, 92, 0.14);
+  border-top: 3px solid var(--color-forge);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.featured-service-card:hover {
+  border-color: rgba(15, 57, 92, 0.35);
+  box-shadow: 0 12px 40px rgba(7, 31, 51, 0.08);
+}
+
+/* Five timeline stages over roughly four viewport-length scrolls. */
+.industrial-sequence--scroll {
+  height: 420svh;
+}
+.industrial-sequence__video {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.industrial-sequence__video--ready {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .industrial-sequence--scroll {
+    height: 100svh;
+  }
+  .industrial-sequence__stage,
+  .industrial-sequence__progress {
+    display: none;
+  }
+}

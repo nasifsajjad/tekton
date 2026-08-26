@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/media/industrial-sequence/:path*",
+        source: "/media/industrial-hero-:path*",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],

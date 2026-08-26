@@ -121,7 +121,7 @@ export const CATALOG_DETAILS: Record<string, CatalogDetail> = {
   },
 };
 
-/** Supplied source SVGs, keyed by category name (some categories share an icon). */
+/** Supplied raster logo sheets, keyed by category name. */
 export const CATALOG_LOGOS: Record<string, string> = {
   "Valves, Actuation & Flow Control": "/catalog/brands/category-logos/Valves,%20Actuation%20%26%20Flow%20Control.png",
   "Pumps & Pumping Systems": "/catalog/brands/category-logos/Pumps%20%26%20Pumping%20Systems.png",
@@ -167,6 +167,39 @@ export const CATALOG_CATEGORY_IMAGES: Record<string, string> = {
   "Industrial Lubricants": "/catalog/category-products/Industrial%20Lubricants.png",
   "Marine, Offshore & Ship Supply": "/catalog/category-products/Marine,%20Offshore%20%26%20Ship%20Supply.png",
 };
+
+/** Manufacturer names transcribed from each supplied category logo sheet. */
+export const CATALOG_BRANDS_BY_CATEGORY: Record<string, string[]> = {
+  "Valves, Actuation & Flow Control": ["Pratt", "AVR", "Aalberts Integrated Piping Systems", "ALCO Valves", "GWC Italia", "Forbes Marshall", "Spirax Sarco"],
+  "Pumps & Pumping Systems": ["Goulds Pumps", "Honda", "KSB", "Kirloskar", "Lowara", "Wilden", "Watreco", "ABB", "Ebara", "Franklin Electric", "Armstrong", "Danfoss", "Pentair", "Flowserve", "Standard Pump", "Xylem", "YMC ChromaCon", "Siemens", "Hyosung"],
+  "Hydraulics & Pneumatics": ["AirTAC", "Yuken", "Metal Work Pneumatic", "Janatics", "ALCO Valves", "AVR", "ASCO", "Aventics", "Festo", "Bürkert", "Parker", "HYDAC", "Dover", "IMI", "Camozzi", "Bosch Rexroth", "Turck"],
+  "Compressors & Compressed Air Systems": ["ABAC", "CompAir", "Ingersoll Rand", "BOGE", "Atlas Copco", "Campbell Hausfeld", "ELGi", "Kaeser"],
+  "Motors, Drives & Power Transmission": ["Eaton", "Rockwell Automation", "Danfoss", "ABB", "Siemens"],
+  "Electrical, Automation & Control": ["Belden", "Schneider Electric", "Eurotherm", "Bender", "LAPP", "Landis+Gyr", "Vishay", "Nexans", "Conductix-Wampfler", "Kübler", "Fuji Electric", "Prysmian", "Honeywell", "Pepperl+Fuchs", "Siemens", "ABB", "Phoenix Contact", "SMC", "Eaton", "Rockwell Automation", "ifm", "Jean Müller", "Omron"],
+  "Instrumentation, Calibration & Measurement": ["Marsh Bellofram", "Endress+Hauser", "Fluke", "Krohne", "WIKA", "Megger", "Emerson", "General", "Dungs", "Winters Instruments", "Barksdale"],
+  "IT & Industrial Computing": ["manroland sheetfed", "Heidelberg", "Habasit", "Kolbus"],
+  "Mechanical Equipment & Industrial Spare Parts": ["SKF", "Schaeffler", "NSK", "IKO", "Regal Rexnord", "KTR", "Dixon", "Lovejoy", "Dodge", "FAG", "NTN", "INA", "Timken", "JTEKT"],
+  "Piping, Fittings & Pipeline Products": ["ALCO Valves", "GWC USA"],
+  "Filters, Filtration & Separation": ["Pall", "HYDAC", "Eaton", "Donaldson", "Serfilco", "Baker Hughes", "Harmsco", "Ingersoll Rand", "MP Filtri"],
+  "Safety, Fire & Emergency Equipment": ["3M", "Honeywell", "uvex"],
+  "Tools, Fabrication & Workshop Equipment": ["Bosch", "Emmegi", "Toptul", "RIDGID", "DeWalt", "DoALL", "Ryobi", "Hoffmann Group"],
+  "Lifting & Material Handling": ["Liebherr", "J.W. Speaker", "Aberdare", "Demag", "Stahl CraneSystems", "Met-Track", "Konecranes"],
+  "Industrial Consumables & Packaging": ["Atlanta Stretch", "Poly Pack", "LoeschPack", "Robopac", "Viking Masek"],
+  "HVAC, Cooling & Ventilation": ["Daikin Applied", "Spirax Sarco", "Novaflex", "Honeywell", "Vortice", "uvex", "Manrose", "ebm-papst", "Rittal"],
+  "Desalination & Water Treatment": ["Blue Water Desalination", "BWT", "Xylem"],
+  "Industrial Lubricants": ["Castrol", "Chevron", "JAX", "Cummins", "Mobil", "Kaeser"],
+  "Marine, Offshore & Ship Supply": ["Trelleborg"],
+};
+
+/**
+ * Text equivalent for the supplied logo sheets. Keeping manufacturer names
+ * in the catalogue data makes them accessible and searchable even though the
+ * visual presentation remains the supplied, unmodified image.
+ */
+export function getCatalogBrands(categoryName: string, icon: string): string[] {
+  const brands = CATALOG_BRANDS_BY_CATEGORY[categoryName] ?? CATALOG_DETAILS[icon]?.brands ?? [];
+  return Array.from(new Set(brands)).sort((a, b) => a.localeCompare(b));
+}
 
 const ONLINE_GALLERIES: Record<string, string[]> = {
   electrical: ["electrical-electronics-02", "electrical-electronics-03", "electrical-electronics-01"],

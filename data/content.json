@@ -9,12 +9,12 @@
       "phone": "+973 1729 4880",
       "email": "sales@tektonindustrial.com",
       "location": "Kingdom of Bahrain",
-      "address": "Manama, Kingdom of Bahrain",
+      "address": "Kingdom of Bahrain",
       "hours": "Sunday to Thursday, 8:00 to 17:00 (GMT+3)",
       "whatsapp": "+973 1729 4880"
     },
     "footer": {
-      "blurb": "Industrial supplies for plants in Bahrain and the wider Gulf. Genuine OEM parts, sourced direct and delivered on schedule.",
+      "blurb": "Keep Industry Moving.",
       "legal": "© 2026 Tekton Global Trading & Services W.L.L. All rights reserved."
     },
     "registration": {
@@ -44,19 +44,13 @@
     "platform": {
       "title": "One Supplier for the Whole Plant",
       "body": "Procurement teams often juggle dozens of vendors for electrical spares, hydraulics, filters and lubricants. Tekton consolidates that list. We buy from manufacturers directly, keep the paperwork in order, and land the order at your site with a lead time you can plan around.",
-      "cta": "See the product range",
+      "cta": "See products",
       "ctaLink": "/products"
     },
     "trust": {
       "title": "Genuine Parts, Documented",
       "body": "Every item ships with its manufacturer certificate and test reports where they apply. No grey-market stock and no re-labelled substitutes. If a part carries a serial number, you can trace it back to the factory that made it.",
       "cta": "Talk to our sales desk",
-      "ctaLink": "/contact"
-    },
-    "statement": {
-      "title": "Built for Plants That Can't Afford to Wait",
-      "body": "Downtime costs money by the minute. We quote fast, answer the phone, and tell you the real lead time before you commit.",
-      "cta": "Request a quote",
       "ctaLink": "/contact"
     },
     "insights": {
@@ -91,6 +85,38 @@
         {
           "name": "Power & Energy",
           "link": "/products"
+        },
+        {
+          "name": "Water & Utilities",
+          "link": "/products"
+        },
+        {
+          "name": "Petrochemicals",
+          "link": "/products"
+        },
+        {
+          "name": "Aluminium & Steel",
+          "link": "/products"
+        },
+        {
+          "name": "Cement & Construction",
+          "link": "/products"
+        },
+        {
+          "name": "Food & Beverage",
+          "link": "/products"
+        },
+        {
+          "name": "Marine & Offshore",
+          "link": "/products"
+        },
+        {
+          "name": "Railways & Transport",
+          "link": "/products"
+        },
+        {
+          "name": "Mining & Minerals",
+          "link": "/products"
         }
       ]
     },
@@ -117,16 +143,24 @@
           "heading": "Industrial parts and equipment, sourced from the OEM.",
           "items": [
             {
-              "title": "Electrical & Power",
-              "body": "Switchgear components, motors, generators, cabling and control gear from established manufacturers."
+              "title": "Flow & Fluid Power",
+              "body": "Valves and actuation; pumps and pumping systems; hydraulics and pneumatics; compressors and compressed-air systems."
             },
             {
-              "title": "Mechanical & Fluid Power",
-              "body": "Hydraulics, pneumatics, pumps, compressors, valves, fittings and couplings for process and utility lines."
+              "title": "Power & Automation",
+              "body": "Motors, drives and power transmission; electrical automation and control; instrumentation and calibration; industrial computing."
             },
             {
-              "title": "Instrumentation & Process",
-              "body": "Measurement instruments, filters, pipe testing plugs and water treatment equipment."
+              "title": "Mechanical & Piping",
+              "body": "Mechanical spares; piping and fittings; pipe testing and isolation tools; filtration and separation."
+            },
+            {
+              "title": "Site, Safety & Tools",
+              "body": "Safety and emergency equipment; fabrication tools; lifting and material handling; industrial consumables and packaging."
+            },
+            {
+              "title": "Utilities & Marine",
+              "body": "HVAC and ventilation; desalination and water treatment; industrial lubricants; marine, offshore and ship supply."
             }
           ]
         },
@@ -170,7 +204,7 @@
     },
     "why": {
       "title": "Why Tekton",
-      "body": "Because a supplier is only useful when the part arrives, on the date promised, with the paperwork right. That is the whole job, and it is what we get judged on.",
+      "body": "Tekton gives procurement and maintenance teams one accountable route to genuine industrial products. We verify specifications before ordering, consolidate sourcing and logistics, keep manufacturer documentation with the shipment, and communicate the real lead time from enquiry to delivery.",
       "cta": "About the company",
       "ctaLink": "/about"
     },
@@ -183,7 +217,7 @@
       },
       {
         "title": "Browse the Range",
-        "body": "Eighteen product categories, from switchgear to marine stores.",
+        "body": "Twenty product categories, from valves and automation to marine stores.",
         "cta": "View products",
         "ctaLink": "/products"
       },
@@ -196,10 +230,10 @@
     ],
     "featured": {
       "title": "Featured Solutions",
-      "subtitle": "Specialist lines we supply, install, commission and service across the Gulf.",
+      "subtitle": "Specialist industrial systems we supply, install, commission and support across the Gulf.",
       "slides": [
         {
-          "title": "SENKO Gas Detection & Calibration Services",
+          "title": "Gas Detection & Calibration Services",
           "tagline": "Portable and fixed gas detection with full calibration and lifecycle support.",
           "cta": "Request a quote",
           "ctaLink": "/contact",
@@ -224,9 +258,7 @@
               "title": "Gas detector calibration, repair and maintenance services",
               "body": ""
             }
-          ],
-          "logo": "/brand/partners/senko.webp",
-          "logoAlt": "SENKO"
+          ]
         },
         {
           "title": "Generator Supply, Installation & Commissioning",
@@ -257,7 +289,7 @@
           ]
         },
         {
-          "title": "Munters Industrial Climate Control & Air Treatment Solutions",
+          "title": "Industrial Climate Control & Air Treatment",
           "tagline": "Engineered humidity control, evaporative cooling and air treatment.",
           "cta": "Request a quote",
           "ctaLink": "/contact",
@@ -268,11 +300,11 @@
             },
             {
               "title": "Evaporative Cooling & Humidification Media",
-              "body": "CELdek® and GLASdek™ evaporative media, cooling pads, humidification modules and water-distribution systems."
+              "body": "Evaporative media, cooling pads, humidification modules and water-distribution systems."
             },
             {
               "title": "Industrial Cooling, Humidification & Air Treatment Systems",
-              "body": "Direct evaporative coolers, FA6™ systems, WETdek®, GTEC and integrated air-handling solutions."
+              "body": "Direct evaporative coolers and integrated air-handling solutions for industrial applications."
             },
             {
               "title": "Mist Elimination, Gas–Liquid Separation & Mass Transfer",
@@ -282,16 +314,14 @@
               "title": "Controls, Spares & Lifecycle Support",
               "body": "Controllers, monitoring systems, replacement media, water-distribution components, inspections and maintenance support."
             }
-          ],
-          "logo": "/brand/partners/munters.webp",
-          "logoAlt": "Munters"
+          ]
         }
       ]
     }
   },
   "products": {
-    "title": "Product Range",
-    "intro": "Eighteen categories of industrial supply, all through one purchase order. As an authorized OEM partner we ship genuine parts with the manufacturer's documentation attached.",
+    "title": "Products",
+    "intro": "As an authorized OEM partner, Tekton supplies genuine industrial parts and equipment with the manufacturer's documentation attached.",
     "tabs": [
       {
         "label": "Flow & Fluid Power",
@@ -575,7 +605,8 @@
       "emptyTitle": "Can’t find it in the catalogue?",
       "emptyBody": "The categories here cover our regular trade, not the limit of it. Send the part number or a nameplate photo and we will source it.",
       "emptyCta": "Send an enquiry"
-    }
+    },
+    "referenceEntries": []
   },
   "contact": {
     "title": "Contact Us",
@@ -596,7 +627,7 @@
     ],
     "stats": [
       {
-        "value": "18",
+        "value": "20",
         "label": "Product categories"
       },
       {
@@ -653,7 +684,7 @@
       "sections": [
         {
           "heading": "Who we are",
-          "body": "This website is operated by Tekton Global Trading & Services (“Tekton”, “we”, “us”), an industrial supplies trading company based in Manama, Kingdom of Bahrain. This policy explains what information we handle when you use this website and how we treat it."
+          "body": "This website is operated by Tekton Global Trading & Services (“Tekton”, “we”, “us”), an industrial supplies trading company based in the Kingdom of Bahrain. This policy explains what information we handle when you use this website and how we treat it."
         },
         {
           "heading": "Information you give us",

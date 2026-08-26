@@ -8,8 +8,9 @@ Stack: **Next.js 16** (App Router, Turbopack), **Tailwind CSS v4**, file-based C
 
 | Route | What's on it |
 |-------|--------------|
-| `/` | Homepage: video/motion hero, platform + trust sections, statement band, Insights & Applications cards, Supply Line tabs with accordions, Why band, yellow callout row |
-| `/products` | Product range with category tabs (5 groups, 18 categories) |
+| `/` | Homepage: scroll-linked video hero, product overview, sectors, trust, Featured Services, Insights, Supply Line, Why Tekton and callouts |
+| `/products` | Products with category tabs (5 groups, 20 categories) and brand-aware search |
+| `/references` | Searchable brand, product, keyword and part-number reference database |
 | `/contact` | Contact details + quote request form (opens prefilled email) |
 | `/about` | Company story, stats, working principles — the growth page for future content |
 | `/admin` | Site editor (password-protected, hidden from search engines) |
@@ -35,7 +36,9 @@ Every piece of text on all four pages lives in `data/content.json` and is editab
 
 ## Media
 
-Photos and the hero video are drop-in files under `public/media/`. Every slot expects a fixed filename (e.g. `hero.mp4`, `home-platform.jpg`, `insight-1.jpg`); if a file is missing, its slot renders a striped placeholder naming the exact file it expects. Replacing a file swaps the image on the next page load — no code changes. Keep images under ~400 KB and match the ratio shown on the placeholder.
+Photos and the hero video are drop-in files under `public/media/`. The hero uses `industrial-hero-web.mp4`, a lighter `industrial-hero-mobile.mp4`, and `industrial-hero-poster.jpg`; other image slots keep fixed filenames. Replacing a file swaps the image on the next page load. Keep ordinary images under ~400 KB and match the displayed ratio.
+
+Future brand, part-number, product and keyword references can be added in the `/admin` editor; all fields are searched on `/references`.
 
 ## SEO & performance
 

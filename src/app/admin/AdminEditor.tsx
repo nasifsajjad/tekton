@@ -452,7 +452,7 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           </div>
         </Section>
 
-        <Section title="Featured solutions (carousel)">
+        <Section title="Featured services (homepage grid)">
           <Field label="Section title" value={h.featured?.title ?? ""} onChange={(v) => patch((d) => ((d.home.featured ??= { title: "", subtitle: "", slides: [] }).title = v))} />
           <Area label="Section subtitle" value={h.featured?.subtitle ?? ""} onChange={(v) => patch((d) => ((d.home.featured ??= { title: "", subtitle: "", slides: [] }).subtitle = v))} rows={2} />
           {(h.featured?.slides ?? []).map((slide, si) => (
@@ -479,8 +479,8 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           <AddButton label="Add slide" onClick={() => patch((d) => (d.home.featured ??= { title: "Featured Solutions", subtitle: "", slides: [] }).slides.push({ title: "", tagline: "", cta: "Request a quote", ctaLink: "/contact", items: [] }))} />
         </Section>
 
-        {(["platform", "trust", "statement", "why"] as const).map((key) => (
-          <Section key={key} title={`Section: ${{ platform: "One Supplier (light)", trust: "Genuine Parts (dark)", statement: "Statement band", why: "Why Tekton" }[key]}`}>
+        {(["platform", "trust", "why"] as const).map((key) => (
+          <Section key={key} title={`Section: ${{ platform: "One Supplier (light)", trust: "Genuine Parts (dark)", why: "Why Tekton" }[key]}`}>
             <Area label="Title" value={h[key].title} onChange={(v) => patch((d) => (d.home[key].title = v))} rows={2} />
             <Area label="Body" value={h[key].body} onChange={(v) => patch((d) => (d.home[key].body = v))} />
             <div className="grid gap-4 sm:grid-cols-2">
@@ -493,7 +493,7 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
         <Section title="Insights & Applications">
           <Field label="Section title" value={h.insights.title} onChange={(v) => patch((d) => (d.home.insights.title = v))} />
           {h.insights.cards.map((card, i) => (
-            <ItemBox key={i} label={`Card ${i + 1} (image: media/insight-${i + 1}.jpg)`} onRemove={() => patch((d) => d.home.insights.cards.splice(i, 1))}>
+            <ItemBox key={i} label={`Card ${i + 1}`} onRemove={() => patch((d) => d.home.insights.cards.splice(i, 1))}>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Tag" value={card.tag} onChange={(v) => patch((d) => (d.home.insights.cards[i].tag = v))} />
                 <Field label="Link" value={card.link} onChange={(v) => patch((d) => (d.home.insights.cards[i].link = v))} />
@@ -503,7 +503,7 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
           ))}
           <AddButton label="Add card" onClick={() => patch((d) => d.home.insights.cards.push({ tag: "", title: "", link: "/contact" }))} />
           {h.insights.industries.map((ind, i) => (
-            <ItemBox key={`ind-${i}`} label={`Industry banner ${i + 1} (image: media/industry-${i + 1}.jpg)`} onRemove={() => patch((d) => d.home.insights.industries.splice(i, 1))}>
+            <ItemBox key={`ind-${i}`} label={`Industry ${i + 1}`} onRemove={() => patch((d) => d.home.insights.industries.splice(i, 1))}>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Name" value={ind.name} onChange={(v) => patch((d) => (d.home.insights.industries[i].name = v))} />
                 <Field label="Link" value={ind.link} onChange={(v) => patch((d) => (d.home.insights.industries[i].link = v))} />
@@ -596,6 +596,25 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
             </ItemBox>
           ))}
           <AddButton label="Add tab" onClick={() => patch((d) => d.products.tabs.push({ label: "", blurb: "", categories: [] }))} />
+        </Section>
+
+        <Section title="Product reference database">
+          <p className="text-xs leading-relaxed text-neutral-400">
+            These records appear on /references and are searched by brand, part number, product, category and keywords.
+          </p>
+          {(pr.referenceEntries ?? []).map((entry, i) => (
+            <ItemBox key={`reference-${i}`} label={`Reference ${i + 1}: ${entry.partNumber || entry.product || "(untitled)"}`} onRemove={() => patch((d) => d.products.referenceEntries?.splice(i, 1))}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Brand" value={entry.brand} onChange={(v) => patch((d) => ((d.products.referenceEntries ??= [])[i].brand = v))} />
+                <Field label="Part number" value={entry.partNumber} onChange={(v) => patch((d) => ((d.products.referenceEntries ??= [])[i].partNumber = v))} />
+                <Field label="Product" value={entry.product} onChange={(v) => patch((d) => ((d.products.referenceEntries ??= [])[i].product = v))} />
+                <Field label="Category" value={entry.category} onChange={(v) => patch((d) => ((d.products.referenceEntries ??= [])[i].category = v))} />
+              </div>
+              <Field label="Keywords (comma separated)" value={entry.keywords} onChange={(v) => patch((d) => ((d.products.referenceEntries ??= [])[i].keywords = v))} />
+              <Area label="Notes" value={entry.notes} onChange={(v) => patch((d) => ((d.products.referenceEntries ??= [])[i].notes = v))} rows={2} />
+            </ItemBox>
+          ))}
+          <AddButton label="Add reference" onClick={() => patch((d) => (d.products.referenceEntries ??= []).push({ brand: "", partNumber: "", product: "", category: "", keywords: "", notes: "" }))} />
         </Section>
 
         <Section title="Products — bottom call-to-action">

@@ -74,7 +74,7 @@ export default async function ProductsPage() {
         </section>
 
         {/* Tabs — light */}
-        <section className="bg-white py-fluid-6 text-ink">
+        <section id="catalogue" className="scroll-mt-24 bg-white py-fluid-6 text-ink">
           <div className="rail">
             <ProductTabs tabs={c.products.tabs} quoteCta={c.products.dialogCta} search={c.products.search} />
           </div>
