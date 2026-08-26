@@ -77,8 +77,8 @@ npm ci && npm run build
 
 ## Caching notes
 
-- `public/media/industrial-hero-*` is served immutable (1 year). Rename the
-  file or update the cache rule when replacing a deployed hero encode.
+- Hero video files use the standard media cache policy so they can be replaced
+  in place without leaving returning visitors on an outdated version.
 - Other `/media` images are cache-busted automatically when replaced through
   the CMS (versioned URLs), so visitors see new images immediately.
 - `/brand` (the logo) is cached for 1 hour — a replaced logo is visible
