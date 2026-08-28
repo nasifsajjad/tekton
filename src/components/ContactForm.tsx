@@ -49,7 +49,7 @@ export default function ContactForm({
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    if (!String(formData.get("g-recaptcha-response") ?? "")) {
+    if (captchaSiteKey && !String(formData.get("g-recaptcha-response") ?? "")) {
       setStatus("error");
       setError("Please complete the reCAPTCHA checkbox before sending your enquiry.");
       return;
@@ -104,7 +104,7 @@ export default function ContactForm({
         </label>
         <label className="block">
           <span className="eyebrow text-gray-on-dark-2">Company</span>
-          <input type="text" name="company" className={inputClass} autoComplete="organization" />
+          <input type="text" name="company" required className={inputClass} autoComplete="organization" />
         </label>
         <label className="block">
           <span className="eyebrow text-gray-on-dark-2">Email</span>
@@ -142,12 +142,8 @@ export default function ContactForm({
             <div ref={captchaContainer} />
           </div>
         </>
-      ) : (
-        <p role="alert" className="mt-6 border border-forge/60 bg-forge/10 px-4 py-3 text-sm leading-relaxed text-white">
-          Enquiries are temporarily unavailable while reCAPTCHA is being configured.
-        </p>
-      )}
-      <button type="submit" disabled={!captchaSiteKey || status === "sending"} className="btn btn--primary mt-6 disabled:cursor-not-allowed disabled:opacity-55">
+      ) : null}
+      <button type="submit" disabled={status === "sending"} className="btn btn--primary mt-6 disabled:cursor-not-allowed disabled:opacity-55">
         {status === "sending" ? "Sending…" : "Send enquiry"}
       </button>
       {formNote && <p className="mt-4 text-xs leading-relaxed text-gray-on-dark-2">{formNote}</p>}

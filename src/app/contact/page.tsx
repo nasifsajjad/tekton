@@ -97,7 +97,11 @@ export default async function ContactPage() {
                   <ContactForm
                     formTitle={c.contact.formTitle}
                     formNote={c.contact.formNote}
-                    captchaSiteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
+                    captchaSiteKey={
+                      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && process.env.RECAPTCHA_SECRET_KEY
+                        ? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+                        : ""
+                    }
                   />
                 </Suspense>
               </Reveal>

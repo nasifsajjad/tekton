@@ -8,9 +8,7 @@ const ALLOWED_ATTACHMENT_TYPES = new Set(["application/pdf", "image/jpeg", "imag
 
 export async function POST(request: NextRequest) {
   const captchaSecret = process.env.RECAPTCHA_SECRET_KEY;
-  if (!captchaSecret) {
-    return NextResponse.json({ ok: false, error: "The enquiry form is not configured yet." }, { status: 503 });
-  }
+  const captchaEnabled = Boolean(captchaSecret && process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
 
   try {
     const incoming = await request.formData();
@@ -25,29 +23,31 @@ export async function POST(request: NextRequest) {
     const message = String(incoming.get("message") ?? "").trim();
     const captchaToken = String(incoming.get("g-recaptcha-response") ?? "");
 
-    if (!name || !email || !message) {
+    if (!name || !company || !email || !message) {
       return NextResponse.json({ ok: false, error: "Please complete the required fields." }, { status: 400 });
     }
     if (!/^\S+@\S+\.\S+$/.test(email) || name.length > 120 || company.length > 160 || email.length > 254 || phone.length > 50 || message.length > 10000) {
       return NextResponse.json({ ok: false, error: "Please check the information you entered." }, { status: 400 });
     }
-    if (!captchaToken) {
-      return NextResponse.json({ ok: false, error: "Please complete the reCAPTCHA checkbox." }, { status: 400 });
-    }
+    if (captchaEnabled) {
+      if (!captchaToken) {
+        return NextResponse.json({ ok: false, error: "Please complete the reCAPTCHA checkbox." }, { status: 400 });
+      }
 
-    const verification = new URLSearchParams({ secret: captchaSecret, response: captchaToken });
-    const forwardedFor = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-    if (forwardedFor) verification.set("remoteip", forwardedFor);
+      const verification = new URLSearchParams({ secret: captchaSecret!, response: captchaToken });
+      const forwardedFor = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+      if (forwardedFor) verification.set("remoteip", forwardedFor);
 
-    const captchaResponse = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: verification,
-      cache: "no-store",
-    });
-    const captchaResult = (await captchaResponse.json()) as { success?: boolean };
-    if (!captchaResponse.ok || !captchaResult.success) {
-      return NextResponse.json({ ok: false, error: "reCAPTCHA verification failed. Please try again." }, { status: 400 });
+      const captchaResponse = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: verification,
+        cache: "no-store",
+      });
+      const captchaResult = (await captchaResponse.json()) as { success?: boolean };
+      if (!captchaResponse.ok || !captchaResult.success) {
+        return NextResponse.json({ ok: false, error: "reCAPTCHA verification failed. Please try again." }, { status: 400 });
+      }
     }
 
     const outbound = new FormData();
