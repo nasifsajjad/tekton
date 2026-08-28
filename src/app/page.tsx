@@ -33,6 +33,12 @@ export default async function Home() {
       <main id="main-content">
         <IndustrialSequence alt={c.global.imageAlts?.sequence || undefined} />
 
+        {/* High-value specialist solutions sit at the first normal-content
+            position, before the longer catalogue overview on mobile. */}
+        {c.home.featured && (
+          <FeaturedCarousel title={c.home.featured.title} subtitle={c.home.featured.subtitle} slides={c.home.featured.slides} />
+        )}
+
         {/* Plant-wide product overview */}
         <section className="bg-surface py-fluid-6 text-ink">
           <div className="rail">
@@ -90,7 +96,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Industries moved up and expanded to every key sector. */}
+        {/* Sector relevance confirms fit before the proof and delivery story. */}
         <section className="grain bg-navy-deep py-fluid-6 text-white" aria-labelledby="industries-title">
           <div className="rail">
             <Reveal>
@@ -138,11 +144,39 @@ export default async function Home() {
           </div>
         </section>
 
-        {c.home.featured && (
-          <FeaturedCarousel title={c.home.featured.title} subtitle={c.home.featured.subtitle} slides={c.home.featured.slides} />
-        )}
+        {/* Products / Services / Programs remain the core Supply Line. */}
+        <section className="grain bg-navy-deep py-fluid-6">
+          <div className="rail">
+            <Reveal>
+              <h2 className="display max-w-[16ch] text-header text-white">{c.home.supplyLine.title}</h2>
+              <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-gray-on-dark-2">{c.home.supplyLine.subtitle}</p>
+            </Reveal>
+            <div className="mt-12 grid gap-8 border-t border-white/15 pt-10 md:grid-cols-3">
+              {c.home.supplyLine.pillars.map((pillar, index) => (
+                <Reveal key={pillar.title} delay={index * 90}>
+                  <h3 className="display text-header-xs text-forge">{pillar.title}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-gray-on-dark-2">{pillar.body}</p>
+                </Reveal>
+              ))}
+            </div>
+            <div className="mt-16">
+              <SupplyLineTabs tabs={c.home.supplyLine.tabs} />
+            </div>
+          </div>
+        </section>
 
-        {/* Insights follow sectors, as requested. */}
+        <section className="bg-surface py-fluid-6 text-ink">
+          <div className="rail">
+            <Reveal>
+              <h2 className="display max-w-[16ch] text-header">{c.home.why.title}</h2>
+              <p className="mt-6 max-w-[60ch] text-lg leading-relaxed text-gray-on-light">{c.home.why.body}</p>
+              <Link href={c.home.why.ctaLink} className="btn btn--black-outline mt-8">{c.home.why.cta}</Link>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Editorial content supports considered buyers without interrupting
+            the primary offer, relevance, trust and delivery narrative. */}
         <section className="border-t border-neutral-900 bg-white py-fluid-6 text-ink">
           <div className="rail">
             <Reveal><h2 className="display max-w-[20ch] text-header">{c.home.insights.title}</h2></Reveal>
@@ -169,37 +203,6 @@ export default async function Home() {
                 </Reveal>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Products / Services / Programs remain the core Supply Line. */}
-        <section className="grain bg-navy-deep py-fluid-6">
-          <div className="rail">
-            <Reveal>
-              <h2 className="display max-w-[16ch] text-header text-white">{c.home.supplyLine.title}</h2>
-              <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-gray-on-dark-2">{c.home.supplyLine.subtitle}</p>
-            </Reveal>
-            <div className="mt-12 grid gap-8 border-t border-white/15 pt-10 md:grid-cols-3">
-              {c.home.supplyLine.pillars.map((pillar, index) => (
-                <Reveal key={pillar.title} delay={index * 90}>
-                  <h3 className="display text-header-xs text-forge">{pillar.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed text-gray-on-dark-2">{pillar.body}</p>
-                </Reveal>
-              ))}
-            </div>
-            <div className="mt-16">
-              <SupplyLineTabs tabs={c.home.supplyLine.tabs} />
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-white py-fluid-6 text-ink">
-          <div className="rail">
-            <Reveal>
-              <h2 className="display max-w-[16ch] text-header">{c.home.why.title}</h2>
-              <p className="mt-6 max-w-[60ch] text-lg leading-relaxed text-gray-on-light">{c.home.why.body}</p>
-              <Link href={c.home.why.ctaLink} className="btn btn--black-outline mt-8">{c.home.why.cta}</Link>
-            </Reveal>
           </div>
         </section>
 

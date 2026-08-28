@@ -16,7 +16,7 @@ export default function FeaturedCarousel({
   if (slides.length === 0) return null;
 
   return (
-    <section className="featured-section bg-surface text-ink" aria-labelledby="featured-services-title">
+    <section className="featured-section border-y border-navy/10 bg-white text-ink" aria-labelledby="featured-services-title">
       <div className="rail">
         <p className="eyebrow text-gray-on-light">Industrial support</p>
         <h2 id="featured-services-title" className="display featured-title mt-3 max-w-[24ch]">
