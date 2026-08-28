@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { CATALOG_CATEGORY_IMAGES } from "@/lib/catalog";
+import { MediaImage } from "@/components/Media";
 import CategoryIcon from "@/components/CategoryIcon";
 import FeaturedCarousel from "@/components/FeaturedCarousel";
 import Nav from "@/components/Nav";
@@ -8,6 +9,20 @@ import Footer from "@/components/Footer";
 import IndustrialSequence from "@/components/IndustrialSequence";
 import Reveal from "@/components/Reveal";
 import SupplyLineTabs from "@/components/SupplyLineTabs";
+
+const INDUSTRY_MEDIA: Record<string, string> = {
+  "Oil & Gas": "industry-oil-gas.webp",
+  "Power & Energy": "industry-power-energy.webp",
+  "Water & Utilities": "industry-water-utilities.webp",
+  Petrochemicals: "industry-petrochemicals.webp",
+  "Aluminium & Steel": "industry-aluminium-steel.webp",
+  "Cement & Construction": "industry-cement-construction.webp",
+  "Food & Beverage": "industry-food-beverage.webp",
+  "Marine & Offshore": "industry-marine-offshore.webp",
+  "Railways & Transport": "industry-railways-transport.webp",
+  "Mining & Minerals": "industry-mining-minerals.webp",
+};
+const INDUSTRY_FALLBACK_MEDIA = Object.values(INDUSTRY_MEDIA);
 
 export default async function Home() {
   const c = await getContent();
@@ -69,6 +84,9 @@ export default async function Home() {
                 );
               })}
             </div>
+            <Link href={c.home.platform.ctaLink} className="btn btn--black-outline mt-8 w-full sm:hidden">
+              {c.home.platform.cta}
+            </Link>
           </div>
         </section>
 
@@ -82,9 +100,19 @@ export default async function Home() {
             <div className="mt-10 grid gap-px bg-white/15 sm:grid-cols-2 lg:grid-cols-5">
               {c.home.insights.industries.map((industry, index) => (
                 <Reveal key={industry.name} delay={(index % 5) * 60} className="h-full">
-                  <Link href={industry.link} className="group flex min-h-32 h-full flex-col justify-between bg-navy-deep p-5 transition-colors hover:bg-navy">
-                    <span className="eyebrow text-forge">{String(index + 1).padStart(2, "0")}</span>
-                    <h3 className="display mt-6 text-xl text-white">{industry.name}</h3>
+                  <Link href={industry.link} className="group flex h-full flex-col bg-navy-deep transition-colors hover:bg-navy">
+                    <div className="overflow-hidden bg-navy">
+                      <MediaImage
+                        file={INDUSTRY_MEDIA[industry.name] ?? INDUSTRY_FALLBACK_MEDIA[index % INDUSTRY_FALLBACK_MEDIA.length]}
+                        alt={`${industry.name} industrial facilities in the Gulf`}
+                        aspect="3/2"
+                        className="transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                      />
+                    </div>
+                    <div className="flex min-h-28 flex-1 items-end justify-between gap-4 p-5">
+                      <h3 className="display text-lg text-white">{industry.name}</h3>
+                      <span className="eyebrow shrink-0 text-forge">{String(index + 1).padStart(2, "0")}</span>
+                    </div>
                   </Link>
                 </Reveal>
               ))}
@@ -101,17 +129,11 @@ export default async function Home() {
               <Link href={c.home.trust.ctaLink} className="btn btn--black-outline mt-8">{c.home.trust.cta}</Link>
             </Reveal>
             <Reveal delay={120} className="lg:order-1">
-              <div className="relative mx-auto aspect-[4/5] w-full max-w-lg overflow-hidden bg-surface">
-                {/* Supplied product photography replaces generic generated artwork. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={decodeURI(CATALOG_CATEGORY_IMAGES["Mechanical Equipment & Industrial Spare Parts"])}
-                  alt="Mechanical equipment and genuine industrial spare parts"
-                  className="absolute inset-0 size-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+              <MediaImage
+                file="home-oem.jpg"
+                alt={c.global.imageAlts?.homeOem || "Machined OEM part with its manufacturer certificate and tags"}
+                aspect="4/3"
+              />
             </Reveal>
           </div>
         </section>
@@ -127,10 +149,20 @@ export default async function Home() {
             <div className="mt-10 grid gap-px bg-neutral-800 sm:grid-cols-2 lg:grid-cols-4">
               {c.home.insights.cards.map((card, index) => (
                 <Reveal key={card.title} delay={index * 70} className="h-full">
-                  <Link href={card.link} className="group flex min-h-64 h-full flex-col justify-between bg-white p-6 transition-colors hover:bg-surface">
-                    <span className="eyebrow text-forge-dark">{card.tag}</span>
-                    <div>
-                      <h3 className="display text-header-xs group-hover:underline group-hover:underline-offset-4">{card.title}</h3>
+                  <Link href={card.link} className="group flex h-full flex-col bg-white transition-colors hover:bg-surface">
+                    <div className="overflow-hidden">
+                      <MediaImage
+                        file={`insight-${index + 1}.jpg`}
+                        alt={card.title}
+                        aspect="3/2"
+                        className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col justify-between p-6">
+                      <div>
+                        <span className="eyebrow text-forge-dark">{card.tag}</span>
+                        <h3 className="display mt-3 text-header-xs group-hover:underline group-hover:underline-offset-4">{card.title}</h3>
+                      </div>
                       <span className="mt-5 inline-flex text-sm font-semibold" aria-hidden="true">Explore →</span>
                     </div>
                   </Link>

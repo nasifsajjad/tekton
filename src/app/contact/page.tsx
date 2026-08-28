@@ -26,6 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ContactPage() {
   const c = await getContent();
   const { contact } = c.global;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tektonindustrial.com";
 
   return (
     <>
@@ -98,6 +99,7 @@ export default async function ContactPage() {
                     email={contact.email}
                     formTitle={c.contact.formTitle}
                     formNote={c.contact.formNote}
+                    successUrl={`${siteUrl.replace(/\/$/, "")}/contact?submitted=true`}
                   />
                 </Suspense>
               </Reveal>

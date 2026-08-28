@@ -31,8 +31,37 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
 
     let frame = 0;
     let stage = -1;
-    let waitingForSeek = false;
-    let seekPending = false;
+    let seekInFlight = false;
+    let seekRecovery = 0;
+    let targetTime = START_TIME;
+
+    const clearSeekRecovery = () => {
+      if (seekRecovery) window.clearTimeout(seekRecovery);
+      seekRecovery = 0;
+    };
+
+    const seekToLatest = () => {
+      if (seekInFlight || video.readyState < HTMLMediaElement.HAVE_METADATA) return;
+      if (!Number.isFinite(video.duration) || video.duration <= 0 || video.seekable.length === 0) return;
+
+      const nextTime = Math.min(Math.max(0, video.duration - 0.01), targetTime);
+      if (Math.abs(video.currentTime - nextTime) <= SEEK_STEP / 2) return;
+
+      try {
+        seekInFlight = true;
+        video.currentTime = nextTime;
+        // A stalled range request must not leave desktop playback permanently
+        // locked on the first frame. The next progress/scroll event retries it.
+        clearSeekRecovery();
+        seekRecovery = window.setTimeout(() => {
+          seekInFlight = false;
+          seekToLatest();
+        }, 900);
+      } catch {
+        seekInFlight = false;
+      }
+    };
+
     const update = () => {
       frame = 0;
       const duration = video.duration;
@@ -46,14 +75,8 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
         setActiveStage(nextStage);
       }
       const time = START_TIME + progress * Math.max(0, duration - START_TIME);
-      const targetTime = Math.min(duration, Math.round(time / SEEK_STEP) * SEEK_STEP);
-      if (Math.abs(video.currentTime - targetTime) <= SEEK_STEP / 2) return;
-      if (waitingForSeek || video.seeking) {
-        seekPending = true;
-        return;
-      }
-      waitingForSeek = true;
-      video.currentTime = targetTime;
+      targetTime = Math.min(duration - 0.01, Math.round(time / SEEK_STEP) * SEEK_STEP);
+      seekToLatest();
     };
     const requestUpdate = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -63,27 +86,45 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
       setVideoReady(true);
       requestUpdate();
     };
-    video.pause();
+    const onMetadata = () => {
+      video.pause();
+      requestUpdate();
+      seekToLatest();
+    };
+    const onSeeked = () => {
+      clearSeekRecovery();
+      seekInFlight = false;
+      seekToLatest();
+    };
+    const onProgress = () => seekToLatest();
+
+    video.addEventListener("loadedmetadata", onMetadata);
     video.addEventListener("loadeddata", onReady);
     video.addEventListener("canplay", onReady);
+    video.addEventListener("seeked", onSeeked);
+    video.addEventListener("progress", onProgress);
+
+    // Assign one concrete source instead of relying on <source media>, whose
+    // desktop handling varies between browser engines.
+    video.src = window.matchMedia("(max-width: 767px)").matches
+      ? "/media/industrial-hero-mobile.mp4"
+      : "/media/industrial-hero-web.mp4";
+    video.muted = true;
+    video.playsInline = true;
+    video.pause();
     video.load();
     if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) onReady();
-    const onSeeked = () => {
-      waitingForSeek = false;
-      if (seekPending) {
-        seekPending = false;
-        requestUpdate();
-      }
-    };
-    video.addEventListener("seeked", onSeeked);
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
     requestUpdate();
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      clearSeekRecovery();
+      video.removeEventListener("loadedmetadata", onMetadata);
       video.removeEventListener("loadeddata", onReady);
       video.removeEventListener("canplay", onReady);
       video.removeEventListener("seeked", onSeeked);
+      video.removeEventListener("progress", onProgress);
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
     };
@@ -112,8 +153,6 @@ export default function IndustrialSequence({ alt = "Industrial operations in mot
           onError={() => setVideoFailed(true)}
           aria-label={alt}
         >
-          <source src="/media/industrial-hero-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
-          <source src="/media/industrial-hero-web.mp4" type="video/mp4" />
           <img src="/media/industrial-hero-poster.jpg" alt={alt} />
         </video>
         <div className="industrial-sequence__shade" aria-hidden="true" />

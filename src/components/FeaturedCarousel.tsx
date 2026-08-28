@@ -43,7 +43,6 @@ export default function FeaturedCarousel({
                     <span className="mt-2 size-1.5 shrink-0 bg-forge" aria-hidden="true" />
                     <span>
                       <span className="font-semibold">{item.title}</span>
-                      {item.body && <span className="mt-1 block leading-relaxed text-gray-on-light">{item.body}</span>}
                     </span>
                   </li>
                 ))}

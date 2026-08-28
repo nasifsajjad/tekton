@@ -615,7 +615,7 @@ details[open] .burger span:last-child {
   height: 100%;
 }
 .industrial-sequence__fallback {
-  z-index: -3;
+  z-index: 0;
   object-fit: cover;
   object-position: center;
   transition: opacity 0.2s ease;
@@ -632,23 +632,23 @@ details[open] .burger span:last-child {
   opacity: 1;
 }
 .industrial-sequence__video {
-  z-index: 0;
+  z-index: 1;
   object-fit: cover;
   object-position: center;
 }
 .industrial-sequence__shade {
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
   background: linear-gradient(90deg, rgba(2, 10, 15, 0.82) 0%, rgba(2, 10, 15, 0.28) 46%, rgba(2, 10, 15, 0.18) 100%);
 }
 .industrial-sequence__content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding-top: clamp(8rem, 16vh, 12rem);
 }
 .industrial-sequence__stage {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   right: clamp(1rem, 2.5vw, 2rem);
   bottom: clamp(5.5rem, 11vh, 7rem);
   width: min(13rem, 46vw);
@@ -657,7 +657,7 @@ details[open] .burger span:last-child {
 }
 .industrial-sequence__progress {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   right: clamp(1rem, 2.5vw, 2rem);
   bottom: clamp(1.8rem, 4vh, 3rem);
   width: min(13rem, 46vw);

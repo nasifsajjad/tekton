@@ -40,8 +40,8 @@ export default function Nav({ brandName, cta }: { brandName: string; cta: string
     <header ref={headerRef} className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
       <div className="rail" style={{ maxWidth: "1400px" }}>
         <div className="pointer-events-auto flex min-h-16 items-center justify-between gap-6 border border-navy-deep/10 bg-white/70 px-4 text-navy-deep shadow-[0_16px_40px_-14px_rgba(7,31,51,0.45)] backdrop-blur-xl sm:min-h-[4.5rem] sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center self-stretch py-2" aria-label={`${brandName} — home`}>
-          <BrandLogo className="block h-11 w-auto object-contain sm:h-13" priority />
+        <Link href="/" className="flex shrink-0 items-center self-stretch py-1.5" aria-label={`${brandName} — home`}>
+          <BrandLogo className="block h-12 w-auto object-contain sm:h-14 lg:h-16" priority />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
