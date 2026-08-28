@@ -23,7 +23,7 @@ import {
   verifyPassword,
 } from "@/lib/auth";
 
-const PUBLIC_PATHS = ["/", "/products", "/about", "/contact", "/privacy", "/terms"];
+const PUBLIC_PATHS = ["/", "/products", "/references", "/about", "/contact", "/privacy", "/terms"];
 
 export async function login(
   _prevState: { error?: string },
@@ -82,7 +82,8 @@ export async function uploadMedia(formData: FormData): Promise<{ ok: boolean; er
   }
   const slot = String(formData.get("slot") ?? "");
   const file = formData.get("file");
-  if (!MEDIA_SLOTS.some((s) => s.file === slot)) {
+  const mediaSlot = MEDIA_SLOTS.find((s) => s.file === slot);
+  if (!mediaSlot) {
     return { ok: false, error: "Unknown image slot." };
   }
   if (!(file instanceof File) || file.size === 0) {
@@ -104,12 +105,16 @@ export async function uploadMedia(formData: FormData): Promise<{ ok: boolean; er
       const target = path.join(process.cwd(), "public", ...lossless.path.split("/"));
       await fs.mkdir(path.dirname(target), { recursive: true });
       await fs.writeFile(target, out);
-    } else if (slot === "og-image.jpg") {
-      // Social preview has a fixed spec.
-      const out = await sharp(input).rotate().resize({ width: 1200, height: 630, fit: "cover" }).jpeg({ quality: 85 }).toBuffer();
-      await fs.writeFile(path.join(process.cwd(), "public", "media", slot), out);
     } else {
-      const out = await sharp(input).rotate().resize({ width: 2000, height: 2000, fit: "inside", withoutEnlargement: true }).jpeg({ quality: 85 }).toBuffer();
+      const pipeline = sharp(input).rotate().resize({
+        width: mediaSlot.width ?? 2000,
+        height: mediaSlot.height ?? 2000,
+        fit: mediaSlot.width && mediaSlot.height ? "cover" : "inside",
+        withoutEnlargement: !(mediaSlot.width && mediaSlot.height),
+      });
+      const out = mediaSlot.format === "webp"
+        ? await pipeline.webp({ quality: 88, effort: 5 }).toBuffer()
+        : await pipeline.jpeg({ quality: 85, progressive: true }).toBuffer();
       await fs.writeFile(path.join(process.cwd(), "public", "media", slot), out);
     }
   } catch (err) {

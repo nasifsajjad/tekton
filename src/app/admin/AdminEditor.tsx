@@ -502,6 +502,14 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
             </ItemBox>
           ))}
           <AddButton label="Add card" onClick={() => patch((d) => d.home.insights.cards.push({ tag: "", title: "", link: "/contact" }))} />
+          <div className="border-t-2 border-neutral-800 pt-5">
+            <p className="mb-4 text-xs font-semibold tracking-widest text-neutral-500 uppercase">Industries section</p>
+            <div className="space-y-4">
+              <Field label="Eyebrow" value={h.insights.industriesEyebrow ?? ""} onChange={(v) => patch((d) => (d.home.insights.industriesEyebrow = v))} />
+              <Field label="Heading" value={h.insights.industriesTitle ?? ""} onChange={(v) => patch((d) => (d.home.insights.industriesTitle = v))} />
+              <Area label="Introduction" value={h.insights.industriesBody ?? ""} onChange={(v) => patch((d) => (d.home.insights.industriesBody = v))} rows={2} />
+            </div>
+          </div>
           {h.insights.industries.map((ind, i) => (
             <ItemBox key={`ind-${i}`} label={`Industry ${i + 1}`} onRemove={() => patch((d) => d.home.insights.industries.splice(i, 1))}>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -599,9 +607,19 @@ export default function AdminEditor({ initialContent }: { initialContent: SiteCo
         </Section>
 
         <Section title="Product reference database">
-          <p className="text-xs leading-relaxed text-neutral-400">
-            These records appear on /references and are searched by brand, part number, product, category and keywords.
-          </p>
+          <div className="flex flex-col gap-2 border-l-4 border-forge bg-neutral-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs leading-relaxed text-neutral-500">
+              Add, edit or remove records here. Publishing updates the searchable Reference Database immediately.
+            </p>
+            <span className="shrink-0 text-xs font-semibold tracking-widest text-neutral-500 uppercase">
+              {(pr.referenceEntries ?? []).length} records
+            </span>
+          </div>
+          {(pr.referenceEntries ?? []).length === 0 && (
+            <p className="border border-dashed border-neutral-400 p-4 text-sm text-neutral-500">
+              No references have been added yet. Use “Add reference” to create the first searchable record.
+            </p>
+          )}
           {(pr.referenceEntries ?? []).map((entry, i) => (
             <ItemBox key={`reference-${i}`} label={`Reference ${i + 1}: ${entry.partNumber || entry.product || "(untitled)"}`} onRemove={() => patch((d) => d.products.referenceEntries?.splice(i, 1))}>
               <div className="grid gap-4 sm:grid-cols-2">

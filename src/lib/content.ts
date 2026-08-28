@@ -46,6 +46,9 @@ export interface SiteContent {
     insights: {
       title: string;
       cards: { tag: string; title: string; link: string }[];
+      industriesEyebrow?: string;
+      industriesTitle?: string;
+      industriesBody?: string;
       industries: { name: string; link: string }[];
     };
     supplyLine: {

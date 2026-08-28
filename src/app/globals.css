@@ -230,6 +230,18 @@ header :focus-visible,
   color: var(--color-navy-deep);
 }
 
+/* The repeated Product Overview CTA is useful after the cards on phones only.
+   This rule follows .btn so its display value cannot be overridden by the
+   component class in the desktop cascade. */
+.btn.mobile-only-cta {
+  display: inline-flex;
+}
+@media (min-width: 40rem) {
+  .btn.mobile-only-cta {
+    display: none;
+  }
+}
+
 /* Uppercase micro-label */
 .eyebrow {
   font-size: 0.75rem;

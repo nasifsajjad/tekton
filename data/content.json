@@ -55,6 +55,9 @@
     },
     "insights": {
       "title": "Insights & Applications",
+      "industriesEyebrow": "Industries we serve",
+      "industriesTitle": "Supply experience across Gulf industry.",
+      "industriesBody": "Product sourcing and project support for the region's essential operating environments.",
       "cards": [
         {
           "tag": "Supply",
@@ -83,39 +86,27 @@
           "link": "/products"
         },
         {
-          "name": "Power & Energy",
+          "name": "Aluminium",
           "link": "/products"
         },
         {
-          "name": "Water & Utilities",
+          "name": "Power",
           "link": "/products"
         },
         {
-          "name": "Petrochemicals",
+          "name": "Water",
           "link": "/products"
         },
         {
-          "name": "Aluminium & Steel",
+          "name": "Manufacturing",
           "link": "/products"
         },
         {
-          "name": "Cement & Construction",
+          "name": "Marine",
           "link": "/products"
         },
         {
-          "name": "Food & Beverage",
-          "link": "/products"
-        },
-        {
-          "name": "Marine & Offshore",
-          "link": "/products"
-        },
-        {
-          "name": "Railways & Transport",
-          "link": "/products"
-        },
-        {
-          "name": "Mining & Minerals",
+          "name": "Contracting",
           "link": "/products"
         }
       ]

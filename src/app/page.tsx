@@ -12,15 +12,12 @@ import SupplyLineTabs from "@/components/SupplyLineTabs";
 
 const INDUSTRY_MEDIA: Record<string, string> = {
   "Oil & Gas": "industry-oil-gas.webp",
-  "Power & Energy": "industry-power-energy.webp",
-  "Water & Utilities": "industry-water-utilities.webp",
-  Petrochemicals: "industry-petrochemicals.webp",
-  "Aluminium & Steel": "industry-aluminium-steel.webp",
-  "Cement & Construction": "industry-cement-construction.webp",
-  "Food & Beverage": "industry-food-beverage.webp",
-  "Marine & Offshore": "industry-marine-offshore.webp",
-  "Railways & Transport": "industry-railways-transport.webp",
-  "Mining & Minerals": "industry-mining-minerals.webp",
+  Aluminium: "industry-aluminium-steel.webp",
+  Power: "industry-power-energy.webp",
+  Water: "industry-water-utilities.webp",
+  Manufacturing: "industry-manufacturing.webp",
+  Marine: "industry-marine-offshore.webp",
+  Contracting: "industry-contracting.webp",
 };
 const INDUSTRY_FALLBACK_MEDIA = Object.values(INDUSTRY_MEDIA);
 
@@ -90,7 +87,7 @@ export default async function Home() {
                 );
               })}
             </div>
-            <Link href={c.home.platform.ctaLink} className="btn btn--black-outline mt-8 w-full sm:hidden">
+            <Link href={c.home.platform.ctaLink} className="btn btn--black-outline mobile-only-cta mt-8 w-full">
               {c.home.platform.cta}
             </Link>
           </div>
@@ -99,25 +96,40 @@ export default async function Home() {
         {/* Sector relevance confirms fit before the proof and delivery story. */}
         <section className="grain bg-navy-deep py-fluid-6 text-white" aria-labelledby="industries-title">
           <div className="rail">
-            <Reveal>
-              <p className="eyebrow text-forge">Industries &amp; sectors</p>
-              <h2 id="industries-title" className="display mt-3 max-w-[18ch] text-header">Supply experience across Gulf industry.</h2>
+            <Reveal className="grid gap-6 border-b border-white/15 pb-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.65fr)] lg:items-end">
+              <div>
+                <p className="eyebrow text-forge">{c.home.insights.industriesEyebrow ?? "Industries we serve"}</p>
+                <h2 id="industries-title" className="display mt-3 max-w-[18ch] text-header">
+                  {c.home.insights.industriesTitle ?? "Supply experience across Gulf industry."}
+                </h2>
+              </div>
+              <p className="max-w-[48ch] text-base leading-relaxed text-gray-on-dark-2 lg:justify-self-end">
+                {c.home.insights.industriesBody ?? "Product sourcing and project support for the region's essential operating environments."}
+              </p>
             </Reveal>
-            <div className="mt-10 grid gap-px bg-white/15 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {c.home.insights.industries.map((industry, index) => (
-                <Reveal key={industry.name} delay={(index % 5) * 60} className="h-full">
-                  <Link href={industry.link} className="group flex h-full flex-col bg-navy-deep transition-colors hover:bg-navy">
-                    <div className="overflow-hidden bg-navy">
+                <Reveal
+                  key={industry.name}
+                  delay={(index % 4) * 60}
+                  className={`h-full ${index === 0 ? "sm:col-span-2 xl:col-span-2" : ""}`}
+                >
+                  <Link href={industry.link} className="group relative block h-full min-h-64 overflow-hidden border border-white/15 bg-navy sm:min-h-72">
+                    <div className="absolute inset-0 overflow-hidden bg-navy">
                       <MediaImage
                         file={INDUSTRY_MEDIA[industry.name] ?? INDUSTRY_FALLBACK_MEDIA[index % INDUSTRY_FALLBACK_MEDIA.length]}
                         alt={`${industry.name} industrial facilities in the Gulf`}
                         aspect="3/2"
-                        className="transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                        className="size-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                       />
                     </div>
-                    <div className="flex min-h-28 flex-1 items-end justify-between gap-4 p-5">
-                      <h3 className="display text-lg text-white">{industry.name}</h3>
-                      <span className="eyebrow shrink-0 text-forge">{String(index + 1).padStart(2, "0")}</span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/30 to-transparent transition-colors group-hover:from-navy" />
+                    <div className="relative flex min-h-64 h-full items-end justify-between gap-4 p-6 sm:min-h-72">
+                      <div>
+                        <span className="mb-4 block h-0.5 w-9 bg-forge transition-[width] duration-300 group-hover:w-14" aria-hidden="true" />
+                        <h3 className="display text-header-xs text-white">{industry.name}</h3>
+                      </div>
+                      <span className="eyebrow shrink-0 pb-1 text-forge">{String(index + 1).padStart(2, "0")}</span>
                     </div>
                   </Link>
                 </Reveal>

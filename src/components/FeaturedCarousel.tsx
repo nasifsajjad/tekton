@@ -47,9 +47,11 @@ export default function FeaturedCarousel({
                   </li>
                 ))}
               </ul>
-              <Link href={slide.ctaLink} className="btn btn--black-outline mt-8 !min-w-0 self-start !px-6 !py-2.5 text-sm lg:mt-auto">
-                {slide.cta}
-              </Link>
+              <div className="mt-auto pt-10">
+                <Link href={slide.ctaLink} className="btn btn--black-outline !min-w-0 self-start !px-6 !py-2.5 text-sm">
+                  {slide.cta}
+                </Link>
+              </div>
             </article>
           ))}
         </div>
