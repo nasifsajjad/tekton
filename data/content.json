@@ -7,7 +7,7 @@
     },
     "contact": {
       "phone": "+973 1729 4880",
-      "email": "sales@tektonindustrial.com",
+      "email": "nasifsajjad16@gmail.com",
       "location": "Kingdom of Bahrain",
       "address": "Kingdom of Bahrain",
       "hours": "Sunday to Thursday, 8:00 to 17:00 (GMT+3)",
@@ -603,7 +603,7 @@
     "title": "Contact Us",
     "intro": "Send an enquiry with a part number, drawing or nameplate photo and we will come back with a priced quote and a firm lead time. Most quotes go out within one working day.",
     "formTitle": "Request a Quote",
-    "formNote": "Protected by reCAPTCHA. Your enquiry and optional attachment are sent directly to sales@tektonindustrial.com.",
+    "formNote": "",
     "responseNote": "Enquiries received during working hours are usually answered the same day.",
     "whatsappLabel": "Chat on WhatsApp",
     "whatsappGreeting": "Hello TEKTON, I would like to request a quote."
@@ -648,7 +648,7 @@
         "body": "During working hours you reach a person who can look up your order, not a ticket queue."
       }
     ],
-    "note": "This page will grow as the company does. Certifications, partner brands and career openings will be published here."
+    "note": ""
   },
   "seo": {
     "home": {

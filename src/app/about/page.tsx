@@ -91,9 +91,11 @@ export default async function AboutPage() {
                 </Reveal>
               ))}
             </div>
-            <p className="mt-16 max-w-[60ch] border-t border-white/15 pt-6 text-sm leading-relaxed text-gray-on-dark-2">
-              {c.about.note}
-            </p>
+            {c.about.note && (
+              <p className="mt-16 max-w-[60ch] border-t border-white/15 pt-6 text-sm leading-relaxed text-gray-on-dark-2">
+                {c.about.note}
+              </p>
+            )}
           </div>
         </section>
 
