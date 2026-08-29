@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getContent } from "@/lib/content";
 
 export const runtime = "nodejs";
 
@@ -73,8 +72,11 @@ export async function POST(request: NextRequest) {
       outbound.set("attachment", attachment, attachment.name);
     }
 
-    const content = await getContent();
-    const deliveryResponse = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(content.global.contact.email)}`, {
+    const recipient = process.env.CONTACT_FORM_RECIPIENT?.trim();
+    if (!recipient) {
+      return NextResponse.json({ ok: false, error: "The enquiry recipient is not configured yet." }, { status: 503 });
+    }
+    const deliveryResponse = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
       method: "POST",
       headers: { Accept: "application/json" },
       body: outbound,
